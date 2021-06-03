@@ -4,14 +4,14 @@ import MainPage from '../main-page/main-page.jsx';
 
 
 function App(props) {
-  const {cardsCount} = props;
+  const {cardsIdentifiers} = props;
 
-  return <MainPage cardsCount={cardsCount} />;
+  return <MainPage cardsIdentifiers={cardsIdentifiers} />;
 }
 
 
 App.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
+  cardsIdentifiers: PropTypes.array.isRequired,
 };
 
 export default App;

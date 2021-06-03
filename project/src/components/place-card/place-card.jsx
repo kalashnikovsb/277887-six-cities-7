@@ -2,7 +2,8 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 
 
-function PlaceCard() {
+function PlaceCard(props) {
+
   return (
     <article className="cities__place-card place-card">
       <div className="place-card__mark">

@@ -3,28 +3,8 @@ import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
 
 
-const getRandomInteger = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-
-const getCardsIdentifiers = (count) => {
-  const result = [];
-  for (let i = 0; i < count; i++) {
-    const element = {};
-    element.id = getRandomInteger(0, 1000000);
-    result.push(element);
-  }
-  return result;
-};
-
-
 function MainPage(props) {
-  const {cardsCount} = props;
-
-  const cardsIdentifiers = getCardsIdentifiers(cardsCount);
+  const {cardsIdentifiers} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -116,7 +96,8 @@ function MainPage(props) {
               </form>
               <div className="cities__places-list places__list tabs__content">
 
-                {new Array(cardsCount).fill().map((card, i) => <PlaceCard key={cardsIdentifiers[i].id} card={card}/>)}
+
+                {cardsIdentifiers.map((card) => <PlaceCard key={card.id} card={card}/>)}
 
               </div>
             </section>
@@ -132,7 +113,7 @@ function MainPage(props) {
 
 
 MainPage.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
+  cardsIdentifiers: PropTypes.array.isRequired,
 };
 
 export default MainPage;
