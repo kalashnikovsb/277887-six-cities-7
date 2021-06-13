@@ -8,12 +8,24 @@ function OffersList(props) {
   const {offers} = props;
   const [currentOffer, setCurrentOffer] = useState({});
 
-  // eslint-disable-next-line
-  console.log(currentOffer);
+  const handleMouseHover = (offer) => {
+    setCurrentOffer(offer);
+  };
+
+  const handleMouseRemoving = () => {
+    setCurrentOffer({});
+  };
 
   return (
     <div className="cities__places-list places__list tabs__content">
-      {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} onMouseOver={(prevOffer) => setCurrentOffer({...prevOffer, ...offer})} />)}
+      {offers.map((offer) => (
+        <PlaceCard
+          key={offer.id}
+          offer={offer}
+          handleMouseHover={() => handleMouseHover(offer)}
+          handleMouseRemoving={() => handleMouseRemoving}
+        />
+      ))}
     </div>
   );
 }
