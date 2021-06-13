@@ -5,6 +5,9 @@ const AppRoute = {
   OFFER: '/offer/:id',
 };
 
+const HousingTypes = ['apartment', 'room', 'house', 'hotel'];
+
 export {
-  AppRoute
+  AppRoute,
+  HousingTypes
 };
