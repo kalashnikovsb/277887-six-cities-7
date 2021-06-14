@@ -6,8 +6,8 @@ import cardTypeProp from '../place-card/card-type-prop.js';
 
 
 function PlaceCard(props) {
-  const {handleMouseHover, handleMouseRemoving} = props;
-  const {isPremium, isFavorite, price, title, type, images, id, isActive} = props.offer;
+  const {handleMouseHover, handleMouseRemoving, isActive} = props;
+  const {isPremium, isFavorite, price, title, type, images, id} = props.offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = props.cardType;
   const firstImage = images[0];
 
@@ -55,6 +55,7 @@ function PlaceCard(props) {
 PlaceCard.propTypes = {
   offer: PropTypes.shape(offerProp).isRequired,
   cardType: PropTypes.shape(cardTypeProp).isRequired,
+  isActive: PropTypes.bool,
   handleMouseHover: PropTypes.func,
   handleMouseRemoving: PropTypes.func,
 };
