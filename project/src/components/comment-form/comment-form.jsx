@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 
 function CommentForm() {
-  const [currentComment, setComment] = useState({
+  const [, setComment] = useState({
     comment: '',
     date: '2021-01-01T14:13:56.569Z',
     id: '1',
@@ -19,18 +19,12 @@ function CommentForm() {
   const commentChange = (evt) => {
     const {value: comment} = evt.target;
     setComment((prevComment) => ({...prevComment, comment: comment}));
-
-    // eslint-disable-next-line
-    console.log(currentComment);
   };
 
 
   const ratingChange = (evt) => {
     const {value: rating} = evt.target;
     setComment((prevComment) => ({...prevComment, rating: rating}));
-
-    // eslint-disable-next-line
-    console.log(currentComment);
   };
 
 

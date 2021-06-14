@@ -5,11 +5,6 @@ import offers from '../src/mock/offers.js';
 import reviews from '../src/mock/reviews.js';
 
 
-// const Setting = {
-//   CARDS_COUNT: 5,
-// };
-
-
 ReactDOM.render(
   <React.StrictMode>
     <App

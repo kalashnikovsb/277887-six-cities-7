@@ -5,11 +5,11 @@ import offerProp from '../offer-screen/offer-prop.js';
 
 
 function PlaceCard(props) {
-  const {isPremium, isFavorite, price, description, type, images, id, handleMouseHover, handleMouseRemoving} = props.offer;
+  const {isPremium, isFavorite, price, title, type, images, id, isActive, handleMouseHover, handleMouseRemoving} = props.offer;
   const firstImage = images[0];
 
   return (
-    <article className="cities__place-card place-card" onMouseEnter={handleMouseHover} onMouseLeave={handleMouseRemoving}>
+    <article className={`cities__place-card place-card ${isActive ? 'cities__place-card--active' : ''}`} onMouseEnter={handleMouseHover} onMouseLeave={handleMouseRemoving}>
       {isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -40,7 +40,7 @@ function PlaceCard(props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{description}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

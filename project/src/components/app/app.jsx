@@ -32,7 +32,7 @@ function App(props) {
           />
         </Route>
         <Route exact path={AppRoute.OFFER}>
-          <OfferScreen />
+          <OfferScreen offers={offers} reviews={reviews}/>
         </Route>
         <Route>
           <NotFoundScreen />

@@ -6,7 +6,7 @@ import offerProp from '../offer-screen/offer-prop.js';
 
 function OffersList(props) {
   const {offers} = props;
-  const [, setCurrentOffer] = useState({});
+  const [currentOffer, setCurrentOffer] = useState({});
 
   const handleMouseHover = (offer) => {
     setCurrentOffer(offer);
@@ -20,6 +20,7 @@ function OffersList(props) {
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
         <PlaceCard
+          isActive={offer === currentOffer}
           key={offer.id}
           offer={offer}
           handleMouseHover={() => handleMouseHover(offer)}
