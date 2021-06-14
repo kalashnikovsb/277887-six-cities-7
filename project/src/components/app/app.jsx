@@ -7,47 +7,32 @@ import FavoritesScreen from '../favorites-screen/favorites-screen.jsx';
 import LoginScreen from '../login-screen/login-screen.jsx';
 import OfferScreen from '../offer-screen/offer-screen.jsx';
 import NotFoundScreen from '../not-found-screen/not-found-screen.jsx';
-
-
-const getRandomInteger = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
-
-const getCardsIdentifiers = (count) => {
-  const result = [];
-  for (let i = 0; i < count; i++) {
-    const element = {};
-    element.id = getRandomInteger(0, 1000000);
-    result.push(element);
-  }
-  return result;
-};
+import offerProp from '../offer-screen/offer-prop.js';
+import reviewProp from '../offer-screen/review-prop.js';
 
 
 function App(props) {
-  const {cardsCount} = props;
-  const cardsIdentifiers = getCardsIdentifiers(cardsCount);
+  const {offers, reviews} = props;
 
-  // return <MainScreen cardsIdentifiers={cardsIdentifiers} />;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <MainScreen
-            cardsIdentifiers={cardsIdentifiers}
+            offers={offers}
+            reviews={reviews}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <LoginScreen />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesScreen />
+          <FavoritesScreen
+            offers={offers}
+          />
         </Route>
         <Route exact path={AppRoute.OFFER}>
-          <OfferScreen />
+          <OfferScreen offers={offers} reviews={reviews}/>
         </Route>
         <Route>
           <NotFoundScreen />
@@ -59,7 +44,12 @@ function App(props) {
 
 
 App.propTypes = {
-  cardsCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(
+    PropTypes.shape(offerProp).isRequired,
+  ),
+  reviews: PropTypes.arrayOf(
+    PropTypes.shape(reviewProp).isRequired,
+  ),
 };
 
 export default App;
