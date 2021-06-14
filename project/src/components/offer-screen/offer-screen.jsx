@@ -168,9 +168,6 @@ OfferPage.propTypes = {
   offers: PropTypes.arrayOf(
     PropTypes.shape(offerProp).isRequired,
   ),
-  // reviews: PropTypes.arrayOf(
-  //   PropTypes.shape(reviewProp).isRequired,
-  // ),
 };
 
 
