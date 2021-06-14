@@ -10,7 +10,7 @@ export default PropTypes.shape({
     id: PropTypes.number.isRequired,
     isPro: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
   id: PropTypes.number.isRequired,
   images: PropTypes.array.isRequired,
   isFavorite: PropTypes.bool.isRequired,

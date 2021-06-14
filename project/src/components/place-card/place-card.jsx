@@ -2,25 +2,28 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import offerProp from '../offer-screen/offer-prop.js';
+import cardTypeProp from '../place-card/card-type-prop.js';
 
 
 function PlaceCard(props) {
-  const {isPremium, isFavorite, price, title, type, images, id, isActive, handleMouseHover, handleMouseRemoving} = props.offer;
+  const {handleMouseHover, handleMouseRemoving} = props;
+  const {isPremium, isFavorite, price, title, type, images, id, isActive} = props.offer;
+  const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = props.cardType;
   const firstImage = images[0];
 
   return (
-    <article className={`cities__place-card place-card ${isActive ? 'cities__place-card--active' : ''}`} onMouseEnter={handleMouseHover} onMouseLeave={handleMouseRemoving}>
-      {isPremium && (
+    <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`} onMouseEnter={handleMouseHover} onMouseLeave={handleMouseRemoving}>
+      {hasPremiumMark && isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       )}
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${imgWrapClassName} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={`img/${firstImage}`} width="260" height="200" alt="Place" />
+          <img className="place-card__image" src={`img/${firstImage}`} width={imgWidth} height={imgHeight} alt="Place" />
         </Link>
       </div>
-      <div className="place-card__info">
+      <div className={`${textInfoClassName} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -51,6 +54,9 @@ function PlaceCard(props) {
 
 PlaceCard.propTypes = {
   offer: PropTypes.shape(offerProp).isRequired,
+  cardType: PropTypes.shape(cardTypeProp).isRequired,
+  handleMouseHover: PropTypes.func,
+  handleMouseRemoving: PropTypes.func,
 };
 
 

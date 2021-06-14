@@ -31,7 +31,7 @@ const offers = [
     'price': 110,
     'rating': 1.1,
     'title': 'Beautiful apartment',
-    'type': 'apartment',
+    'type': 'Apartment',
   },
   {
     'bedrooms': 2,
@@ -65,7 +65,7 @@ const offers = [
     'price': 220,
     'rating': 2.2,
     'title': 'Beautiful room',
-    'type': 'room',
+    'type': 'Room',
   },
   {
     'bedrooms': 3,
@@ -99,7 +99,7 @@ const offers = [
     'price': 330,
     'rating': 3.3,
     'title': 'Beautiful house',
-    'type': 'house',
+    'type': 'House',
   },
   {
     'bedrooms': 4,
@@ -133,7 +133,7 @@ const offers = [
     'price': 440,
     'rating': 4.4,
     'title': 'Beautiful hotel',
-    'type': 'hotel',
+    'type': 'Hotel',
   },
 ];
 
