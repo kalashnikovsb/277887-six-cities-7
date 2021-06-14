@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 
 
 function CommentForm() {
-  const [, setComment] = useState({
+  const [currentComment, setComment] = useState({
+    isActive: false,
     comment: '',
     date: '2021-01-01T14:13:56.569Z',
     id: '1',
@@ -17,15 +18,19 @@ function CommentForm() {
 
   const commentChange = (evt) => {
     const {value: comment} = evt.target;
-    setComment((prevComment) => ({...prevComment, comment: comment}));
+    setComment((prevComment) => {
+      const isActive = !currentComment.isActive;
+      return {...prevComment, isActive: isActive, comment: comment};
+    });
   };
-
 
   const ratingChange = (evt) => {
     const {value: rating} = evt.target;
-    setComment((prevComment) => ({...prevComment, rating: rating}));
+    setComment((prevComment) => {
+      const isActive = !currentComment.isActive;
+      return {...prevComment, isActive: isActive, rating: rating};
+    });
   };
-
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={(evt) => {
@@ -33,7 +38,7 @@ function CommentForm() {
     }}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
+      <div className={`reviews__rating-form form__rating ${currentComment.isActive ? 'form__rating--active' : ''}`}>
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" onChange={ratingChange} />
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
@@ -69,7 +74,7 @@ function CommentForm() {
           </svg>
         </label>
       </div>
-      <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={commentChange}>
+      <textarea className={`reviews__textarea form__textarea ${currentComment.isActive ? 'form__textarea--active' : ''}`} id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved" onChange={commentChange}>
       </textarea>
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
