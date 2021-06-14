@@ -15,7 +15,6 @@ function CommentForm() {
     },
   });
 
-
   const commentChange = (evt) => {
     const {value: comment} = evt.target;
     setComment((prevComment) => ({...prevComment, comment: comment}));
