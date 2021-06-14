@@ -9,11 +9,6 @@ function OffersList(props) {
   const {offers} = props;
   const [currentOffer, setCurrentOffer] = useState({});
 
-  const handleMouseEnterLeave = (value) => {
-    setCurrentOffer(value);
-  };
-
-
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
@@ -22,8 +17,8 @@ function OffersList(props) {
           isActive={offer === currentOffer}
           key={offer.id}
           offer={offer}
-          handleMouseHover={() => handleMouseEnterLeave(offer)}
-          handleMouseRemoving={() => handleMouseEnterLeave(null)}
+          handleMouseHover={() => setCurrentOffer(offer)}
+          handleMouseRemoving={() => setCurrentOffer(null)}
         />
       ))}
     </div>
