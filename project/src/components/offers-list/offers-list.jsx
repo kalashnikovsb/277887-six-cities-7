@@ -6,7 +6,7 @@ import offerProp from '../offer-screen/offer-prop.js';
 
 function OffersList(props) {
   const {offers} = props;
-  const [currentOffer, setCurrentOffer] = useState({});
+  const [, setCurrentOffer] = useState({});
 
   const handleMouseHover = (offer) => {
     setCurrentOffer(offer);
