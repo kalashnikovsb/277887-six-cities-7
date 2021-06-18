@@ -58,7 +58,7 @@ const offers = [
     'location': {
       'latitude': 52.369553943508,
       'longitude': 4.85309666406198,
-      'zoom': 8
+      'zoom': 8,
     },
     'maxAdults': 2,
     'previewImage': 'room-small.jpg',
@@ -92,7 +92,7 @@ const offers = [
     'location': {
       'latitude': 52.3909553943508,
       'longitude': 4.929309666406198,
-      'zoom': 8
+      'zoom': 8,
     },
     'maxAdults': 3,
     'previewImage': 'room-small.jpg',
@@ -126,7 +126,7 @@ const offers = [
     'location': {
       'latitude': 52.3809553943508,
       'longitude': 4.939309666406198,
-      'zoom': 8
+      'zoom': 8,
     },
     'maxAdults': 4,
     'previewImage': 'room-small.jpg',
