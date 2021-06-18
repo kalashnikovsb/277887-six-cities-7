@@ -4,7 +4,7 @@ import {AppRoute} from '../../const';
 import CommentForm from '../comment-form/comment-form.jsx';
 import PlaceCard from '../place-card/place-card.jsx';
 import PropTypes from 'prop-types';
-import offerProp from '../offer-screen/offer-prop.js';
+import offerProp from '../../prop-types/offer-prop.js';
 import OfferFeaturesList from '../offer-features-list/offer-features-list.jsx';
 import OfferGallery from '../offer-gallery/offer-gallery.jsx';
 import {CardTypes} from '../../const.js';
@@ -165,9 +165,7 @@ function OfferPage(props) {
 
 
 OfferPage.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerProp).isRequired,
-  ),
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 

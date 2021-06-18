@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PlaceCard from '../place-card/place-card.jsx';
 import {CardTypes} from '../../const.js';
 import PropTypes from 'prop-types';
-import offerProp from '../offer-screen/offer-prop.js';
+import offerProp from '../../prop-types/offer-prop.js';
 import {AppRoute} from '../../const.js';
 
 
@@ -72,9 +72,7 @@ function FavoritesPage(props) {
 
 
 FavoritesPage.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerProp).isRequired,
-  ),
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 
