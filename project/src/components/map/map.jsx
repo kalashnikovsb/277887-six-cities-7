@@ -17,9 +17,10 @@ const ICON = leaflet.icon({
 function Map(props) {
   const mapRef = useRef(null);
   const {offers} = props;
+  let map = null;
 
   useEffect(() => {
-    const map = leaflet.map('map', {
+    map = leaflet.map(mapRef.current, {
       center: CITY,
       zoom: ZOOM,
       zoomControl: false,
@@ -35,7 +36,9 @@ function Map(props) {
         },
       )
       .addTo(map);
+  });
 
+  useEffect(() => {
     offers.forEach((offer) => {
       const {latitude, longitude} = offer.location;
 
@@ -50,7 +53,7 @@ function Map(props) {
   }, [offers]);
 
   return (
-    <div id="map" ref={mapRef} style={{height: '100%'}}></div>
+    <section id="map" ref={mapRef} style={{height: '100%'}} className="cities__map map"></section>
   );
 }
 
