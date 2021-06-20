@@ -1,13 +1,16 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import CommentForm from '../comment-form/comment-form.jsx';
 import PlaceCard from '../place-card/place-card.jsx';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
+import reviewProp from '../../prop-types/review-prop.js';
 import OfferFeaturesList from '../offer-features-list/offer-features-list.jsx';
 import OfferGallery from '../offer-gallery/offer-gallery.jsx';
 import {CardTypes} from '../../const.js';
+import Reviews from '../reviews/reviews.jsx';
+import Host from '../host/host.jsx';
+import OfferMap from '../offer-map/offer-map.jsx';
 
 
 const getPremiumMark = (isPremium) => isPremium ? (
@@ -18,11 +21,13 @@ const getPremiumMark = (isPremium) => isPremium ? (
 
 
 function OfferPage(props) {
-  const {offers} = props;
+  const {offers, reviews} = props;
   const {id} = useParams();
 
   const currentOffer = offers.find((offer) => offer.id === Number(id));
-  const {rating, price, bedrooms, type, goods, title, isPremium, images} = currentOffer;
+  const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description} = currentOffer;
+
+  const offersNearby = offers.slice(0, 3);
 
   return (
     <div className="page">
@@ -94,67 +99,17 @@ function OfferPage(props) {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <OfferFeaturesList goods={goods} />
               </div>
-              <div className="property__host">
-                <h2 className="property__host-title">Meet the host</h2>
-                <div className="property__host-user user">
-                  <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
-                  </div>
-                  <span className="property__user-name">
-                    Angelina
-                  </span>
-                  <span className="property__user-status">
-                    Pro
-                  </span>
-                </div>
-                <div className="property__description">
-                  <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-                  </p>
-                </div>
-              </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}></span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
-
-                <CommentForm />
-
-              </section>
+              <Host host={host} description={description} />
+              <Reviews reviews={reviews} />
             </div>
           </div>
-          <section className="property__map map"></section>
+          <OfferMap offersNearby={offersNearby} />
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offers.slice(0, 3).map((offer) => <PlaceCard key={offer.id} offer={offer} cardType={CardTypes.OFFER} />)}
+              {offersNearby.map((offer) => <PlaceCard key={offer.id} offer={offer} cardType={CardTypes.OFFER} />)}
             </div>
           </section>
         </div>
@@ -166,6 +121,7 @@ function OfferPage(props) {
 
 OfferPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };
 
 

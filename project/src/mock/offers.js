@@ -9,7 +9,7 @@ const offers = [
       },
       'name': 'Amsterdam',
     },
-    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    'description': 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     'goods': ['Wi-Fi', 'Heating', 'Kitchen', 'Dishwasher', 'Towels', 'Baby seat'],
     'host': {
       'avatarUrl': 'avatar-angelina.jpg',
@@ -43,7 +43,7 @@ const offers = [
       },
       'name': 'Amsterdam',
     },
-    'description': 'Duis et purus ut lectus tempus blandit ac vehicula eros.',
+    'description': 'Duis et purus ut lectus tempus blandit ac vehicula eros. Duis et purus ut lectus tempus blandit ac vehicula eros.',
     'goods': ['Fridge', 'Washing machine', 'Coffee machine', 'Wi-Fi', 'Heating', 'Kitchen'],
     'host': {
       'avatarUrl': 'avatar-angelina.jpg',
@@ -77,7 +77,7 @@ const offers = [
       },
       'name': 'Amsterdam',
     },
-    'description': 'Vestibulum consectetur dolor magna, ac volutpat dui tincidunt eu.',
+    'description': 'Vestibulum consectetur dolor magna, ac volutpat dui tincidunt eu. Vestibulum consectetur dolor magna, ac volutpat dui tincidunt eu.',
     'goods': ['Dishwasher', 'Towels', 'Baby seat', 'Fridge', 'Washing machine', 'Coffee machine'],
     'host': {
       'avatarUrl': 'avatar-angelina.jpg',
@@ -111,7 +111,7 @@ const offers = [
       },
       'name': 'Amsterdam',
     },
-    'description': 'Suspendisse tincidunt sapien eu neque interdum aliquam.',
+    'description': 'Suspendisse tincidunt sapien eu neque interdum aliquam. ',
     'goods': ['Cabel TV', 'Coffee machine', 'Wi-Fi', 'Dishwasher', 'Towels', 'Baby seat'],
     'host': {
       'avatarUrl': 'avatar-angelina.jpg',

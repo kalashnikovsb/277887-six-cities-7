@@ -14,20 +14,20 @@ const ICON = leaflet.icon({
 });
 
 
-function Map(props) {
+function MainMap(props) {
   const mapRef = useRef(null);
   const {offers} = props;
-  let map = null;
+  let mainMap = null;
 
   useEffect(() => {
-    map = leaflet.map(mapRef.current, {
+    mainMap = leaflet.map(mapRef.current, {
       center: CITY,
       zoom: ZOOM,
       zoomControl: false,
       marker: true,
     });
 
-    map.setView(CITY, ZOOM);
+    mainMap.setView(CITY, ZOOM);
 
     leaflet
       .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -35,7 +35,7 @@ function Map(props) {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         },
       )
-      .addTo(map);
+      .addTo(mainMap);
   });
 
   useEffect(() => {
@@ -48,19 +48,17 @@ function Map(props) {
       }, {
         icon: ICON,
       })
-        .addTo(map);
+        .addTo(mainMap);
     });
   }, [offers]);
 
-  return (
-    <section id="map" ref={mapRef} style={{height: '100%'}} className="cities__map map"></section>
-  );
+  return (<section id="mainMap" ref={mapRef} style={{height: '100%'}} className="cities__map map"></section>);
 }
 
 
-Map.propTypes = {
+MainMap.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 
-export default Map;
+export default MainMap;
