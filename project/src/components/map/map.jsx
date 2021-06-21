@@ -45,18 +45,20 @@ function Map(props) {
   }, []);
 
   useEffect(() => {
-    offers.forEach((offer) => {
-      const {latitude, longitude} = offer.location;
+    if (currentMap) {
+      offers.forEach((offer) => {
+        const {latitude, longitude} = offer.location;
 
-      leaflet.marker({
-        lat: latitude,
-        lng: longitude,
-      }, {
-        icon: ICON,
-      })
-        .addTo(currentMap);
-    });
-  }, [offers]);
+        leaflet.marker({
+          lat: latitude,
+          lng: longitude,
+        }, {
+          icon: ICON,
+        })
+          .addTo(currentMap);
+      });
+    }
+  }, [currentMap, offers]);
 
   return (<section id="map" ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
 }
