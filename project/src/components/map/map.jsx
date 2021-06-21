@@ -20,7 +20,7 @@ const ICON = leaflet.icon({
 
 function Map(props) {
   const mapRef = useRef(null);
-  const [currentMap, setCurrentMap] = useState(null);
+  const [currentMap, setMap] = useState(null);
   const {offers, mapType} = props;
 
   useEffect(() => {
@@ -41,7 +41,7 @@ function Map(props) {
       )
       .addTo(map);
 
-    setCurrentMap(map);
+    setMap(map);
   }, []);
 
   useEffect(() => {
