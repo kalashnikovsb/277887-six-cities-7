@@ -60,7 +60,7 @@ function Map(props) {
     }
   }, [currentMap, offers]);
 
-  return (<section id="map " ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
+  return (<section id="map" ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
 }
 
 
