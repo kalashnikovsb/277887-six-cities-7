@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import OffersList from '../offers-list/offers-list.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
-import {AppRoute} from '../../const.js';
-import MainMap from '../main-map/main-map.jsx';
+import {AppRoute, MapTypes} from '../../const.js';
+import Map from '../map/map.jsx';
 
 
 function MainPage(props) {
@@ -101,7 +101,7 @@ function MainPage(props) {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <MainMap offers={offers} />
+              <Map mapType={MapTypes.MAIN} offers={offers} />
             </div>
           </div>
         </div>

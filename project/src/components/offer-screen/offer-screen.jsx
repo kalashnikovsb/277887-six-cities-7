@@ -7,10 +7,10 @@ import offerProp from '../../prop-types/offer-prop.js';
 import reviewProp from '../../prop-types/review-prop.js';
 import OfferFeaturesList from '../offer-features-list/offer-features-list.jsx';
 import OfferGallery from '../offer-gallery/offer-gallery.jsx';
-import {CardTypes} from '../../const.js';
+import {CardTypes, MapTypes} from '../../const.js';
 import Reviews from '../reviews/reviews.jsx';
 import Host from '../host/host.jsx';
-import OfferMap from '../offer-map/offer-map.jsx';
+import Map from '../map/map.jsx';
 
 
 const getPremiumMark = (isPremium) => isPremium ? (
@@ -103,7 +103,7 @@ function OfferPage(props) {
               <Reviews reviews={reviews} />
             </div>
           </div>
-          <OfferMap offersNearby={offersNearby} />
+          <Map mapType={MapTypes.OFFER} offers={offersNearby} />
         </section>
         <div className="container">
           <section className="near-places places">

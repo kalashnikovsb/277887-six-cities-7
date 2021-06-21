@@ -1,8 +1,12 @@
-import React, {useRef, useEffect} from 'react';
+import React, {useRef, useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {MapTypes} from '../../const.js';
+
+
+const getCorrectClassName = (mapType) => mapType === MapTypes.MAIN ? 'cities__map' : 'property__map';
 
 
 const CITY = [52.38333, 4.9];
@@ -14,20 +18,21 @@ const ICON = leaflet.icon({
 });
 
 
-function MainMap(props) {
+function Map(props) {
   const mapRef = useRef(null);
-  const {offers} = props;
-  let mainMap = null;
+  const [currentMap, setCurrentMap] = useState(null);
+  const {offers, mapType} = props;
+  // let map = null;
 
   useEffect(() => {
-    mainMap = leaflet.map(mapRef.current, {
+    map = leaflet.map(mapRef.current, {
       center: CITY,
       zoom: ZOOM,
       zoomControl: false,
       marker: true,
     });
 
-    mainMap.setView(CITY, ZOOM);
+    map.setView(CITY, ZOOM);
 
     leaflet
       .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -35,8 +40,10 @@ function MainMap(props) {
           attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         },
       )
-      .addTo(mainMap);
-  });
+      .addTo(map);
+
+    setCurrentMap(map);
+  }, []);
 
   useEffect(() => {
     offers.forEach((offer) => {
@@ -48,17 +55,18 @@ function MainMap(props) {
       }, {
         icon: ICON,
       })
-        .addTo(mainMap);
+        .addTo(currentMap);
     });
   }, [offers]);
 
-  return (<section id="mainMap" ref={mapRef} style={{height: '100%'}} className="cities__map map"></section>);
+  return (<section id="map" ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
 }
 
 
-MainMap.propTypes = {
+Map.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  mapType: PropTypes.string.isRequired,
 };
 
 
-export default MainMap;
+export default Map;
