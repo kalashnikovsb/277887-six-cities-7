@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import PlaceCard from '../place-card/place-card.jsx';
-import offerProp from '../offer-screen/offer-prop.js';
+import offerProp from '../../prop-types/offer-prop.js';
 import {CardTypes} from '../../const.js';
 
 
@@ -27,9 +27,7 @@ function OffersList(props) {
 
 
 OffersList.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerProp).isRequired,
-  ),
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 

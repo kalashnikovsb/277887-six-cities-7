@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import OffersList from '../offers-list/offers-list.jsx';
-import offerProp from '../offer-screen/offer-prop.js';
-import {AppRoute} from '../../const.js';
+import offerProp from '../../prop-types/offer-prop.js';
+import {AppRoute, MapTypes} from '../../const.js';
+import Map from '../map/map.jsx';
 
 
 function MainPage(props) {
@@ -100,7 +101,7 @@ function MainPage(props) {
               <OffersList offers={offers} />
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"></section>
+              <Map mapType={MapTypes.MAIN} offers={offers} />
             </div>
           </div>
         </div>
@@ -111,9 +112,7 @@ function MainPage(props) {
 
 
 MainPage.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerProp).isRequired,
-  ),
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 

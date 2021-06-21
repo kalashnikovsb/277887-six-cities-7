@@ -7,8 +7,8 @@ import FavoritesScreen from '../favorites-screen/favorites-screen.jsx';
 import LoginScreen from '../login-screen/login-screen.jsx';
 import OfferScreen from '../offer-screen/offer-screen.jsx';
 import NotFoundScreen from '../not-found-screen/not-found-screen.jsx';
-import offerProp from '../offer-screen/offer-prop.js';
-import reviewProp from '../offer-screen/review-prop.js';
+import offerProp from '../../prop-types/offer-prop.js';
+import reviewProp from '../../prop-types/review-prop.js';
 
 
 function App(props) {
@@ -44,12 +44,8 @@ function App(props) {
 
 
 App.propTypes = {
-  offers: PropTypes.arrayOf(
-    PropTypes.shape(offerProp).isRequired,
-  ),
-  reviews: PropTypes.arrayOf(
-    PropTypes.shape(reviewProp).isRequired,
-  ),
+  offers: PropTypes.arrayOf(offerProp).isRequired,
+  reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };
 
 export default App;

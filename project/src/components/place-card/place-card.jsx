@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import offerProp from '../offer-screen/offer-prop.js';
-import cardTypeProp from '../place-card/card-type-prop.js';
+import offerProp from '../../prop-types/offer-prop.js';
+import cardTypeProp from '../../prop-types/card-type-prop.js';
 
 
 function PlaceCard(props) {

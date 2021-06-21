@@ -34,8 +34,14 @@ const CardTypes = {
 
 const HousingTypes = ['apartment', 'room', 'house', 'hotel'];
 
+const MapTypes = {
+  MAIN: 'main',
+  OFFER: 'offer',
+};
+
 export {
   AppRoute,
   CardTypes,
-  HousingTypes
+  HousingTypes,
+  MapTypes
 };
