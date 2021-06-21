@@ -22,10 +22,9 @@ function Map(props) {
   const mapRef = useRef(null);
   const [currentMap, setCurrentMap] = useState(null);
   const {offers, mapType} = props;
-  // let map = null;
 
   useEffect(() => {
-    map = leaflet.map(mapRef.current, {
+    const map = leaflet.map(mapRef.current, {
       center: CITY,
       zoom: ZOOM,
       zoomControl: false,
