@@ -1,4 +1,6 @@
 import React from 'react';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../store/actions.js';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -8,7 +10,7 @@ import Map from '../map/map.jsx';
 
 
 function MainPage(props) {
-  const {offers} = props;
+  const {offers, city, onCitySwitch} = props;
 
   return (
     <div className="page page--gray page--main">
@@ -113,7 +115,22 @@ function MainPage(props) {
 
 MainPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  city: PropTypes.string.isRequired,
+  onCitySwitch: PropTypes.func.isRequired,
 };
 
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  city: state.city,
+});
+
+
+const mapDispatchToProps = (dispatch) => ({
+  onCitySwitch(city) {
+    dispatch(ActionCreator.switchCity(city));
+  },
+});
+
+
+export {MainPage};
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
