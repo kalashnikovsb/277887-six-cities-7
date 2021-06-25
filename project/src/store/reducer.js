@@ -1,10 +1,12 @@
 import {ActionType} from './actions.js';
 import offers from '../mock/offers.js';
+import reviews from '../mock/reviews.js';
 
 
 const initialState = {
-  city: 'Paris',
+  activeCity: 'Paris',
   offers: offers,
+  reviews: reviews,
 };
 
 
