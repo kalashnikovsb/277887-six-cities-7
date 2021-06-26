@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import PlaceCard from '../place-card/place-card.jsx';
+import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
 import {CardTypes} from '../../const.js';
 
@@ -12,7 +12,7 @@ function OffersList(props) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
-        <PlaceCard
+        <OfferCard
           cardType={CardTypes.MAIN}
           isActive={offer === currentOffer}
           key={offer.id}

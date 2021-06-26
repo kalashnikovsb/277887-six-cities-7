@@ -1,11 +1,11 @@
 const ActionType = {
-  SWITCH_CITY:  'switchCity',
+  CHANGE_CITY:  'changeCity',
 };
 
 
 const ActionCreator = {
-  switchCity: (city) => ({
-    type: ActionType.SWITCH_CITY,
+  changeCity: (city) => ({
+    type: ActionType.CHANGE_CITY,
     payload: city,
   }),
 };

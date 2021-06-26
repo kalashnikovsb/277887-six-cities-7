@@ -5,7 +5,7 @@ import offerProp from '../../prop-types/offer-prop.js';
 import cardTypeProp from '../../prop-types/card-type-prop.js';
 
 
-function PlaceCard(props) {
+function OfferCard(props) {
   const {handleMouseHover, handleMouseRemoving, isActive} = props;
   const {isPremium, isFavorite, price, title, type, images, id} = props.offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = props.cardType;
@@ -52,7 +52,7 @@ function PlaceCard(props) {
 }
 
 
-PlaceCard.propTypes = {
+OfferCard.propTypes = {
   offer: PropTypes.shape(offerProp).isRequired,
   cardType: PropTypes.shape(cardTypeProp).isRequired,
   isActive: PropTypes.bool,
@@ -61,4 +61,4 @@ PlaceCard.propTypes = {
 };
 
 
-export default PlaceCard;
+export default OfferCard;

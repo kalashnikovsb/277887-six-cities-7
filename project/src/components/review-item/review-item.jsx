@@ -12,7 +12,7 @@ const getMonthAndYear = (dateString) => {
 };
 
 
-function ReviewsItem(props) {
+function ReviewItem(props) {
   const {review} = props;
   const {comment, date, user: {avatarUrl, name}} = review;
 
@@ -43,9 +43,9 @@ function ReviewsItem(props) {
 }
 
 
-ReviewsItem.propTypes = {
+ReviewItem.propTypes = {
   review: PropTypes.shape(reviewProp).isRequired,
 };
 
 
-export default ReviewsItem;
+export default ReviewItem;

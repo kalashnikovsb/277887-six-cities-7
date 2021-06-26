@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import PlaceCard from '../place-card/place-card.jsx';
+import OfferCard from '../offer-card/offer-card.jsx';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
 import reviewProp from '../../prop-types/review-prop.js';
@@ -11,6 +11,7 @@ import {CardTypes, MapTypes} from '../../const.js';
 import Reviews from '../reviews/reviews.jsx';
 import Host from '../host/host.jsx';
 import Map from '../map/map.jsx';
+import {connect} from 'react-redux';
 
 
 const getPremiumMark = (isPremium) => isPremium ? (
@@ -109,7 +110,7 @@ function OfferPage(props) {
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {offersNearby.map((offer) => <PlaceCard key={offer.id} offer={offer} cardType={CardTypes.OFFER} />)}
+              {offersNearby.map((offer) => <OfferCard key={offer.id} offer={offer} cardType={CardTypes.OFFER} />)}
             </div>
           </section>
         </div>
@@ -125,4 +126,11 @@ OfferPage.propTypes = {
 };
 
 
-export default OfferPage;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  reviews: state.reviews,
+});
+
+
+export {OfferPage};
+export default connect(mapStateToProps)(OfferPage);

@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import PlaceCard from '../place-card/place-card.jsx';
+import OfferCard from '../offer-card/offer-card.jsx';
 import {CardTypes} from '../../const.js';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
@@ -8,7 +9,7 @@ import {AppRoute} from '../../const.js';
 
 
 function FavoritesPage(props) {
-  const {offers} = props;
+  const {favoriteOffers} = props;
 
   return (
     <div className="page">
@@ -54,7 +55,7 @@ function FavoritesPage(props) {
                   </div>
                 </div>
                 <div className="favorites__places">
-                  {offers.map((offer) => <PlaceCard key={offer.id} offer={offer} cardType={CardTypes.FAVORITES} />)}
+                  {favoriteOffers.map((offer) => <OfferCard key={offer.id} offer={offer} cardType={CardTypes.FAVORITES} />)}
                 </div>
               </li>
             </ul>
@@ -72,8 +73,14 @@ function FavoritesPage(props) {
 
 
 FavoritesPage.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
+  favoriteOffers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 
-export default FavoritesPage;
+const mapStateToProps = (state) => ({
+  favoriteOffers: state.favoriteOffers,
+});
+
+
+export {FavoritesPage};
+export default connect(mapStateToProps)(FavoritesPage);
