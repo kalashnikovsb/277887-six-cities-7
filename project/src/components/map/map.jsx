@@ -21,6 +21,7 @@ const ICON = leaflet.icon({
 
 function Map(props) {
   const mapRef = useRef(null);
+  const markersRef = useRef(null);
   const [currentMap, setMap] = useState(null);
   const {mapType, offers, activeOffers} = props;
 
@@ -43,23 +44,25 @@ function Map(props) {
         },
       )
       .addTo(map);
-
     setMap(map);
+    markersRef.current = leaflet.layerGroup();
   }, []);
 
   useEffect(() => {
     if (currentMap) {
+      markersRef.current.clearLayers();
       offersToRender.forEach((offer) => {
         const {latitude, longitude} = offer.location;
 
-        leaflet.marker({
+        const marker = leaflet.marker({
           lat: latitude,
           lng: longitude,
         }, {
           icon: ICON,
-        })
-          .addTo(currentMap);
+        });
+        markersRef.current.addLayer(marker);
       });
+      markersRef.current.addTo(currentMap);
     }
   }, [currentMap, offersToRender]);
 
