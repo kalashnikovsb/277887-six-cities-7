@@ -70,7 +70,7 @@ function MainPage(props) {
               <OffersList offers={activeOffers} />
             </section>
             <div className="cities__right-section">
-              <Map mapType={MapTypes.MAIN} offers={activeOffers} />
+              <Map mapType={MapTypes.MAIN} />
             </div>
           </div>
         </div>

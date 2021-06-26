@@ -1,4 +1,5 @@
 import React, {useRef, useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
 import leaflet from 'leaflet';
@@ -21,7 +22,9 @@ const ICON = leaflet.icon({
 function Map(props) {
   const mapRef = useRef(null);
   const [currentMap, setMap] = useState(null);
-  const {offers, mapType} = props;
+  const {mapType, offers, activeOffers} = props;
+
+  const offersToRender = (mapType === MapTypes.MAIN) ? activeOffers : offers;
 
   useEffect(() => {
     const map = leaflet.map(mapRef.current, {
@@ -46,7 +49,7 @@ function Map(props) {
 
   useEffect(() => {
     if (currentMap) {
-      offers.forEach((offer) => {
+      offersToRender.forEach((offer) => {
         const {latitude, longitude} = offer.location;
 
         leaflet.marker({
@@ -58,16 +61,24 @@ function Map(props) {
           .addTo(currentMap);
       });
     }
-  }, [currentMap, offers]);
+  }, [currentMap, offersToRender]);
 
   return (<section ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
 }
 
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
   mapType: PropTypes.string.isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
+  activeOffers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 
-export default Map;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  activeOffers: state.activeOffers,
+});
+
+
+export {Map};
+export default connect(mapStateToProps)(Map);

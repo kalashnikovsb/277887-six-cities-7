@@ -8,9 +8,9 @@ import {getOffersByCity, getFavoriteOffers} from '../utils.js';
 const initialState = {
   activeCity: Cities[0],
   offers: offers,
-  reviews: reviews,
   activeOffers: getOffersByCity(offers, Cities[0]),
   favoriteOffers: getFavoriteOffers(offers),
+  reviews: reviews,
 };
 
 
