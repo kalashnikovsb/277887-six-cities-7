@@ -2,17 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import offerProp from '../../prop-types/offer-prop.js';
-import cardTypeProp from '../../prop-types/card-type-prop.js';
+import cardTypesProp from '../../prop-types/card-types-prop.js';
 
 
 function OfferCard(props) {
-  const {handleMouseHover, handleMouseRemoving, isActive} = props;
-  const {isPremium, isFavorite, price, title, type, images, id} = props.offer;
-  const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = props.cardType;
+  const {cardType, isActive, offer, onCardHover, onCardLeave} = props;
+  const {isPremium, isFavorite, price, title, type, images, id} = offer;
+  const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
 
   return (
-    <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`} onMouseEnter={handleMouseHover} onMouseLeave={handleMouseRemoving}>
+    <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}
+      onMouseEnter={onCardHover}
+      onMouseLeave={onCardLeave}
+    >
       {hasPremiumMark && isPremium && (
         <div className="place-card__mark">
           <span>Premium</span>
@@ -54,10 +57,10 @@ function OfferCard(props) {
 
 OfferCard.propTypes = {
   offer: PropTypes.shape(offerProp).isRequired,
-  cardType: PropTypes.shape(cardTypeProp).isRequired,
+  cardType: PropTypes.shape(cardTypesProp).isRequired,
   isActive: PropTypes.bool,
-  handleMouseHover: PropTypes.func,
-  handleMouseRemoving: PropTypes.func,
+  onCardHover: PropTypes.func,
+  onCardLeave: PropTypes.func,
 };
 
 

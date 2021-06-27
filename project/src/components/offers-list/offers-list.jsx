@@ -2,23 +2,29 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
-import {CardTypes} from '../../const.js';
+import cardTypesProp from '../../prop-types/card-types-prop.js';
+// import {CardsTypes} from '../../const.js';
 
 
 function OffersList(props) {
-  const {offers} = props;
+  const {cardsType, offers, onCardHover, onCardLeave} = props;
   const [currentOffer, setCurrentOffer] = useState({});
 
+  // eslint-disable-next-line
+  console.log(onCardHover, onCardLeave);
+
   return (
-    <div className="cities__places-list places__list tabs__content">
+    <div className={cardsType.listClassNames}>
       {offers.map((offer) => (
         <OfferCard
-          cardType={CardTypes.MAIN}
+          cardType={cardsType}
           isActive={offer === currentOffer}
           key={offer.id}
           offer={offer}
           handleMouseHover={() => setCurrentOffer(offer)}
           handleMouseRemoving={() => setCurrentOffer(null)}
+          onCardHover={() => onCardHover(offer.id)}
+          onCardLeave={onCardLeave}
         />
       ))}
     </div>
@@ -27,7 +33,10 @@ function OffersList(props) {
 
 
 OffersList.propTypes = {
+  cardsType: PropTypes.shape(cardTypesProp).isRequired,
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  onCardHover: PropTypes.func,
+  onCardLeave: PropTypes.func,
 };
 
 

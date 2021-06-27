@@ -1,13 +1,13 @@
 import React from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const';
-import OfferCard from '../offer-card/offer-card.jsx';
+import OffersList from '../offers-list/offers-list.jsx';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
 import reviewProp from '../../prop-types/review-prop.js';
 import OfferFeaturesList from '../offer-features-list/offer-features-list.jsx';
 import OfferGallery from '../offer-gallery/offer-gallery.jsx';
-import {CardTypes, MapTypes} from '../../const.js';
+import {CardsTypes, MapTypes} from '../../const.js';
 import Reviews from '../reviews/reviews.jsx';
 import Host from '../host/host.jsx';
 import Map from '../map/map.jsx';
@@ -109,9 +109,10 @@ function OfferPage(props) {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offersNearby.map((offer) => <OfferCard key={offer.id} offer={offer} cardType={CardTypes.OFFER} />)}
-            </div>
+            <OffersList
+              cardsType={CardsTypes.NEARBY}
+              offers={offersNearby}
+            />
           </section>
         </div>
       </main>

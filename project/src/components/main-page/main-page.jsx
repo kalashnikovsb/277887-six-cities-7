@@ -1,16 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import OffersList from '../offers-list/offers-list.jsx';
 import Cities from '../cities/cities.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
-import {AppRoute, MapTypes} from '../../const.js';
+import {AppRoute, MapTypes, CardsTypes} from '../../const.js';
 import Map from '../map/map.jsx';
 
 
 function MainPage(props) {
-  const {activeOffers, activeCity} = props;
+  const {activeOffers, activeCity, offers} = props;
+  const [activeCard, setActiveCard] = useState({});
+
+  const onCardHover = (id) => {
+    const card = offers.find((offer) => offer.id === Number(id));
+    setActiveCard(card);
+  };
+
+  const onCardLeave = () => {
+    setActiveCard({});
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -67,10 +77,15 @@ function MainPage(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={activeOffers} />
+              <OffersList
+                cardsType={CardsTypes.MAIN}
+                offers={activeOffers}
+                onCardHover={onCardHover}
+                onCardLeave={onCardLeave}
+              />
             </section>
             <div className="cities__right-section">
-              <Map mapType={MapTypes.MAIN} />
+              <Map mapType={MapTypes.MAIN} activeCard={activeCard} />
             </div>
           </div>
         </div>
@@ -83,12 +98,14 @@ function MainPage(props) {
 MainPage.propTypes = {
   activeCity: PropTypes.string.isRequired,
   activeOffers: PropTypes.arrayOf(offerProp).isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   activeOffers: state.activeOffers,
+  offers: state.offers,
 });
 
 

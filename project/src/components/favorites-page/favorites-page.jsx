@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
-import OfferCard from '../offer-card/offer-card.jsx';
-import {CardTypes} from '../../const.js';
+import OffersList from '../offers-list/offers-list.jsx';
+import {CardsTypes} from '../../const.js';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
 import {AppRoute} from '../../const.js';
@@ -54,9 +54,10 @@ function FavoritesPage(props) {
                     </a>
                   </div>
                 </div>
-                <div className="favorites__places">
-                  {favoriteOffers.map((offer) => <OfferCard key={offer.id} offer={offer} cardType={CardTypes.FAVORITES} />)}
-                </div>
+                <OffersList
+                  cardsType={CardsTypes.FAVORITES}
+                  offers={favoriteOffers}
+                />
               </li>
             </ul>
           </section>
