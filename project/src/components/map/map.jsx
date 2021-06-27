@@ -28,10 +28,24 @@ const ZOOM = 12;
 function Map(props) {
   const mapRef = useRef(null);
   const markersRef = useRef(null);
+  const offersToRender = useRef(null);
   const [currentMap, setMap] = useState(null);
   const {mapType, offers, activeOffers, activeCard = {}} = props;
 
-  const offersToRender = (mapType === MapTypes.MAIN) ? activeOffers : offers;
+  // const offersToRender = (mapType === MapTypes.MAIN) ? activeOffers : offers;
+  // let offersToRender = [];
+
+  switch (mapType) {
+    case MapTypes.MAIN:
+      offersToRender.current = activeOffers;
+      break;
+    default:
+      offersToRender.current = offers.slice(0, 3);
+      break;
+  }
+
+  // eslint-disable-next-line
+  console.log(offers);
 
   useEffect(() => {
     const map = leaflet.map(mapRef.current, {
@@ -57,7 +71,7 @@ function Map(props) {
   useEffect(() => {
     if (currentMap) {
       markersRef.current.clearLayers();
-      offersToRender.forEach((offer) => {
+      offersToRender.current.forEach((offer) => {
         const {latitude, longitude} = offer.location;
 
         const marker = leaflet.marker({
