@@ -32,9 +32,6 @@ function Map(props) {
   const [currentMap, setMap] = useState(null);
   const {mapType, offers, activeOffers, activeCard = {}} = props;
 
-  // const offersToRender = (mapType === MapTypes.MAIN) ? activeOffers : offers;
-  // let offersToRender = [];
-
   switch (mapType) {
     case MapTypes.MAIN:
       offersToRender.current = activeOffers;
@@ -43,9 +40,6 @@ function Map(props) {
       offersToRender.current = offers.slice(0, 3);
       break;
   }
-
-  // eslint-disable-next-line
-  console.log(offers);
 
   useEffect(() => {
     const map = leaflet.map(mapRef.current, {
