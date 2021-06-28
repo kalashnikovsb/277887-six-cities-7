@@ -44,10 +44,18 @@ const MapTypes = {
   OFFER: 'offer',
 };
 
+const SortingTypes = {
+  POPULAR: 'popular',
+  TOP_RATED: 'top-rated',
+  LOW_TO_HIGH: 'low-to-high',
+  HIGH_TO_LOW: 'high-to-low',
+};
+
 export {
   AppRoute,
   CardsTypes,
   HousingTypes,
   MapTypes,
-  Cities
+  Cities,
+  SortingTypes
 };
