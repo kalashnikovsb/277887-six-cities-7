@@ -7,6 +7,7 @@ import Cities from '../cities/cities.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
 import {AppRoute, MapTypes, CardsTypes} from '../../const.js';
 import Map from '../map/map.jsx';
+import {getOffersByCity} from '../../utils.js';
 
 
 function MainPage(props) {
@@ -108,7 +109,7 @@ MainPage.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
-  activeOffers: state.activeOffers,
+  activeOffers: getOffersByCity(state.offers, state.activeCity),
   offers: state.offers,
 });
 

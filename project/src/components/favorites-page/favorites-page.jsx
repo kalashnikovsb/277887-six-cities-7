@@ -2,10 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import OffersList from '../offers-list/offers-list.jsx';
-import {CardsTypes} from '../../const.js';
+import {CardsTypes, AppRoute} from '../../const.js';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
-import {AppRoute} from '../../const.js';
+import {getFavoriteOffers} from '../../utils.js';
 
 
 function FavoritesPage(props) {
@@ -79,7 +79,7 @@ FavoritesPage.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  favoriteOffers: state.favoriteOffers,
+  favoriteOffers: getFavoriteOffers(state.offers),
 });
 
 
