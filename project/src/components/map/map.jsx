@@ -28,18 +28,8 @@ const ZOOM = 12;
 function Map(props) {
   const mapRef = useRef(null);
   const markersRef = useRef(null);
-  const offersToRender = useRef(null);
   const [currentMap, setMap] = useState(null);
-  const {mapType, offers, activeOffers, activeCard = {}} = props;
-
-  switch (mapType) {
-    case MapTypes.MAIN:
-      offersToRender.current = activeOffers;
-      break;
-    default:
-      offersToRender.current = offers.slice(0, 3);
-      break;
-  }
+  const {mapType, offers, activeCard = {}} = props;
 
   useEffect(() => {
     const map = leaflet.map(mapRef.current, {
@@ -65,7 +55,7 @@ function Map(props) {
   useEffect(() => {
     if (currentMap) {
       markersRef.current.clearLayers();
-      offersToRender.current.forEach((offer) => {
+      offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
 
         const marker = leaflet.marker({
@@ -78,7 +68,7 @@ function Map(props) {
       });
       markersRef.current.addTo(currentMap);
     }
-  }, [currentMap, offersToRender, activeCard, activeOffers]);
+  }, [currentMap, offers, activeCard]);
 
   return (<section ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
 }
@@ -87,13 +77,11 @@ function Map(props) {
 Map.propTypes = {
   mapType: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  activeOffers: PropTypes.arrayOf(offerProp).isRequired,
   activeCard: PropTypes.object,
 };
 
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
   activeOffers: state.activeOffers,
 });
 

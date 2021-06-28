@@ -13,8 +13,8 @@ function MainPage(props) {
   const {activeOffers, activeCity, offers} = props;
   const [activeCard, setActiveCard] = useState({});
 
-  const onCardHover = (id) => {
-    const card = offers.find((offer) => offer.id === Number(id));
+  const onCardHover = (offer) => {
+    const card = offers.find((item) => item.id === offer.id);
     setActiveCard(card);
   };
 
@@ -85,7 +85,11 @@ function MainPage(props) {
               />
             </section>
             <div className="cities__right-section">
-              <Map mapType={MapTypes.MAIN} activeCard={activeCard} />
+              <Map
+                mapType={MapTypes.MAIN}
+                offers={activeOffers}
+                activeCard={activeCard}
+              />
             </div>
           </div>
         </div>

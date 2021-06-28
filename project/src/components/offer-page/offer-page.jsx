@@ -104,7 +104,10 @@ function OfferPage(props) {
               <Reviews reviews={reviews} />
             </div>
           </div>
-          <Map mapType={MapTypes.OFFER} offers={offersNearby} />
+          <Map
+            mapType={MapTypes.OFFER}
+            offers={offersNearby}
+          />
         </section>
         <div className="container">
           <section className="near-places places">

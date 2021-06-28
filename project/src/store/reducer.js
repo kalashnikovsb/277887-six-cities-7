@@ -11,6 +11,7 @@ const initialState = {
   activeOffers: getOffersByCity(offers, Cities[0]),
   favoriteOffers: getFavoriteOffers(offers),
   reviews: reviews,
+  cities: Cities,
 };
 
 
