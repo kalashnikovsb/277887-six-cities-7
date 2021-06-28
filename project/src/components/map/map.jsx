@@ -78,7 +78,7 @@ function Map(props) {
       });
       markersRef.current.addTo(currentMap);
     }
-  }, [currentMap, offersToRender, activeCard]);
+  }, [currentMap, offersToRender, activeCard, activeOffers]);
 
   return (<section ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
 }
