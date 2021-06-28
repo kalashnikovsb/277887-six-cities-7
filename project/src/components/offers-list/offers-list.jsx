@@ -19,7 +19,7 @@ function OffersList(props) {
           offer={offer}
           handleMouseHover={() => setCurrentOffer(offer)}
           handleMouseRemoving={() => setCurrentOffer(null)}
-          onCardHover={() => onCardHover(offer)}
+          onCardHover={onCardHover ? () => onCardHover(offer) : undefined}
           onCardLeave={onCardLeave}
         />
       ))}

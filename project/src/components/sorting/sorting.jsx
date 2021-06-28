@@ -34,7 +34,7 @@ Sorting.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeSorting(type) {
-    dispatch(ActionCreator.changeSortingType(type));
+    dispatch(ActionCreator.changeSorting(type));
   },
 });
 

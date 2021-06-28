@@ -1,6 +1,6 @@
 const ActionTypes = {
   CHANGE_CITY:  'changeCity',
-  CHANGE_SORTING_TYPE: 'changeSortingType',
+  CHANGE_SORTING: 'changeSortingType',
 };
 
 
@@ -9,8 +9,8 @@ const ActionCreator = {
     type: ActionTypes.CHANGE_CITY,
     payload: city,
   }),
-  changeSortingType: (sortingType) => ({
-    type: ActionTypes.CHANGE_SORTING_TYPE,
+  changeSorting: (sortingType) => ({
+    type: ActionTypes.CHANGE_SORTING,
     payload: sortingType,
   }),
 };
