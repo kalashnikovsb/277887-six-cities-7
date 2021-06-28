@@ -6,10 +6,7 @@ import {SortingTypes} from '../../const.js';
 
 
 function Sorting(props) {
-  const {activeSorting, changeSortingType}  = props;
-
-  // eslint-disable-next-line
-  console.log(activeSorting);
+  const {onChangeSorting}  = props;
 
   return (
     <form className="places__sorting" action="#" method="get">
@@ -21,10 +18,10 @@ function Sorting(props) {
         </svg>
       </span>
       <ul className="places__options places__options--custom places__options--opened">
-        <li className="places__option" tabIndex="0" onClick={() => changeSortingType(SortingTypes.POPULAR)}>Popular</li>
-        <li className="places__option" tabIndex="0" onClick={() => changeSortingType(SortingTypes.LOW_TO_HIGH)}>Price: low to high</li>
-        <li className="places__option" tabIndex="0" onClick={() => changeSortingType(SortingTypes.HIGH_TO_LOW)}>Price: high to low</li>
-        <li className="places__option" tabIndex="0" onClick={() => changeSortingType(SortingTypes.TOP_RATED)}>Top rated first</li>
+        <li className="places__option" tabIndex="0" onClick={() => onChangeSorting(SortingTypes.POPULAR)}>Popular</li>
+        <li className="places__option" tabIndex="0" onClick={() => onChangeSorting(SortingTypes.LOW_TO_HIGH)}>Price: low to high</li>
+        <li className="places__option" tabIndex="0" onClick={() => onChangeSorting(SortingTypes.HIGH_TO_LOW)}>Price: high to low</li>
+        <li className="places__option" tabIndex="0" onClick={() => onChangeSorting(SortingTypes.TOP_RATED)}>Top rated first</li>
       </ul>
     </form>
   );
@@ -32,22 +29,15 @@ function Sorting(props) {
 
 
 Sorting.propTypes = {
-  activeSorting: PropTypes.string.isRequired,
-  changeSortingType: PropTypes.func.isRequired,
+  onChangeSorting: PropTypes.func.isRequired,
 };
 
-
-const mapStateToProps = (state) => ({
-  activeSorting: state.activeSorting,
-});
-
-
 const mapDispatchToProps = (dispatch) => ({
-  changeSortingType(type) {
+  onChangeSorting(type) {
     dispatch(ActionCreator.changeSortingType(type));
   },
 });
 
 
 export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default connect(null, mapDispatchToProps)(Sorting);

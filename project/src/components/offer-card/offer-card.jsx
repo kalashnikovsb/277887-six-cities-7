@@ -6,7 +6,7 @@ import cardTypesProp from '../../prop-types/card-types-prop.js';
 
 
 function OfferCard(props) {
-  const {cardType, isActive, offer, onCardHover, onCardLeave} = props;
+  const {cardType, isActive, offer, onCardHover = null, onCardLeave = null} = props;
   const {isPremium, isFavorite, price, title, type, images, id} = offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];

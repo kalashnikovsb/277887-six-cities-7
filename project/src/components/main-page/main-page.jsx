@@ -12,17 +12,11 @@ import {getOffersByCity} from '../../utils.js';
 
 
 function MainPage(props) {
-  const {activeOffers, activeCity, offers} = props;
+  const {activeOffers, activeCity} = props;
   const [activeCard, setActiveCard] = useState({});
 
-  const onCardHover = (offer) => {
-    const card = offers.find((item) => item.id === offer.id);
-    setActiveCard(card);
-  };
-
-  const onCardLeave = () => {
-    setActiveCard({});
-  };
+  const onCardHover = (offer) => setActiveCard(offer);
+  const onCardLeave = () => setActiveCard({});
 
   return (
     <div className="page page--gray page--main">
@@ -90,14 +84,12 @@ function MainPage(props) {
 MainPage.propTypes = {
   activeCity: PropTypes.string.isRequired,
   activeOffers: PropTypes.arrayOf(offerProp).isRequired,
-  offers: PropTypes.arrayOf(offerProp).isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   activeOffers: getOffersByCity(state.offers, state.activeCity),
-  offers: state.offers,
 });
 
 

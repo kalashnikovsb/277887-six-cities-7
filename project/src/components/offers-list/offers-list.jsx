@@ -3,18 +3,11 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
-import {CardsTypes} from '../../const.js';
 
 
 function OffersList(props) {
-  const {cardsType, offers} = props;
-  let {onCardHover, onCardLeave} = props;
+  const {cardsType, offers, onCardHover, onCardLeave} = props;
   const [currentOffer, setCurrentOffer] = useState({});
-
-  if (cardsType !== CardsTypes.MAIN) {
-    onCardHover = () => {};
-    onCardLeave = () => {};
-  }
 
   return (
     <div className={cardsType.listClassNames}>
