@@ -32,6 +32,7 @@ Sorting.propTypes = {
   onChangeSorting: PropTypes.func.isRequired,
 };
 
+
 const mapDispatchToProps = (dispatch) => ({
   onChangeSorting(type) {
     dispatch(ActionCreator.changeSorting(type));
