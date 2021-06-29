@@ -24,32 +24,29 @@ function Sorting(props) {
       </span>
       <ul ref={sortingMenu} className="places__options places__options--custom" onClick={showOrHideMenu}>
         <li
-          className={`places__option ${activeSorting === 'Popular' ? 'places__option--active' : ''}`}
+          className={`places__option ${activeSorting === SortingTypes.POPULAR ? 'places__option--active' : ''}`}
           tabIndex="0"
           onClick={() => onChangeSorting(SortingTypes.POPULAR)}
         >
           Popular
         </li>
         <li
-          className={`places__option ${activeSorting === 'Price: low to high' ? 'places__option--active' : ''}`}
+          className={`places__option ${activeSorting === SortingTypes.LOW_TO_HIGH ? 'places__option--active' : ''}`}
           tabIndex="0"
-          data-sorting-type="low-to-high"
           onClick={() => onChangeSorting(SortingTypes.LOW_TO_HIGH)}
         >
           Price: low to high
         </li>
         <li
-          className={`places__option ${activeSorting === 'Price: high to low' ? 'places__option--active' : ''}`}
+          className={`places__option ${activeSorting === SortingTypes.HIGH_TO_LOW ? 'places__option--active' : ''}`}
           tabIndex="0"
-          data-sorting-type="high-to-low"
           onClick={() => onChangeSorting(SortingTypes.HIGH_TO_LOW)}
         >
           Price: high to low
         </li>
         <li
-          className={`places__option ${activeSorting === 'Top rated first' ? 'places__option--active' : ''}`}
+          className={`places__option ${activeSorting === SortingTypes.TOP_RATED ? 'places__option--active' : ''}`}
           tabIndex="0"
-          data-sorting-type="top-rated"
           onClick={() => onChangeSorting(SortingTypes.TOP_RATED)}
         >
           Top rated first
