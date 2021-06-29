@@ -45,10 +45,10 @@ const MapTypes = {
 };
 
 const SortingTypes = {
-  POPULAR: 'Popular',
-  TOP_RATED: 'Top rated first',
-  LOW_TO_HIGH: 'Price: low to high',
-  HIGH_TO_LOW: 'Price: high to low',
+  POPULAR: 'popular',
+  TOP_RATED: 'top-rated',
+  LOW_TO_HIGH: 'low-to-high',
+  HIGH_TO_LOW: 'high-to-low',
 };
 
 export {

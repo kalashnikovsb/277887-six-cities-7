@@ -1,28 +1,44 @@
-import React, {useRef} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {ActionCreator} from '../../store/actions.js';
 import {connect} from 'react-redux';
 import {SortingTypes} from '../../const.js';
 
 
+const getCorrectLabel = (activeSorting) => {
+  switch (activeSorting) {
+    case SortingTypes.POPULAR:
+      return 'Popular';
+    case SortingTypes.TOP_RATED:
+      return 'Top rated first';
+    case SortingTypes.LOW_TO_HIGH:
+      return 'Price: low to high';
+    case SortingTypes.HIGH_TO_LOW:
+      return 'Price: high to low';
+    default:
+      break;
+  }
+};
+
+
 function Sorting(props) {
   const {onChangeSorting, activeSorting}  = props;
-  const sortingMenu = useRef(null);
+  const [isOpened, setOpenedStatus] = useState(false);
 
   const showOrHideMenu = () => {
-    sortingMenu.current.classList.toggle('places__options--opened');
+    setOpenedStatus(!isOpened);
   };
 
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
       <span className="places__sorting-type" tabIndex="0" onClick={showOrHideMenu}>
-        {activeSorting}
+        {getCorrectLabel(activeSorting)}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul ref={sortingMenu} className="places__options places__options--custom" onClick={showOrHideMenu}>
+      <ul className={`places__options places__options--custom ${isOpened ? 'places__options--opened' : ''}`} onClick={showOrHideMenu}>
         <li
           className={`places__option ${activeSorting === SortingTypes.POPULAR ? 'places__option--active' : ''}`}
           tabIndex="0"
