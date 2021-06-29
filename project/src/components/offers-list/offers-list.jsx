@@ -4,35 +4,17 @@ import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {connect} from 'react-redux';
-import {SortingTypes, CardsTypes} from '../../const.js';
-import {sortOffersLowToHigh, sortOffersHighToLow, sortOffersByRating} from '../../utils.js';
+import {CardsTypes} from '../../const.js';
+import {getSortedOffers, getFavoriteOffers} from '../../utils.js';
 
 
 function OffersList(props) {
-  const {cardsType, offers, onCardHover, onCardLeave, activeSorting} = props;
+  const {cardsType, offers, onCardHover, onCardLeave} = props;
   const [currentOffer, setCurrentOffer] = useState({});
-
-  const offersToRender = offers.slice();
-
-  if (cardsType === CardsTypes.MAIN) {
-    switch (activeSorting) {
-      case SortingTypes.LOW_TO_HIGH:
-        offersToRender.sort(sortOffersLowToHigh);
-        break;
-      case SortingTypes.HIGH_TO_LOW:
-        offersToRender.sort(sortOffersHighToLow);
-        break;
-      case SortingTypes.TOP_RATED:
-        offersToRender.sort(sortOffersByRating);
-        break;
-      default:
-        break;
-    }
-  }
 
   return (
     <div className={cardsType.listClassNames}>
-      {offersToRender.map((offer) => (
+      {offers.map((offer) => (
         <OfferCard
           cardType={cardsType}
           isActive={offer === currentOffer}
@@ -54,13 +36,29 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   onCardHover: PropTypes.func,
   onCardLeave: PropTypes.func,
-  activeSorting: PropTypes.string,
 };
 
 
-const mapStateToProps = (state) => ({
-  activeSorting: state.activeSorting,
-});
+const mapStateToProps = (state, props) => {
+  let offers;
+  switch (props.cardsType) {
+    case CardsTypes.MAIN:
+      offers = getSortedOffers(props.offers, state.activeSorting);
+      break;
+    case CardsTypes.NEARBY:
+      offers = props.offers;
+      break;
+    case CardsTypes.FAVORITES:
+      offers = getFavoriteOffers(state.offers);
+      break;
+    default:
+      break;
+  }
+
+  return {
+    offers,
+  };
+};
 
 
 export {OffersList};

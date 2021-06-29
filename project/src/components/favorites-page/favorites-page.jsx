@@ -1,16 +1,10 @@
 import React from 'react';
-import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import OffersList from '../offers-list/offers-list.jsx';
 import {CardsTypes, AppRoute} from '../../const.js';
-import PropTypes from 'prop-types';
-import offerProp from '../../prop-types/offer-prop.js';
-import {getFavoriteOffers} from '../../utils.js';
 
 
-function FavoritesPage(props) {
-  const {favoriteOffers} = props;
-
+function FavoritesPage() {
   return (
     <div className="page">
       <header className="header">
@@ -56,7 +50,6 @@ function FavoritesPage(props) {
                 </div>
                 <OffersList
                   cardsType={CardsTypes.FAVORITES}
-                  offers={favoriteOffers}
                 />
               </li>
             </ul>
@@ -72,16 +65,4 @@ function FavoritesPage(props) {
   );
 }
 
-
-FavoritesPage.propTypes = {
-  favoriteOffers: PropTypes.arrayOf(offerProp).isRequired,
-};
-
-
-const mapStateToProps = (state) => ({
-  favoriteOffers: getFavoriteOffers(state.offers),
-});
-
-
-export {FavoritesPage};
-export default connect(mapStateToProps)(FavoritesPage);
+export default FavoritesPage;
