@@ -8,20 +8,27 @@ import {MapTypes} from '../../const.js';
 
 const getCorrectClassName = (mapType) => mapType === MapTypes.MAIN ? 'cities__map' : 'property__map';
 
-
-const CITY = [52.38333, 4.9];
-const ZOOM = 12;
-const ICON = leaflet.icon({
+const DEFAULT_ICON = leaflet.icon({
   iconUrl: 'img/pin.svg',
   iconSize: [30, 30],
   iconAnchor: [15, 30],
 });
 
+const ACTIVE_ICON = leaflet.icon({
+  iconUrl: 'img/pin-active.svg',
+  iconSize: [30, 30],
+  iconAnchor: [15, 30],
+});
+
+const CITY = [52.38333, 4.9];
+const ZOOM = 12;
+
 
 function Map(props) {
   const mapRef = useRef(null);
+  const markersRef = useRef(null);
   const [currentMap, setMap] = useState(null);
-  const {offers, mapType} = props;
+  const {mapType, offers, activeCard = {}} = props;
 
   useEffect(() => {
     const map = leaflet.map(mapRef.current, {
@@ -40,33 +47,36 @@ function Map(props) {
         },
       )
       .addTo(map);
-
     setMap(map);
+    markersRef.current = leaflet.layerGroup();
   }, []);
 
   useEffect(() => {
     if (currentMap) {
+      markersRef.current.clearLayers();
       offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
 
-        leaflet.marker({
+        const marker = leaflet.marker({
           lat: latitude,
           lng: longitude,
         }, {
-          icon: ICON,
-        })
-          .addTo(currentMap);
+          icon: (offer.id === activeCard.id) ? ACTIVE_ICON : DEFAULT_ICON,
+        });
+        markersRef.current.addLayer(marker);
       });
+      markersRef.current.addTo(currentMap);
     }
-  }, [currentMap, offers]);
+  }, [currentMap, offers, activeCard]);
 
   return (<section ref={mapRef} className={`${getCorrectClassName(mapType)} map`}></section>);
 }
 
 
 Map.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
   mapType: PropTypes.string.isRequired,
+  offers: PropTypes.arrayOf(offerProp).isRequired,
+  activeCard: PropTypes.object,
 };
 
 
