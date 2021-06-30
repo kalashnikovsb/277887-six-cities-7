@@ -22,13 +22,11 @@ const getPremiumMark = (isPremium) => isPremium ? (
 
 
 function OfferPage(props) {
-  const {offers, reviews} = props;
+  const {offers, offersNearby, reviews} = props;
   const {id} = useParams();
 
   const currentOffer = offers.find((offer) => offer.id === Number(id));
   const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description} = currentOffer;
-
-  const offersNearby = offers.slice(0, 3);
 
   return (
     <div className="page">
@@ -126,12 +124,14 @@ function OfferPage(props) {
 
 OfferPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  offersNearby: PropTypes.arrayOf(offerProp).isRequired,
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  offersNearby: state.offers.slice(0, 3),
   reviews: state.reviews,
 });
 

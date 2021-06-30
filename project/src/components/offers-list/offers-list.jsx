@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
+import {connect} from 'react-redux';
+import {CardsTypes} from '../../const.js';
+import {getSortedOffers, getFavoriteOffers} from '../../utils.js';
 
 
 function OffersList(props) {
@@ -36,4 +39,27 @@ OffersList.propTypes = {
 };
 
 
-export default OffersList;
+const mapStateToProps = (state, props) => {
+  let offers;
+  switch (props.cardsType) {
+    case CardsTypes.MAIN:
+      offers = getSortedOffers(props.offers, state.activeSorting);
+      break;
+    case CardsTypes.NEARBY:
+      offers = props.offers;
+      break;
+    case CardsTypes.FAVORITES:
+      offers = getFavoriteOffers(state.offers);
+      break;
+    default:
+      break;
+  }
+
+  return {
+    offers,
+  };
+};
+
+
+export {OffersList};
+export default connect(mapStateToProps)(OffersList);
