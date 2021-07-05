@@ -23,7 +23,7 @@ function OfferCard(props) {
       )}
       <div className={`${imgWrapClassName} place-card__image-wrapper`}>
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={`img/${firstImage}`} width={imgWidth} height={imgHeight} alt="Place" />
+          <img className="place-card__image" src={firstImage} width={imgWidth} height={imgHeight} alt="Place" />
         </Link>
       </div>
       <div className={`${textInfoClassName} place-card__info`}>

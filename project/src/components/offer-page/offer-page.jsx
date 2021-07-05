@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useParams} from 'react-router-dom';
 import {AppRoute} from '../../const';
 import OffersList from '../offers-list/offers-list.jsx';
@@ -12,6 +12,7 @@ import Reviews from '../reviews/reviews.jsx';
 import Host from '../host/host.jsx';
 import Map from '../map/map.jsx';
 import {connect} from 'react-redux';
+import {fetchReviewsList} from '../../store/api-actions.js';
 
 
 const getPremiumMark = (isPremium) => isPremium ? (
@@ -22,11 +23,15 @@ const getPremiumMark = (isPremium) => isPremium ? (
 
 
 function OfferPage(props) {
-  const {offers, offersNearby, reviews} = props;
+  const {offers, offersNearby, reviews, loadReviewsList} = props;
   const {id} = useParams();
 
   const currentOffer = offers.find((offer) => offer.id === Number(id));
   const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description} = currentOffer;
+
+  useEffect(() => {
+    loadReviewsList(id);
+  }, [id, loadReviewsList]);
 
   return (
     <div className="page">
@@ -126,15 +131,21 @@ OfferPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   offersNearby: PropTypes.arrayOf(offerProp).isRequired,
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
+  loadReviewsList: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
-  offersNearby: state.offers.slice(0, 3),
   reviews: state.reviews,
+  offersNearby: state.offers.slice(0, 3),
 });
 
 
+const mapDispatchToProps = {
+  loadReviewsList: fetchReviewsList,
+};
+
+
 export {OfferPage};
-export default connect(mapStateToProps)(OfferPage);
+export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);

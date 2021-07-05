@@ -1,10 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import OffersList from '../offers-list/offers-list.jsx';
-import {CardsTypes, AppRoute} from '../../const.js';
+import {AppRoute} from '../../const.js';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import offerProp from '../../prop-types/offer-prop.js';
+import {getFavoriteOffers, getOffersByCity} from '../../utils.js';
+import FavoriteCity from '../favorite-city/favorite-city.jsx';
 
 
-function FavoritesPage() {
+const getFavoriteCities = (offers) => Array.from(new Set(offers.map((offer) => offer.city.name)));
+
+
+function FavoritesPage(props) {
+  const {offers} = props;
+  const favoriteCities = getFavoriteCities(offers);
+
   return (
     <div className="page">
       <header className="header">
@@ -40,18 +50,9 @@ function FavoritesPage() {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <OffersList
-                  cardsType={CardsTypes.FAVORITES}
-                />
-              </li>
+              {
+                favoriteCities.map((city) => <FavoriteCity key={city} city={city} offers={getOffersByCity(offers, city)} />)
+              }
             </ul>
           </section>
         </div>
@@ -65,4 +66,16 @@ function FavoritesPage() {
   );
 }
 
-export default FavoritesPage;
+
+FavoritesPage.propTypes = {
+  offers: PropTypes.arrayOf(offerProp).isRequired,
+};
+
+
+const mapStateToProps = (state) => ({
+  offers: getFavoriteOffers(state.offers),
+});
+
+
+export {FavoritesPage};
+export default connect(mapStateToProps)(FavoritesPage);
