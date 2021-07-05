@@ -51,11 +51,18 @@ const SortingTypes = {
   HIGH_TO_LOW: 'high-to-low',
 };
 
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
 export {
   AppRoute,
   CardsTypes,
   HousingTypes,
   MapTypes,
   Cities,
-  SortingTypes
+  SortingTypes,
+  AuthorizationStatus
 };
