@@ -6,9 +6,20 @@ import FavoritesPage from '../favorites-page/favorites-page.jsx';
 import LoginPage from '../login-page/login-page.jsx';
 import OfferPage from '../offer-page/offer-page.jsx';
 import NotFoundScreen from '../not-found-screen/not-found-screen.jsx';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
 
 
-function App() {
+function App(props) {
+  const {isDataLoaded} = props;
+
+  if (!isDataLoaded) {
+    return (
+      <LoadingScreen />
+    );
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -33,4 +44,15 @@ function App() {
 }
 
 
-export default App;
+App.propTypes = {
+  isDataLoaded: PropTypes.bool.isRequired,
+};
+
+
+const mapStateToProps = (state) => ({
+  isDataLoaded: state.isDataLoaded,
+});
+
+
+export {App};
+export default connect(mapStateToProps, null)(App);

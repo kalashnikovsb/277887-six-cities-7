@@ -1,10 +1,3 @@
-const AppRoute = {
-  ROOT: '/',
-  LOGIN: '/login',
-  FAVORITES: '/favorites',
-  OFFER: '/offer/:id',
-};
-
 const CardsTypes = {
   MAIN: {
     listClassNames: 'cities__places-list places__list tabs__content',
@@ -57,6 +50,21 @@ const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
+const AppRoute = {
+  ROOT: '/',
+  LOGIN: '/login',
+  FAVORITES: '/favorites',
+  OFFER: '/offer/:id',
+};
+
+const APIRoute = {
+  OFFERS: '/hotels',
+  REVIEWS: '/comments',
+  FAVORITES: '/favorite',
+  LOGIN: '/login',
+  LOGOUT: '/logout',
+};
+
 export {
   AppRoute,
   CardsTypes,
@@ -64,5 +72,6 @@ export {
   MapTypes,
   Cities,
   SortingTypes,
-  AuthorizationStatus
+  AuthorizationStatus,
+  APIRoute
 };

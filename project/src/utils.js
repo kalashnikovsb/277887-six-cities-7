@@ -1,4 +1,4 @@
-import {SortingTypes} from './const.js';
+import {SortingTypes, AuthorizationStatus} from './const.js';
 
 
 const getOffersByCity = (offers, city) => offers.filter((offer) => offer.city.name === city);
@@ -30,11 +30,15 @@ const getSortedOffers = (offers, activeSorting) => {
 };
 
 
+const isCheckedAuth = (authorizationStatus) => authorizationStatus === AuthorizationStatus.UNKNOWN;
+
+
 export {
   getOffersByCity,
   getFavoriteOffers,
   sortOffersLowToHigh,
   sortOffersHighToLow,
   sortOffersByRating,
-  getSortedOffers
+  getSortedOffers,
+  isCheckedAuth
 };

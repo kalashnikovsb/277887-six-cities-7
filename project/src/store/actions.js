@@ -2,6 +2,7 @@ const ActionTypes = {
   CHANGE_CITY:  'changeCity',
   CHANGE_SORTING: 'changeSortingType',
   LOAD_OFFERS: 'loadOffers',
+  LOAD_REVIEWS: 'loadReviews',
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
   LOGOUT: 'logout',
 };
@@ -19,6 +20,10 @@ const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionTypes.LOAD_OFFERS,
     payload: offers,
+  }),
+  loadReviews: (reviews) => ({
+    type: ActionTypes.LOAD_REVIEWS,
+    payload: reviews,
   }),
   requiredAuthorization: (status) => ({
     type: ActionTypes.REQUIRED_AUTHORIZATION,

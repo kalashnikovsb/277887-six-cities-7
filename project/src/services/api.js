@@ -10,10 +10,15 @@ const HttpCodes = {
 };
 
 
+const token = localStorage.getItem('token') ?? '';
+
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
+    headers: {
+      'x-token': token,
+    },
   });
 
   const onSuccess = (response) => response;
