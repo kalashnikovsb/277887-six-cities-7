@@ -4,7 +4,8 @@ import {SortingTypes, AuthorizationStatus} from './const.js';
 const getOffersByCity = (offers, city) => offers.filter((offer) => offer.city.name === city);
 
 
-const getFavoriteOffers = (offers) => offers.filter((offer) => offer.isFavorite);
+// Временно так чтобы страницы favorites не была пустой
+const getFavoriteOffers = (offers) => offers.filter((offer) => !offer.isFavorite);
 
 
 const sortOffersLowToHigh = (offerA, offerB) => offerA.price - offerB.price;
