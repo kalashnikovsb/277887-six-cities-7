@@ -4,16 +4,12 @@ import {AppRoute} from '../../const.js';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
-import {getFavoriteOffers, getOffersByCity} from '../../utils.js';
+import {getFavoriteOffers, getOffersByCity, getFavoriteCities} from '../../utils.js';
 import FavoriteCity from '../favorite-city/favorite-city.jsx';
 
 
-const getFavoriteCities = (offers) => Array.from(new Set(offers.map((offer) => offer.city.name)));
-
-
 function FavoritesPage(props) {
-  const {offers} = props;
-  const favoriteCities = getFavoriteCities(offers);
+  const {offers, favoriteCities} = props;
 
   return (
     <div className="page">
@@ -69,11 +65,13 @@ function FavoritesPage(props) {
 
 FavoritesPage.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
+  favoriteCities: PropTypes.array.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   offers: getFavoriteOffers(state.offers),
+  favoriteCities: getFavoriteCities(state.offers),
 });
 
 
