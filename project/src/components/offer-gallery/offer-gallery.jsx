@@ -18,7 +18,7 @@ function OfferGallery(props) {
     <div className="property__gallery">
       {images.map((src) => (
         <div className="property__image-wrapper" key={galleryIdentifiers.get(src)}>
-          <img className="property__image" src={`img/${src}`} alt="Studio" />
+          <img className="property__image" src={src} alt="Studio" />
         </div>
       ))}
     </div>

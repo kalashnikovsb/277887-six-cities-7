@@ -1,10 +1,15 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import OffersList from '../offers-list/offers-list.jsx';
-import {CardsTypes, AppRoute} from '../../const.js';
+import {AppRoute} from '../../const.js';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
+import {getFavoriteOffers, getOffersByCity, getFavoriteCities} from '../../utils.js';
+import FavoriteCity from '../favorite-city/favorite-city.jsx';
 
 
-function FavoritesPage() {
+function FavoritesPage(props) {
+  const {cityToOffers} = props;
+
   return (
     <div className="page">
       <header className="header">
@@ -40,18 +45,9 @@ function FavoritesPage() {
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="/#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <OffersList
-                  cardsType={CardsTypes.FAVORITES}
-                />
-              </li>
+              {
+                cityToOffers.map(([city, offers]) => <FavoriteCity key={city} city={city} offers={offers} />)
+              }
             </ul>
           </section>
         </div>
@@ -65,4 +61,27 @@ function FavoritesPage() {
   );
 }
 
-export default FavoritesPage;
+
+FavoritesPage.propTypes = {
+  cityToOffers: PropTypes.array.isRequired,
+};
+
+
+const mapStateToProps = (state) => {
+  const offers = getFavoriteOffers(state.offers);
+  const favoriteCities = getFavoriteCities(state.offers);
+
+  const cityToOffers = [];
+  favoriteCities.forEach((city) => {
+    const currentOffers = getOffersByCity(offers, city);
+    cityToOffers.push([city, currentOffers]);
+  });
+
+  return {
+    cityToOffers,
+  };
+};
+
+
+export {FavoritesPage};
+export default connect(mapStateToProps)(FavoritesPage);

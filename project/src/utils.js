@@ -1,10 +1,13 @@
-import {SortingTypes} from './const.js';
+import {SortingTypes, AuthorizationStatus} from './const.js';
 
 
 const getOffersByCity = (offers, city) => offers.filter((offer) => offer.city.name === city);
 
 
-const getFavoriteOffers = (offers) => offers.filter((offer) => offer.isFavorite);
+// Временно так чтобы страницы favorites не была пустой
+const getFavoriteOffers = (offers) => offers.filter((offer) => !offer.isFavorite);
+
+const getFavoriteCities = (offers) => Array.from(new Set(offers.map((offer) => offer.city.name)));
 
 
 const sortOffersLowToHigh = (offerA, offerB) => offerA.price - offerB.price;
@@ -30,11 +33,16 @@ const getSortedOffers = (offers, activeSorting) => {
 };
 
 
+const isCheckedAuth = (authorizationStatus) => authorizationStatus === AuthorizationStatus.UNKNOWN;
+
+
 export {
   getOffersByCity,
   getFavoriteOffers,
   sortOffersLowToHigh,
   sortOffersHighToLow,
   sortOffersByRating,
-  getSortedOffers
+  getSortedOffers,
+  isCheckedAuth,
+  getFavoriteCities
 };
