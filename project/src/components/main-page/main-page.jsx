@@ -12,11 +12,16 @@ import {getOffersByCity} from '../../utils.js';
 
 
 function MainPage(props) {
-  const {activeOffers, activeCity} = props;
+  const {activeOffers, activeCity, authorizationStatus} = props;
   const [activeCard, setActiveCard] = useState({});
 
   const onCardHover = (offer) => setActiveCard(offer);
   const onCardLeave = () => setActiveCard({});
+
+
+  // eslint-disable-next-line
+  console.log(authorizationStatus);
+
 
   return (
     <div className="page page--gray page--main">
@@ -84,12 +89,14 @@ function MainPage(props) {
 MainPage.propTypes = {
   activeCity: PropTypes.string.isRequired,
   activeOffers: PropTypes.arrayOf(offerProp).isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
   activeCity: state.activeCity,
   activeOffers: getOffersByCity(state.offers, state.activeCity),
+  authorizationStatus: state.authorizationStatus,
 });
 
 

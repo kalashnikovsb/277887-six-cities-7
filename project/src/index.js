@@ -11,9 +11,7 @@ import {ActionCreator} from './store/actions.js';
 import {checkAuth, fetchOferrsList} from './store/api-actions';
 import {AuthorizationStatus} from './const';
 
-const api = createAPI(
-  () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
-);
+const api = createAPI(() => store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH)));
 
 const store = createStore(
   reducer,

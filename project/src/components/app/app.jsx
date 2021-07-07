@@ -46,6 +46,7 @@ function App(props) {
 
 App.propTypes = {
   isDataLoaded: PropTypes.bool.isRequired,
+
 };
 
 
