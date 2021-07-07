@@ -3,17 +3,12 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import offerProp from '../../prop-types/offer-prop.js';
-import {getFavoriteOffers, getOffersByCity} from '../../utils.js';
+import {getFavoriteOffers, getOffersByCity, getFavoriteCities} from '../../utils.js';
 import FavoriteCity from '../favorite-city/favorite-city.jsx';
 
 
-const getFavoriteCities = (offers) => Array.from(new Set(offers.map((offer) => offer.city.name)));
-
-
 function FavoritesPage(props) {
-  const {offers} = props;
-  const favoriteCities = getFavoriteCities(offers);
+  const {cityToOffers} = props;
 
   return (
     <div className="page">
@@ -51,7 +46,7 @@ function FavoritesPage(props) {
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
               {
-                favoriteCities.map((city) => <FavoriteCity key={city} city={city} offers={getOffersByCity(offers, city)} />)
+                cityToOffers.map(([city, offers]) => <FavoriteCity key={city} city={city} offers={offers} />)
               }
             </ul>
           </section>
@@ -68,13 +63,24 @@ function FavoritesPage(props) {
 
 
 FavoritesPage.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
+  cityToOffers: PropTypes.array.isRequired,
 };
 
 
-const mapStateToProps = (state) => ({
-  offers: getFavoriteOffers(state.offers),
-});
+const mapStateToProps = (state) => {
+  const offers = getFavoriteOffers(state.offers);
+  const favoriteCities = getFavoriteCities(state.offers);
+
+  const cityToOffers = [];
+  favoriteCities.forEach((city) => {
+    const currentOffers = getOffersByCity(offers, city);
+    cityToOffers.push([city, currentOffers]);
+  });
+
+  return {
+    cityToOffers,
+  };
+};
 
 
 export {FavoritesPage};
