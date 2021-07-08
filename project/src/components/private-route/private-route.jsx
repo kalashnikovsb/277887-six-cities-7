@@ -10,15 +10,11 @@ function PrivateRoute({render, path, exact, authorizationStatus}) {
     <Route
       path={path}
       exact={exact}
-      render={(routeProps) => {
-        if (path === AppRoute.FAVORITES && authorizationStatus !== AuthorizationStatus.AUTH) {
-          return (<Redirect to={AppRoute.LOGIN} />);
-        }
-        if (path === AppRoute.LOGIN && authorizationStatus === AuthorizationStatus.AUTH) {
-          return (<Redirect to={AppRoute.ROOT} />);
-        }
-        render(routeProps);
-      }}
+      render={(routeProps) => (
+        authorizationStatus === AuthorizationStatus.AUTH
+          ? render(routeProps)
+          : <Redirect to={AppRoute.LOGIN} />
+      )}
     />
   );
 }
