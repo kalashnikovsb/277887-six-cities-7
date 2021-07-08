@@ -9,6 +9,7 @@ import NotFoundScreen from '../not-found-screen/not-found-screen.jsx';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import PrivateRoute from '../private-route/private-route.jsx';
 
 
 function App(props) {
@@ -26,12 +27,21 @@ function App(props) {
         <Route exact path={AppRoute.ROOT}>
           <MainPage />
         </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <LoginPage />
-        </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesPage />
-        </Route>
+
+        <PrivateRoute
+          exact
+          path={AppRoute.LOGIN}
+          render={() => <LoginPage />}
+        >
+        </PrivateRoute>
+
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => <FavoritesPage />}
+        >
+        </PrivateRoute>
+
         <Route exact path={AppRoute.OFFER}>
           <OfferPage />
         </Route>
