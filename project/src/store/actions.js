@@ -5,6 +5,8 @@ const ActionTypes = {
   LOAD_REVIEWS: 'loadReviews',
   REQUIRED_AUTHORIZATION: 'requiredAuthorization',
   LOGOUT: 'logout',
+  REDIRECT_TO_ROUTE: 'redirectToRoute',
+  LOAD_USER_DATA: 'loadUserData',
 };
 
 
@@ -31,6 +33,14 @@ const ActionCreator = {
   }),
   logout: () => ({
     type: ActionTypes.LOGOUT,
+  }),
+  redirectToRoute: (url) => ({
+    type: ActionTypes.REDIRECT_TO_ROUTE,
+    payload: url,
+  }),
+  loadUserData: (userData) => ({
+    type: ActionTypes.LOAD_USER_DATA,
+    payload: userData,
   }),
 };
 

@@ -8,17 +8,17 @@ import {reducer} from './store/reducer.js';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app.jsx';
 import {ActionCreator} from './store/actions.js';
-import {checkAuth, fetchOferrsList} from './store/api-actions';
-import {AuthorizationStatus} from './const';
+import {checkAuth, fetchOferrsList} from './store/api-actions.js';
+import {AuthorizationStatus} from './const.js';
+import {redirect} from './store/middlewares/redirect.js';
 
-const api = createAPI(
-  () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
-);
+const api = createAPI(() => store.dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.NO_AUTH)));
 
 const store = createStore(
   reducer,
   composeWithDevTools(
     applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
   ),
 );
 

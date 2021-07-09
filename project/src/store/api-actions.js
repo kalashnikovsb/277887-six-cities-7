@@ -1,6 +1,6 @@
 import {ActionCreator} from './actions.js';
-import {AuthorizationStatus, APIRoute} from '../const.js';
-import {adaptOfferToClient, adaptReviewToClient} from '../adapter/adapter.js';
+import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
+import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
 
 
 const fetchOferrsList = () => (dispatch, _getState, api) => (
@@ -25,15 +25,22 @@ const fetchReviewsList = (id) => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH)))
+    .then((response) => {
+      dispatch(ActionCreator.loadUserData(adaptUserToClient(response.data)));
+      dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+    })
     .catch(() => {})
 );
 
 
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
-    .then(() => dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(ActionCreator.loadUserData(adaptUserToClient(data)));
+    })
+    .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH)))
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FAVORITES)))
 );
 
 
@@ -41,6 +48,8 @@ const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(ActionCreator.logout()))
+    .then(() => dispatch(ActionCreator.loadUserData({})))
+    .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );
 
 

@@ -33,7 +33,7 @@ const getSortedOffers = (offers, activeSorting) => {
 };
 
 
-const isCheckedAuth = (authorizationStatus) => authorizationStatus === AuthorizationStatus.UNKNOWN;
+const isCheckedAuth = (authorizationStatus) => authorizationStatus  === AuthorizationStatus.UNKNOWN;
 
 
 export {
