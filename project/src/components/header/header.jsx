@@ -4,17 +4,14 @@ import {connect} from 'react-redux';
 import {logout} from '../../store/api-actions.js';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
-import {useHistory} from 'react-router-dom';
 
 
 function Header(props) {
   const {isAuthenticated, onLogout} = props;
-  const history = useHistory();
 
   const handleClick = (evt) => {
     evt.preventDefault();
     onLogout();
-    history.push(AppRoute.ROOT);
   };
 
   return (

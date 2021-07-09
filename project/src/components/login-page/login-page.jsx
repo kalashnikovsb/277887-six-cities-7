@@ -1,9 +1,7 @@
 import React, {useRef} from 'react';
-import {useHistory} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {login} from '../../store/api-actions.js';
-import {AppRoute} from '../../const';
 import Header from '../header/header.jsx';
 
 
@@ -11,7 +9,6 @@ function LoginPage(props) {
   const {onSubmit} = props;
   const loginRef = useRef();
   const passwordRef = useRef();
-  const history = useHistory();
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -19,7 +16,6 @@ function LoginPage(props) {
       login: loginRef.current.value,
       password: passwordRef.current.value,
     });
-    history.push(AppRoute.ROOT);
   };
 
   return (

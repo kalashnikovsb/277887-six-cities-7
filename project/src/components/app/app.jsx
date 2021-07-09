@@ -1,5 +1,5 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 import MainPage from '../main-page/main-page.jsx';
 import FavoritesPage from '../favorites-page/favorites-page.jsx';
@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
+import browserHistory from '../../browser-history.js';
 
 
 function App(props) {
@@ -22,7 +23,7 @@ function App(props) {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <MainPage />
