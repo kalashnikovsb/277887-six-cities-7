@@ -17,7 +17,7 @@ function PrivateRoute({render, path, exact, authorizationStatus}) {
         if (path === AppRoute.LOGIN && authorizationStatus === AuthorizationStatus.AUTH) {
           return (<Redirect to={AppRoute.ROOT} />);
         }
-        render(routeProps);
+        return render(routeProps);
       }}
     />
   );
