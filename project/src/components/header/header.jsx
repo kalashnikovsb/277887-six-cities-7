@@ -81,11 +81,9 @@ const mapStateToProps = (state) => ({
 });
 
 
-const mapDispatchToProps = (dispatch) => ({
-  onLogout() {
-    dispatch(logout());
-  },
-});
+const mapDispatchToProps = {
+  onLogout: logout,
+};
 
 
 export {Header};
