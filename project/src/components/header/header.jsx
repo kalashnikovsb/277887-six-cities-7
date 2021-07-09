@@ -7,7 +7,7 @@ import {AppRoute, AuthorizationStatus} from '../../const';
 
 
 function Header(props) {
-  const {isAuthenticated, onLogout} = props;
+  const {isAuthenticated, onLogout, email} = props;
 
   const handleClick = (evt) => {
     evt.preventDefault();
@@ -33,7 +33,7 @@ function Header(props) {
                   >
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">{email}</span>
                   </Link>
                 </li>
                 <li className="header__nav-item">
@@ -71,11 +71,13 @@ function Header(props) {
 Header.propTypes = {
   onLogout: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool.isRequired,
+  email: PropTypes.string,
 };
 
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.authorizationStatus === AuthorizationStatus.AUTH,
+  email: state.userData.email,
 });
 
 

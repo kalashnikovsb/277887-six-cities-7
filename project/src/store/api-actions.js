@@ -1,6 +1,6 @@
 import {ActionCreator} from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
-import {adaptOfferToClient, adaptReviewToClient} from '../adapter/adapter.js';
+import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
 
 
 const fetchOferrsList = () => (dispatch, _getState, api) => (
@@ -32,7 +32,10 @@ const checkAuth = () => (dispatch, _getState, api) => (
 
 const login = ({login: email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => localStorage.setItem('token', data.token))
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(ActionCreator.loadUserData(adaptUserToClient(data)));
+    })
     .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.FAVORITES)))
 );
