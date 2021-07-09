@@ -17,10 +17,8 @@ const api = createAPI(() => store.dispatch(ActionCreator.requiredAuthorization(A
 const store = createStore(
   reducer,
   composeWithDevTools(
-    applyMiddleware(
-      thunk.withExtraArgument(api),
-      applyMiddleware(redirect),
-    ),
+    applyMiddleware(thunk.withExtraArgument(api)),
+    applyMiddleware(redirect),
   ),
 );
 
