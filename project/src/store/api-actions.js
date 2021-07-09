@@ -25,7 +25,10 @@ const fetchReviewsList = (id) => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH)))
+    .then((response) => {
+      dispatch(ActionCreator.loadUserData(adaptUserToClient(response.data)));
+      dispatch(ActionCreator.requiredAuthorization(AuthorizationStatus.AUTH));
+    })
     .catch(() => {})
 );
 
@@ -45,6 +48,7 @@ const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(ActionCreator.logout()))
+    .then(() => dispatch(ActionCreator.loadUserData({})))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))
 );
 
