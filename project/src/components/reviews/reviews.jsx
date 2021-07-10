@@ -8,13 +8,13 @@ import {AuthorizationStatus} from '../../const.js';
 
 
 function Reviews(props) {
-  const {reviews, isAuth} = props;
+  const {reviews, isAuth, offerId} = props;
 
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
       <ReviewsList reviews={reviews} />
-      {isAuth && <CommentForm />}
+      {isAuth && <CommentForm offerId={offerId} />}
     </section>
   );
 }
@@ -23,6 +23,7 @@ function Reviews(props) {
 Reviews.propTypes = {
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
   isAuth: PropTypes.bool,
+  offerId: PropTypes.number.isRequired,
 };
 
 

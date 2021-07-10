@@ -72,6 +72,18 @@ const fetchOffersNearby = (id) => (dispatch, _getState, api) => {
 };
 
 
+const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.REVIEWS}/${id}`,
+    {comment, rating},
+    {
+      headers: {
+        'x-token': localStorage.getItem('token'),
+      },
+    })
+    .then(({data}) => dispatch(ActionCreator.loadReviews(data.map(adaptReviewToClient))))
+);
+
+
 export {
   fetchOferrsList,
   fetchReviewsList,
@@ -79,5 +91,6 @@ export {
   login,
   logout,
   fetchRoom,
-  fetchOffersNearby
+  fetchOffersNearby,
+  postReview
 };

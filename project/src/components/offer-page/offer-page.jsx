@@ -35,7 +35,7 @@ function OfferPage(props) {
     return (<LoadingScreen />);
   }
 
-  const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description, maxAdults} = room;
+  const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description, maxAdults, id: offerId} = room;
 
   return (
     <div className="page">
@@ -87,7 +87,7 @@ function OfferPage(props) {
                 <OfferFeaturesList goods={goods} />
               </div>
               <Host host={host} description={description} />
-              <Reviews reviews={reviews} />
+              <Reviews reviews={reviews} offerId={offerId} />
             </div>
           </div>
           <Map
