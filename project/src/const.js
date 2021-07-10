@@ -55,6 +55,7 @@ const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer/:id',
+  NOT_FOUND: '/not-found',
 };
 
 const APIRoute = {
@@ -63,6 +64,7 @@ const APIRoute = {
   FAVORITES: '/favorite',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  OFFERS_NEARBY: '/nearby',
 };
 
 export {

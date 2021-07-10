@@ -8,10 +8,11 @@ import OfferFeaturesList from '../offer-features-list/offer-features-list.jsx';
 import OfferGallery from '../offer-gallery/offer-gallery.jsx';
 import {CardsTypes, MapTypes} from '../../const.js';
 import Reviews from '../reviews/reviews.jsx';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import Host from '../host/host.jsx';
 import Map from '../map/map.jsx';
 import {connect} from 'react-redux';
-import {fetchReviewsList} from '../../store/api-actions.js';
+import {fetchReviewsList, fetchOffersNearby, fetchRoom} from '../../store/api-actions.js';
 import Header from '../header/header.jsx';
 
 
@@ -23,15 +24,18 @@ const getPremiumMark = (isPremium) => isPremium ? (
 
 
 function OfferPage(props) {
-  const {offers, offersNearby, reviews, loadReviewsList} = props;
+  const {room, offersNearby, reviews, loadRoomData, isRoomDataLoaded, isOffersNearbyLoaded} = props;
   const {id} = useParams();
 
-  const currentOffer = offers.find((offer) => offer.id === Number(id));
-  const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description} = currentOffer;
-
   useEffect(() => {
-    loadReviewsList(id);
-  }, [id, loadReviewsList]);
+    loadRoomData(id);
+  }, [id, loadRoomData]);
+
+  if (!(isRoomDataLoaded && isOffersNearbyLoaded)) {
+    return (<LoadingScreen />);
+  }
+
+  const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description, maxAdults} = room;
 
   return (
     <div className="page">
@@ -71,7 +75,7 @@ function OfferPage(props) {
                   {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {bedrooms + 1} adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -107,23 +111,31 @@ function OfferPage(props) {
 
 
 OfferPage.propTypes = {
-  offers: PropTypes.arrayOf(offerProp).isRequired,
-  offersNearby: PropTypes.arrayOf(offerProp).isRequired,
+  room: PropTypes.shape(offerProp),
+  offersNearby: PropTypes.arrayOf(offerProp),
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
-  loadReviewsList: PropTypes.func.isRequired,
+  loadRoomData: PropTypes.func.isRequired,
+  isRoomDataLoaded: PropTypes.bool.isRequired,
+  isOffersNearbyLoaded: PropTypes.bool.isRequired,
 };
 
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  room: state.room,
   reviews: state.reviews,
-  offersNearby: state.offers.slice(0, 3),
+  offersNearby: state.offersNearby,
+  isRoomDataLoaded: state.isRoomDataLoaded,
+  isOffersNearbyLoaded: state.isOffersNearbyLoaded,
 });
 
 
-const mapDispatchToProps = {
-  loadReviewsList: fetchReviewsList,
-};
+const mapDispatchToProps = (dispatch) => ({
+  loadRoomData(id) {
+    dispatch(fetchRoom(id));
+    dispatch(fetchReviewsList(id));
+    dispatch(fetchOffersNearby(id));
+  },
+});
 
 
 export {OfferPage};
