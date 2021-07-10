@@ -7,6 +7,7 @@ const initialState = {
   activeSorting: SortingTypes.POPULAR,
   offers: [],
   reviews: [],
+  userData: {},
   cities: Cities,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isDataLoaded: false,
@@ -46,6 +47,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
+      };
+    case ActionTypes.LOAD_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload,
       };
     default:
       return state;

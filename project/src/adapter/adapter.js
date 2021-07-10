@@ -33,7 +33,6 @@ const adaptOfferToClient = (offer) => {
     title: offer.title,
     type: offer.type,
   };
-
   return adaptedOffer;
 };
 
@@ -51,12 +50,24 @@ const adaptReviewToClient = (review) => {
       name: review.user.name,
     },
   };
-
   return adaptedReview;
+};
+
+
+const adaptUserToClient = (userData) => {
+  const adaptedUser = {
+    avatarUrl: userData.avatar_url,
+    email: userData.email,
+    id: userData.id,
+    isPro: userData.is_pro,
+    name: userData.name,
+  };
+  return adaptedUser;
 };
 
 
 export {
   adaptOfferToClient,
-  adaptReviewToClient
+  adaptReviewToClient,
+  adaptUserToClient
 };
