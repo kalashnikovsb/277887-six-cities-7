@@ -53,10 +53,44 @@ const logout = () => (dispatch, _getState, api) => (
 );
 
 
+const fetchRoom = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.setIsRoomDataLoaded(false));
+  api.get(`${APIRoute.OFFERS}/${id}`)
+    .then(({data}) => dispatch(ActionCreator.loadRoom(adaptOfferToClient(data))))
+    .then(() => dispatch(ActionCreator.setIsRoomDataLoaded(true)))
+    .catch(() => {
+      dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND));
+    });
+};
+
+
+const fetchOffersNearby = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.setIsOffersNearbyLoaded(false));
+  api.get(`${APIRoute.OFFERS}/${id}${APIRoute.OFFERS_NEARBY}`)
+    .then(({data}) => dispatch(ActionCreator.loadOffersNearby(data.map(adaptOfferToClient))))
+    .then(() => dispatch(ActionCreator.setIsOffersNearbyLoaded(true)));
+};
+
+
+const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.REVIEWS}/${id}`,
+    {comment, rating},
+    {
+      headers: {
+        'x-token': localStorage.getItem('token'),
+      },
+    })
+    .then(({data}) => dispatch(ActionCreator.loadReviews(data.map(adaptReviewToClient))))
+);
+
+
 export {
   fetchOferrsList,
   fetchReviewsList,
   checkAuth,
   login,
-  logout
+  logout,
+  fetchRoom,
+  fetchOffersNearby,
+  postReview
 };

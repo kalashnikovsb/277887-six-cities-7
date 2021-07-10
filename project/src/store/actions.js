@@ -7,6 +7,10 @@ const ActionTypes = {
   LOGOUT: 'logout',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
   LOAD_USER_DATA: 'loadUserData',
+  LOAD_ROOM: 'loadRoom',
+  LOAD_OFFERS_NEARBY: 'loadOffersNearby',
+  SET_IS_ROOM_DATA_LOADED: 'setIsRoomDataLoaded',
+  SET_IS_OFFERS_NEARBY_LOADED: 'setIsOffersNearbyLoaded',
 };
 
 
@@ -41,6 +45,22 @@ const ActionCreator = {
   loadUserData: (userData) => ({
     type: ActionTypes.LOAD_USER_DATA,
     payload: userData,
+  }),
+  loadRoom: (room) => ({
+    type: ActionTypes.LOAD_ROOM,
+    payload: room,
+  }),
+  loadOffersNearby: (offersNearby) => ({
+    type: ActionTypes.LOAD_OFFERS_NEARBY,
+    payload: offersNearby,
+  }),
+  setIsRoomDataLoaded: (isLoaded) => ({
+    type: ActionTypes.SET_IS_ROOM_DATA_LOADED,
+    payload: isLoaded,
+  }),
+  setIsOffersNearbyLoaded: (isLoaded) => ({
+    type: ActionTypes.SET_IS_OFFERS_NEARBY_LOADED,
+    payload: isLoaded,
   }),
 };
 
