@@ -14,6 +14,7 @@ import Map from '../map/map.jsx';
 import {connect} from 'react-redux';
 import {fetchReviewsList, fetchOffersNearby, fetchRoom} from '../../store/api-actions.js';
 import Header from '../header/header.jsx';
+import {getCorrectRatingWitdh} from '../../utils.js';
 
 
 const getPremiumMark = (isPremium) => isPremium ? (
@@ -62,7 +63,7 @@ function OfferPage(props) {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: `${getCorrectRatingWitdh(rating)}%`}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>

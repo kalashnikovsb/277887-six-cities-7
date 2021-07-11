@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import reviewProp from '../../prop-types/review-prop.js';
+import {getCorrectRatingWitdh} from '../../utils.js';
 
 
 const getMonthAndYear = (dateString) => {
@@ -14,7 +15,7 @@ const getMonthAndYear = (dateString) => {
 
 function ReviewItem(props) {
   const {review} = props;
-  const {comment, date, user: {avatarUrl, name}} = review;
+  const {comment, date, rating, user: {avatarUrl, name}} = review;
 
   return (
     <li className="reviews__item">
@@ -29,7 +30,7 @@ function ReviewItem(props) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: `${getCorrectRatingWitdh(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
