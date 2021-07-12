@@ -55,6 +55,7 @@ const AppRoute = {
   LOGIN: '/login',
   FAVORITES: '/favorites',
   OFFER: '/offer/:id',
+  NOT_FOUND: '/not-found',
 };
 
 const APIRoute = {
@@ -63,6 +64,31 @@ const APIRoute = {
   FAVORITES: '/favorite',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  OFFERS_NEARBY: '/nearby',
+};
+
+const RatingToValue = {
+  PERFECT: {
+    value: 5,
+    title: 'perfect',
+
+  },
+  GOOD: {
+    value: 4,
+    title: 'good',
+  },
+  NOT_BAD: {
+    value: 3,
+    title: 'not bad',
+  },
+  BADLY: {
+    value: 2,
+    title: 'badly',
+  },
+  TERRIBLY: {
+    value: 1,
+    title: 'terribly',
+  },
 };
 
 export {
@@ -73,5 +99,6 @@ export {
   Cities,
   SortingTypes,
   AuthorizationStatus,
-  APIRoute
+  APIRoute,
+  RatingToValue
 };

@@ -33,6 +33,9 @@ const getSortedOffers = (offers, activeSorting) => {
 };
 
 
+const getCorrectRatingWitdh = (rating) => Math.round(rating) * 20;
+
+
 const isCheckedAuth = (authorizationStatus) => authorizationStatus  === AuthorizationStatus.UNKNOWN;
 
 
@@ -44,5 +47,6 @@ export {
   sortOffersByRating,
   getSortedOffers,
   isCheckedAuth,
-  getFavoriteCities
+  getFavoriteCities,
+  getCorrectRatingWitdh
 };

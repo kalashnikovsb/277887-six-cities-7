@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
+import {getCorrectRatingWitdh} from '../../utils.js';
 
 
 function OfferCard(props) {
   const {cardType, isActive, offer, onCardHover, onCardLeave} = props;
-  const {isPremium, isFavorite, price, title, type, images, id} = offer;
+  const {isPremium, isFavorite, price, title, type, images, id, rating} = offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
 
@@ -41,7 +42,7 @@ function OfferCard(props) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '20%'}}></span>
+            <span style={{width: `${getCorrectRatingWitdh(rating)}%`}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
