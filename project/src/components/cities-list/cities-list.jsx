@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
-import {ActionCreator} from '../../store/actions.js';
+import {changeCity} from '../../store/actions.js';
 import {connect} from 'react-redux';
 import CityItem from '../city-item/city-item.jsx';
 
@@ -31,10 +31,10 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onChangeCity(city) {
-    dispatch(ActionCreator.changeCity(city));
+    dispatch(changeCity(city));
   },
 });
 
 
 export {CitiesList};
-export default connect(mapStateToProps, mapDispatchToProps)(CitiesList);
+export default memo(connect(mapStateToProps, mapDispatchToProps)(CitiesList), (prevProps, nextProps) => prevProps.activeCity === nextProps.activeCity);

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {logout} from '../../store/api-actions.js';
+import {APIlogout} from '../../store/api-actions.js';
 import {Link} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const';
 
@@ -82,7 +82,7 @@ const mapStateToProps = (state) => ({
 
 
 const mapDispatchToProps = {
-  onLogout: logout,
+  onLogout: APIlogout,
 };
 
 

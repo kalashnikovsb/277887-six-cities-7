@@ -13,59 +13,77 @@ const ActionTypes = {
   SET_IS_OFFERS_NEARBY_LOADED: 'setIsOffersNearbyLoaded',
 };
 
+const changeCity = (city) => ({
+  type: ActionTypes.CHANGE_CITY,
+  payload: city,
+});
 
-const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionTypes.CHANGE_CITY,
-    payload: city,
-  }),
-  changeSorting: (sortingType) => ({
-    type: ActionTypes.CHANGE_SORTING,
-    payload: sortingType,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionTypes.LOAD_OFFERS,
-    payload: offers,
-  }),
-  loadReviews: (reviews) => ({
-    type: ActionTypes.LOAD_REVIEWS,
-    payload: reviews,
-  }),
-  requiredAuthorization: (status) => ({
-    type: ActionTypes.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionTypes.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionTypes.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  loadUserData: (userData) => ({
-    type: ActionTypes.LOAD_USER_DATA,
-    payload: userData,
-  }),
-  loadRoom: (room) => ({
-    type: ActionTypes.LOAD_ROOM,
-    payload: room,
-  }),
-  loadOffersNearby: (offersNearby) => ({
-    type: ActionTypes.LOAD_OFFERS_NEARBY,
-    payload: offersNearby,
-  }),
-  setIsRoomDataLoaded: (isLoaded) => ({
-    type: ActionTypes.SET_IS_ROOM_DATA_LOADED,
-    payload: isLoaded,
-  }),
-  setIsOffersNearbyLoaded: (isLoaded) => ({
-    type: ActionTypes.SET_IS_OFFERS_NEARBY_LOADED,
-    payload: isLoaded,
-  }),
-};
+const changeSorting = (sortingType) => ({
+  type: ActionTypes.CHANGE_SORTING,
+  payload: sortingType,
+});
 
+const loadOffers = (offers) => ({
+  type: ActionTypes.LOAD_OFFERS,
+  payload: offers,
+});
+
+const loadReviews = (reviews) => ({
+  type: ActionTypes.LOAD_REVIEWS,
+  payload: reviews,
+});
+
+const requiredAuthorization = (status) => ({
+  type: ActionTypes.REQUIRED_AUTHORIZATION,
+  payload: status,
+});
+
+const logout = () => ({
+  type: ActionTypes.LOGOUT,
+});
+
+const redirectToRoute = (url) => ({
+  type: ActionTypes.REDIRECT_TO_ROUTE,
+  payload: url,
+});
+
+const loadUserData = (userData) => ({
+  type: ActionTypes.LOAD_USER_DATA,
+  payload: userData,
+});
+
+const loadRoom = (room) => ({
+  type: ActionTypes.LOAD_ROOM,
+  payload: room,
+});
+
+const loadOffersNearby = (offersNearby) => ({
+  type: ActionTypes.LOAD_OFFERS_NEARBY,
+  payload: offersNearby,
+});
+
+const setIsRoomDataLoaded = (isLoaded) => ({
+  type: ActionTypes.SET_IS_ROOM_DATA_LOADED,
+  payload: isLoaded,
+});
+
+const setIsOffersNearbyLoaded = (isLoaded) => ({
+  type: ActionTypes.SET_IS_OFFERS_NEARBY_LOADED,
+  payload: isLoaded,
+});
 
 export {
   ActionTypes,
-  ActionCreator
+  changeCity,
+  changeSorting,
+  loadOffers,
+  loadReviews,
+  requiredAuthorization,
+  logout,
+  redirectToRoute,
+  loadUserData,
+  loadRoom,
+  loadOffersNearby,
+  setIsRoomDataLoaded,
+  setIsOffersNearbyLoaded
 };
