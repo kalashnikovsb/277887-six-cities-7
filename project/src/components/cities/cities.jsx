@@ -1,6 +1,7 @@
 import React, {memo} from 'react';
 import CitiesList from '../cities-list/cities-list';
 import {connect} from 'react-redux';
+import {getActiveCity} from '../../store/application/selectors.js';
 
 
 function Cities() {
@@ -14,7 +15,7 @@ function Cities() {
 
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
+  activeCity: getActiveCity(state),
 });
 
 

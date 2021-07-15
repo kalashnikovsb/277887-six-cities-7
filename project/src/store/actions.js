@@ -1,16 +1,16 @@
 const ActionTypes = {
-  CHANGE_CITY:  'changeCity',
-  CHANGE_SORTING: 'changeSortingType',
-  LOAD_OFFERS: 'loadOffers',
-  LOAD_REVIEWS: 'loadReviews',
-  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
-  LOGOUT: 'logout',
+  CHANGE_CITY:  'application/changeCity',
+  CHANGE_SORTING: 'application/changeSorting',
+  LOAD_OFFERS: 'application/loadOffers',
+  LOAD_REVIEWS: 'application/loadReviews',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOAD_USER_DATA: 'user/loadUserData',
+  LOGOUT: 'user/logout',
+  LOAD_ROOM: 'room/loadRoom',
+  LOAD_OFFERS_NEARBY: 'room/loadOffersNearby',
+  SET_IS_ROOM_DATA_LOADED: 'room/setIsRoomDataLoaded',
+  SET_IS_OFFERS_NEARBY_LOADED: 'room/setIsOffersNearbyLoaded',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
-  LOAD_USER_DATA: 'loadUserData',
-  LOAD_ROOM: 'loadRoom',
-  LOAD_OFFERS_NEARBY: 'loadOffersNearby',
-  SET_IS_ROOM_DATA_LOADED: 'setIsRoomDataLoaded',
-  SET_IS_OFFERS_NEARBY_LOADED: 'setIsOffersNearbyLoaded',
 };
 
 const changeCity = (city) => ({
@@ -38,18 +38,13 @@ const requiredAuthorization = (status) => ({
   payload: status,
 });
 
-const logout = () => ({
-  type: ActionTypes.LOGOUT,
-});
-
-const redirectToRoute = (url) => ({
-  type: ActionTypes.REDIRECT_TO_ROUTE,
-  payload: url,
-});
-
 const loadUserData = (userData) => ({
   type: ActionTypes.LOAD_USER_DATA,
   payload: userData,
+});
+
+const logout = () => ({
+  type: ActionTypes.LOGOUT,
 });
 
 const loadRoom = (room) => ({
@@ -70,6 +65,11 @@ const setIsRoomDataLoaded = (isLoaded) => ({
 const setIsOffersNearbyLoaded = (isLoaded) => ({
   type: ActionTypes.SET_IS_OFFERS_NEARBY_LOADED,
   payload: isLoaded,
+});
+
+const redirectToRoute = (url) => ({
+  type: ActionTypes.REDIRECT_TO_ROUTE,
+  payload: url,
 });
 
 export {

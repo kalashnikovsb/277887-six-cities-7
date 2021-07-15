@@ -7,9 +7,9 @@ import offerProp from '../../prop-types/offer-prop.js';
 import {MapTypes, CardsTypes} from '../../const.js';
 import Map from '../map/map.jsx';
 import Sorting from '../sorting/sorting.jsx';
-import {getOffersByCity} from '../../utils.js';
 import Header from '../header/header.jsx';
 import MainEmpty from '../main-empty/main-empty.jsx';
+import {getActiveCity, getActiveOffers, getIsActiveCityEmptyStatus} from '../../store/application/selectors.js';
 
 
 function MainPage(props) {
@@ -69,9 +69,9 @@ MainPage.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  activeOffers: getOffersByCity(state.offers, state.activeCity),
-  isActiveCityEmpty: !getOffersByCity(state.offers, state.activeCity).length,
+  activeCity: getActiveCity(state),
+  activeOffers: getActiveOffers(state),
+  isActiveCityEmpty: getIsActiveCityEmptyStatus(state),
 });
 
 

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {changeCity} from '../../store/actions.js';
 import {connect} from 'react-redux';
 import CityItem from '../city-item/city-item.jsx';
+import {getActiveCity, getCities} from '../../store/application/selectors.js';
 
 
 function CitiesList(props) {
@@ -24,8 +25,8 @@ CitiesList.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  activeCity: state.activeCity,
-  cities: state.cities,
+  activeCity: getActiveCity(state),
+  cities: getCities(state),
 });
 
 

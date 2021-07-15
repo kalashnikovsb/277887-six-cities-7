@@ -15,6 +15,8 @@ import {connect} from 'react-redux';
 import {fetchReviewsList, fetchOffersNearby, fetchRoom} from '../../store/api-actions.js';
 import Header from '../header/header.jsx';
 import {getCorrectRatingWitdh} from '../../utils.js';
+import {getRoom, getOffersNearby, getIsRoomDataLoadedStatus, getIsOffersNearbyLoadedStatus} from '../../store/room/selectors.js';
+import {getReviews} from '../../store/application/selectors.js';
 
 
 const getPremiumMark = (isPremium) => isPremium ? (
@@ -122,11 +124,11 @@ OfferPage.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  room: state.room,
-  reviews: state.reviews,
-  offersNearby: state.offersNearby,
-  isRoomDataLoaded: state.isRoomDataLoaded,
-  isOffersNearbyLoaded: state.isOffersNearbyLoaded,
+  room: getRoom(state),
+  reviews: getReviews(state),
+  offersNearby: getOffersNearby(state),
+  isRoomDataLoaded: getIsRoomDataLoadedStatus(state),
+  isOffersNearbyLoaded: getIsOffersNearbyLoadedStatus(state),
 });
 
 

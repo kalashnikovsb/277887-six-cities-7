@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import PrivateRoute from '../private-route/private-route.jsx';
 import browserHistory from '../../browser-history.js';
+import {getDataLoadedStatus} from '../../store/application/selectors.js';
 
 
 function App(props) {
@@ -54,12 +55,11 @@ function App(props) {
 
 App.propTypes = {
   isDataLoaded: PropTypes.bool.isRequired,
-
 };
 
 
 const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
+  isDataLoaded: getDataLoadedStatus(state),
 });
 
 

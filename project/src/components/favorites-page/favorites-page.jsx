@@ -3,10 +3,10 @@ import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {getFavoriteOffers, getOffersByCity, getFavoriteCities} from '../../utils.js';
 import FavoriteCity from '../favorite-city/favorite-city.jsx';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 import Header from '../header/header.jsx';
+import {getFavoritesEmptyStatus, getCitiesToOffers} from '../../store/application/selectors.js';
 
 
 function FavoritesPage(props) {
@@ -50,17 +50,8 @@ FavoritesPage.propTypes = {
 
 
 const mapStateToProps = (state) => {
-  const offers = getFavoriteOffers(state.offers);
-  const favoriteCities = getFavoriteCities(state.offers);
-  const isFavoritesEmpty = !offers.length;
-
-  const cityToOffers = [];
-  favoriteCities.forEach((city) => {
-    const currentOffers = getOffersByCity(offers, city);
-    if (currentOffers.length !== 0) {
-      cityToOffers.push([city, currentOffers]);
-    }
-  });
+  const isFavoritesEmpty = getFavoritesEmptyStatus(state);
+  const cityToOffers = getCitiesToOffers(state);
 
   return {
     isFavoritesEmpty,

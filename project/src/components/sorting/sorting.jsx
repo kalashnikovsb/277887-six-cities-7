@@ -4,6 +4,7 @@ import {changeSorting} from '../../store/actions.js';
 import {connect} from 'react-redux';
 import {SortingTypes} from '../../const.js';
 import {getCorrectLabel} from '../../utils.js';
+import {getActiveSorting} from '../../store/application/selectors.js';
 
 
 function Sorting(props) {
@@ -65,7 +66,7 @@ Sorting.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  activeSorting: state.activeSorting,
+  activeSorting: getActiveSorting(state),
 });
 
 

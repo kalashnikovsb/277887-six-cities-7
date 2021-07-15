@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {APIlogout} from '../../store/api-actions.js';
 import {Link} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const';
+import {AppRoute} from '../../const';
+import {getIsAuthenticatedStatus, getEmail} from '../../store/user/selectors.js';
 
 
 function Header(props) {
@@ -76,8 +77,8 @@ Header.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.authorizationStatus === AuthorizationStatus.AUTH,
-  email: state.userData.email,
+  isAuthenticated: getIsAuthenticatedStatus(state),
+  email: getEmail(state),
 });
 
 

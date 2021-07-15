@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import reviewProp from '../../prop-types/review-prop.js';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import {connect} from 'react-redux';
-import {AuthorizationStatus} from '../../const.js';
+import {getIsAuthenticatedStatus} from '../../store/user/selectors.js';
 
 
 function Reviews(props) {
@@ -28,7 +28,7 @@ Reviews.propTypes = {
 
 
 const mapStateToProps = (state) => ({
-  isAuth: state.authorizationStatus === AuthorizationStatus.AUTH,
+  isAuth: getIsAuthenticatedStatus(state),
 });
 
 
