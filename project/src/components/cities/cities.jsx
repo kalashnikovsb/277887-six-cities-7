@@ -1,7 +1,5 @@
-import React, {memo} from 'react';
+import React from 'react';
 import CitiesList from '../cities-list/cities-list';
-import {connect} from 'react-redux';
-import {getActiveCity} from '../../store/application/selectors.js';
 
 
 function Cities() {
@@ -13,12 +11,5 @@ function Cities() {
   );
 }
 
-
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-});
-
-
-export {Cities};
-export default memo(connect(mapStateToProps)(Cities), (prevProps, nextProps) => prevProps.activeCity === nextProps.activeCity);
+export default Cities;
 

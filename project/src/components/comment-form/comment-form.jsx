@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {postReview} from '../../store/api-actions.js';
 import RatingItem from '../rating-item/rating-item.jsx';
 import {RatingToValue} from '../../const.js';
 
 
 function CommentForm(props) {
-  const {offerId, sendComment} = props;
+  const {offerId} = props;
+
+  const dispatch = useDispatch();
+
   const [rating, setRating] = useState(null);
   const [review, setReview] = useState('');
 
@@ -16,11 +19,11 @@ function CommentForm(props) {
     if (review.length === 0 || !rating) {
       return;
     }
-    sendComment({
+    dispatch(postReview({
       id: offerId,
       comment: review,
       rating: rating,
-    });
+    }));
     setRating(null);
     setReview('');
   };
@@ -53,14 +56,7 @@ function CommentForm(props) {
 
 CommentForm.propTypes = {
   offerId: PropTypes.number.isRequired,
-  sendComment: PropTypes.func.isRequired,
 };
 
 
-const mapDispatchToProps = {
-  sendComment: postReview,
-};
-
-
-export {CommentForm};
-export default connect(null, mapDispatchToProps)(CommentForm);
+export default CommentForm;

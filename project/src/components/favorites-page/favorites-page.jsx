@@ -1,16 +1,16 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import FavoriteCity from '../favorite-city/favorite-city.jsx';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 import Header from '../header/header.jsx';
 import {getFavoritesEmptyStatus, getCitiesToOffers} from '../../store/application/selectors.js';
 
 
-function FavoritesPage(props) {
-  const {cityToOffers, isFavoritesEmpty} = props;
+function FavoritesPage() {
+  const cityToOffers = useSelector(getCitiesToOffers);
+  const isFavoritesEmpty = useSelector(getFavoritesEmptyStatus);
 
   return (
     <div className={`page ${isFavoritesEmpty ? 'page--favorites-empty' : ''}`}>
@@ -43,22 +43,4 @@ function FavoritesPage(props) {
 }
 
 
-FavoritesPage.propTypes = {
-  cityToOffers: PropTypes.array.isRequired,
-  isFavoritesEmpty: PropTypes.bool.isRequired,
-};
-
-
-const mapStateToProps = (state) => {
-  const isFavoritesEmpty = getFavoritesEmptyStatus(state);
-  const cityToOffers = getCitiesToOffers(state);
-
-  return {
-    isFavoritesEmpty,
-    cityToOffers,
-  };
-};
-
-
-export {FavoritesPage};
-export default connect(mapStateToProps)(FavoritesPage);
+export default FavoritesPage;

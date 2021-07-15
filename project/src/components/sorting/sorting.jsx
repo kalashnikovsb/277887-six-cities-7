@@ -1,14 +1,15 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import {changeSorting} from '../../store/actions.js';
-import {connect} from 'react-redux';
 import {SortingTypes} from '../../const.js';
 import {getCorrectLabel} from '../../utils.js';
 import {getActiveSorting} from '../../store/application/selectors.js';
+import {useSelector, useDispatch} from 'react-redux';
 
 
-function Sorting(props) {
-  const {onChangeSorting, activeSorting}  = props;
+function Sorting() {
+  const activeSorting = useSelector(getActiveSorting);
+  const dispatch = useDispatch();
+
   const [isOpened, setOpenedStatus] = useState(false);
 
   const showOrHideMenu = () => {
@@ -28,28 +29,28 @@ function Sorting(props) {
         <li
           className={`places__option ${activeSorting === SortingTypes.POPULAR ? 'places__option--active' : ''}`}
           tabIndex="0"
-          onClick={() => onChangeSorting(SortingTypes.POPULAR)}
+          onClick={() => dispatch(changeSorting(SortingTypes.POPULAR))}
         >
           Popular
         </li>
         <li
           className={`places__option ${activeSorting === SortingTypes.LOW_TO_HIGH ? 'places__option--active' : ''}`}
           tabIndex="0"
-          onClick={() => onChangeSorting(SortingTypes.LOW_TO_HIGH)}
+          onClick={() => dispatch(changeSorting(SortingTypes.LOW_TO_HIGH))}
         >
           Price: low to high
         </li>
         <li
           className={`places__option ${activeSorting === SortingTypes.HIGH_TO_LOW ? 'places__option--active' : ''}`}
           tabIndex="0"
-          onClick={() => onChangeSorting(SortingTypes.HIGH_TO_LOW)}
+          onClick={() => dispatch(changeSorting(SortingTypes.HIGH_TO_LOW))}
         >
           Price: high to low
         </li>
         <li
           className={`places__option ${activeSorting === SortingTypes.TOP_RATED ? 'places__option--active' : ''}`}
           tabIndex="0"
-          onClick={() => onChangeSorting(SortingTypes.TOP_RATED)}
+          onClick={() => dispatch(changeSorting(SortingTypes.TOP_RATED))}
         >
           Top rated first
         </li>
@@ -59,23 +60,4 @@ function Sorting(props) {
 }
 
 
-Sorting.propTypes = {
-  onChangeSorting: PropTypes.func.isRequired,
-  activeSorting: PropTypes.string,
-};
-
-
-const mapStateToProps = (state) => ({
-  activeSorting: getActiveSorting(state),
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeSorting(type) {
-    dispatch(changeSorting(type));
-  },
-});
-
-
-export {Sorting};
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;

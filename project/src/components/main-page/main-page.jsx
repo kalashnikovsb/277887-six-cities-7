@@ -1,9 +1,7 @@
 import React, {useState} from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
 import OffersList from '../offers-list/offers-list.jsx';
 import Cities from '../cities/cities.jsx';
-import offerProp from '../../prop-types/offer-prop.js';
 import {MapTypes, CardsTypes} from '../../const.js';
 import Map from '../map/map.jsx';
 import Sorting from '../sorting/sorting.jsx';
@@ -12,8 +10,11 @@ import MainEmpty from '../main-empty/main-empty.jsx';
 import {getActiveCity, getActiveOffers, getIsActiveCityEmptyStatus} from '../../store/application/selectors.js';
 
 
-function MainPage(props) {
-  const {activeOffers, activeCity, isActiveCityEmpty} = props;
+function MainPage() {
+  const activeOffers = useSelector(getActiveOffers);
+  const activeCity = useSelector(getActiveCity);
+  const isActiveCityEmpty = useSelector(getIsActiveCityEmptyStatus);
+
   const [activeCard, setActiveCard] = useState({});
 
   const onCardHover = (offer) => setActiveCard(offer);
@@ -60,20 +61,4 @@ function MainPage(props) {
   );
 }
 
-
-MainPage.propTypes = {
-  activeCity: PropTypes.string.isRequired,
-  activeOffers: PropTypes.arrayOf(offerProp).isRequired,
-  isActiveCityEmpty: PropTypes.bool.isRequired,
-};
-
-
-const mapStateToProps = (state) => ({
-  activeCity: getActiveCity(state),
-  activeOffers: getActiveOffers(state),
-  isActiveCityEmpty: getIsActiveCityEmptyStatus(state),
-});
-
-
-export {MainPage};
-export default connect(mapStateToProps)(MainPage);
+export default MainPage;
