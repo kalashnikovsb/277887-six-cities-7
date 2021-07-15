@@ -1,4 +1,5 @@
-import {ActionTypes} from '../actions.js';
+import {loadRoom, loadOffersNearby, setIsRoomDataLoaded, setIsOffersNearbyLoaded} from '../actions.js';
+import {createReducer} from '@reduxjs/toolkit';
 
 
 const initialState = {
@@ -9,34 +10,23 @@ const initialState = {
 };
 
 
-const room = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionTypes.LOAD_ROOM:
-      return {
-        ...state,
-        isRoomDataLoaded: true,
-        room: action.payload,
-      };
-    case ActionTypes.LOAD_OFFERS_NEARBY:
-      return {
-        ...state,
-        isOffersNearbyLoaded: true,
-        offersNearby: action.payload,
-      };
-    case ActionTypes.SET_IS_ROOM_DATA_LOADED:
-      return {
-        ...state,
-        isRoomDataLoaded: action.payload,
-      };
-    case ActionTypes.SET_IS_OFFERS_NEARBY_LOADED:
-      return {
-        ...state,
-        isOffersNearbyLoaded: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const room = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadRoom, (state, action) => {
+      state.isRoomDataLoaded = true;
+      state.room = action.payload;
+    })
+    .addCase(loadOffersNearby, (state, action) => {
+      state.isOffersNearbyLoaded = true;
+      state.offersNearby = action.payload;
+    })
+    .addCase(setIsRoomDataLoaded, (state, action) => {
+      state.isRoomDataLoaded = action.payload;
+    })
+    .addCase(setIsOffersNearbyLoaded, (state, action) => {
+      state.isOffersNearbyLoaded = action.payload;
+    });
+});
 
 
 export {room};

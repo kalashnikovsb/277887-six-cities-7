@@ -1,5 +1,6 @@
-import {ActionTypes} from '../actions.js';
+import {loadOffers, loadReviews, changeCity, changeSorting} from '../actions.js';
 import {Cities, SortingTypes} from '../../const.js';
+import {createReducer} from '@reduxjs/toolkit';
 
 
 const initialState = {
@@ -12,34 +13,23 @@ const initialState = {
 };
 
 
-const application = (state = initialState, action) => {
-  switch (action.type) {
-    case ActionTypes.LOAD_OFFERS:
-      return {
-        ...state,
-        isDataLoaded: true,
-        offers: action.payload,
-      };
-    case ActionTypes.LOAD_REVIEWS:
-      return {
-        ...state,
-        isDataLoaded: true,
-        reviews: action.payload,
-      };
-    case ActionTypes.CHANGE_CITY:
-      return {
-        ...state,
-        activeCity: action.payload,
-      };
-    case ActionTypes.CHANGE_SORTING:
-      return {
-        ...state,
-        activeSorting: action.payload,
-      };
-    default:
-      return state;
-  }
-};
+const application = createReducer(initialState, (builder) => {
+  builder
+    .addCase(loadOffers, (state, action) => {
+      state.isDataLoaded = true;
+      state.offers = action.payload;
+    })
+    .addCase(loadReviews, (state, action) => {
+      state.isDataLoaded = true;
+      state.reviews = action.payload;
+    })
+    .addCase(changeCity, (state, action) => {
+      state.activeCity = action.payload;
+    })
+    .addCase(changeSorting, (state, action) => {
+      state.activeSorting = action.payload;
+    });
+});
 
 
 export {application};
