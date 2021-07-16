@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {getCorrectRatingWitdh} from '../../utils.js';
 import {postToFavorites} from '../../store/api-actions.js';
+import {getFavorites} from '../../store/application/selectors.js';
 
 
 function OfferCard(props) {
@@ -14,11 +15,12 @@ function OfferCard(props) {
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
 
+  const favorites = useSelector(getFavorites);
   const dispatch = useDispatch();
 
   const onCardFavoriteButtonClick = (evt) => {
     evt.preventDefault();
-    dispatch(postToFavorites(offer));
+    dispatch(postToFavorites(favorites, offer));
   };
 
   return (

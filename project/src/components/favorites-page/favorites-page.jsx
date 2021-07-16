@@ -29,9 +29,6 @@ function FavoritesPage() {
 
   const cityToOffers = getCitiesToOffers(favorites, cities);
 
-  //eslint-disable-next-line
-  console.log(cityToOffers);
-
   return (
     <div className={`page ${isFavoritesEmpty ? 'page--favorites-empty' : ''}`}>
       <Header />
