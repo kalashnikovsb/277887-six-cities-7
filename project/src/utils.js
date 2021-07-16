@@ -39,6 +39,22 @@ const getCorrectRatingWitdh = (rating) => Math.round(rating) * 20;
 const isCheckedAuth = (authorizationStatus) => authorizationStatus  === AuthorizationStatus.UNKNOWN;
 
 
+const getCorrectLabel = (activeSorting) => {
+  switch (activeSorting) {
+    case SortingTypes.POPULAR:
+      return 'Popular';
+    case SortingTypes.TOP_RATED:
+      return 'Top rated first';
+    case SortingTypes.LOW_TO_HIGH:
+      return 'Price: low to high';
+    case SortingTypes.HIGH_TO_LOW:
+      return 'Price: high to low';
+    default:
+      break;
+  }
+};
+
+
 export {
   getOffersByCity,
   getFavoriteOffers,
@@ -48,5 +64,6 @@ export {
   getSortedOffers,
   isCheckedAuth,
   getFavoriteCities,
-  getCorrectRatingWitdh
+  getCorrectRatingWitdh,
+  getCorrectLabel
 };

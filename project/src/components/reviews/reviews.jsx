@@ -3,12 +3,13 @@ import CommentForm from '../comment-form/comment-form.jsx';
 import PropTypes from 'prop-types';
 import reviewProp from '../../prop-types/review-prop.js';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
-import {connect} from 'react-redux';
-import {AuthorizationStatus} from '../../const.js';
+import {useSelector} from 'react-redux';
+import {getIsAuthenticatedStatus} from '../../store/user/selectors.js';
 
 
 function Reviews(props) {
-  const {reviews, isAuth, offerId} = props;
+  const {reviews, offerId} = props;
+  const isAuth = useSelector(getIsAuthenticatedStatus);
 
   return (
     <section className="property__reviews reviews">
@@ -22,15 +23,8 @@ function Reviews(props) {
 
 Reviews.propTypes = {
   reviews: PropTypes.arrayOf(reviewProp).isRequired,
-  isAuth: PropTypes.bool,
   offerId: PropTypes.number.isRequired,
 };
 
 
-const mapStateToProps = (state) => ({
-  isAuth: state.authorizationStatus === AuthorizationStatus.AUTH,
-});
-
-
-export {Reviews};
-export default connect(mapStateToProps)(Reviews);
+export default Reviews;

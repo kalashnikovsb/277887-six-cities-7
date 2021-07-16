@@ -1,71 +1,78 @@
+import {createAction} from '@reduxjs/toolkit';
+
 const ActionTypes = {
-  CHANGE_CITY:  'changeCity',
-  CHANGE_SORTING: 'changeSortingType',
-  LOAD_OFFERS: 'loadOffers',
-  LOAD_REVIEWS: 'loadReviews',
-  REQUIRED_AUTHORIZATION: 'requiredAuthorization',
-  LOGOUT: 'logout',
+  CHANGE_CITY:  'application/changeCity',
+  CHANGE_SORTING: 'application/changeSorting',
+  LOAD_OFFERS: 'application/loadOffers',
+  LOAD_REVIEWS: 'application/loadReviews',
+  REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
+  LOAD_USER_DATA: 'user/loadUserData',
+  LOGOUT: 'user/logout',
+  LOAD_ROOM: 'room/loadRoom',
+  LOAD_OFFERS_NEARBY: 'room/loadOffersNearby',
+  SET_IS_ROOM_DATA_LOADED: 'room/setIsRoomDataLoaded',
+  SET_IS_OFFERS_NEARBY_LOADED: 'room/setIsOffersNearbyLoaded',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
-  LOAD_USER_DATA: 'loadUserData',
-  LOAD_ROOM: 'loadRoom',
-  LOAD_OFFERS_NEARBY: 'loadOffersNearby',
-  SET_IS_ROOM_DATA_LOADED: 'setIsRoomDataLoaded',
-  SET_IS_OFFERS_NEARBY_LOADED: 'setIsOffersNearbyLoaded',
 };
 
+const changeCity = createAction(ActionTypes.CHANGE_CITY, (city) => ({
+  payload: city,
+}));
 
-const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionTypes.CHANGE_CITY,
-    payload: city,
-  }),
-  changeSorting: (sortingType) => ({
-    type: ActionTypes.CHANGE_SORTING,
-    payload: sortingType,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionTypes.LOAD_OFFERS,
-    payload: offers,
-  }),
-  loadReviews: (reviews) => ({
-    type: ActionTypes.LOAD_REVIEWS,
-    payload: reviews,
-  }),
-  requiredAuthorization: (status) => ({
-    type: ActionTypes.REQUIRED_AUTHORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionTypes.LOGOUT,
-  }),
-  redirectToRoute: (url) => ({
-    type: ActionTypes.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  loadUserData: (userData) => ({
-    type: ActionTypes.LOAD_USER_DATA,
-    payload: userData,
-  }),
-  loadRoom: (room) => ({
-    type: ActionTypes.LOAD_ROOM,
-    payload: room,
-  }),
-  loadOffersNearby: (offersNearby) => ({
-    type: ActionTypes.LOAD_OFFERS_NEARBY,
-    payload: offersNearby,
-  }),
-  setIsRoomDataLoaded: (isLoaded) => ({
-    type: ActionTypes.SET_IS_ROOM_DATA_LOADED,
-    payload: isLoaded,
-  }),
-  setIsOffersNearbyLoaded: (isLoaded) => ({
-    type: ActionTypes.SET_IS_OFFERS_NEARBY_LOADED,
-    payload: isLoaded,
-  }),
-};
+const changeSorting = createAction(ActionTypes.CHANGE_SORTING, (sortingType) => ({
+  payload: sortingType,
+}));
 
+const loadOffers = createAction(ActionTypes.LOAD_OFFERS, (offers) => ({
+  payload: offers,
+}));
+
+const loadReviews = createAction(ActionTypes.LOAD_REVIEWS, (reviews) => ({
+  payload: reviews,
+}));
+
+const requiredAuthorization = createAction(ActionTypes.REQUIRED_AUTHORIZATION, (status) => ({
+  payload: status,
+}));
+
+const loadUserData = createAction(ActionTypes.LOAD_USER_DATA, (userData) => ({
+  payload: userData,
+}));
+
+const logout = createAction(ActionTypes.LOGOUT);
+
+const loadRoom = createAction(ActionTypes.LOAD_ROOM, (room) => ({
+  payload: room,
+}));
+
+const loadOffersNearby = createAction(ActionTypes.LOAD_OFFERS_NEARBY, (offersNearby) => ({
+  payload: offersNearby,
+}));
+
+const setIsRoomDataLoaded = createAction(ActionTypes.SET_IS_ROOM_DATA_LOADED, (isLoaded) => ({
+  payload: isLoaded,
+}));
+
+const setIsOffersNearbyLoaded = createAction(ActionTypes.SET_IS_OFFERS_NEARBY_LOADED, (isLoaded) => ({
+  payload: isLoaded,
+}));
+
+const redirectToRoute = createAction(ActionTypes.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url,
+}));
 
 export {
   ActionTypes,
-  ActionCreator
+  changeCity,
+  changeSorting,
+  loadOffers,
+  loadReviews,
+  requiredAuthorization,
+  logout,
+  redirectToRoute,
+  loadUserData,
+  loadRoom,
+  loadOffersNearby,
+  setIsRoomDataLoaded,
+  setIsOffersNearbyLoaded
 };

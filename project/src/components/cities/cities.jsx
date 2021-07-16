@@ -3,6 +3,7 @@ import CitiesList from '../cities-list/cities-list';
 
 
 function Cities() {
+
   return (
     <section className="locations container">
       <CitiesList />
@@ -10,5 +11,5 @@ function Cities() {
   );
 }
 
-
 export default Cities;
+

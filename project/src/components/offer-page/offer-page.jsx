@@ -1,9 +1,6 @@
 import React, {useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import OffersList from '../offers-list/offers-list.jsx';
-import PropTypes from 'prop-types';
-import offerProp from '../../prop-types/offer-prop.js';
-import reviewProp from '../../prop-types/review-prop.js';
 import OfferFeaturesList from '../offer-features-list/offer-features-list.jsx';
 import OfferGallery from '../offer-gallery/offer-gallery.jsx';
 import {CardsTypes, MapTypes} from '../../const.js';
@@ -11,10 +8,12 @@ import Reviews from '../reviews/reviews.jsx';
 import LoadingScreen from '../loading-screen/loading-screen.jsx';
 import Host from '../host/host.jsx';
 import Map from '../map/map.jsx';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {fetchReviewsList, fetchOffersNearby, fetchRoom} from '../../store/api-actions.js';
 import Header from '../header/header.jsx';
 import {getCorrectRatingWitdh} from '../../utils.js';
+import {getRoom, getOffersNearby, getIsRoomDataLoadedStatus, getIsOffersNearbyLoadedStatus} from '../../store/room/selectors.js';
+import {getReviews} from '../../store/application/selectors.js';
 
 
 const getPremiumMark = (isPremium) => isPremium ? (
@@ -24,13 +23,22 @@ const getPremiumMark = (isPremium) => isPremium ? (
 ) : '';
 
 
-function OfferPage(props) {
-  const {room, offersNearby, reviews, loadRoomData, isRoomDataLoaded, isOffersNearbyLoaded} = props;
+function OfferPage() {
+  const room = useSelector(getRoom);
+  const offersNearby = useSelector(getOffersNearby);
+  const reviews = useSelector(getReviews);
+  const isRoomDataLoaded = useSelector(getIsRoomDataLoadedStatus);
+  const isOffersNearbyLoaded = useSelector(getIsOffersNearbyLoadedStatus);
+
+  const dispatch = useDispatch();
+
   const {id} = useParams();
 
   useEffect(() => {
-    loadRoomData(id);
-  }, [id, loadRoomData]);
+    dispatch(fetchRoom(id));
+    dispatch(fetchReviewsList(id));
+    dispatch(fetchOffersNearby(id));
+  }, [id, dispatch]);
 
   if (!(isRoomDataLoaded && isOffersNearbyLoaded)) {
     return (<LoadingScreen />);
@@ -111,33 +119,4 @@ function OfferPage(props) {
 }
 
 
-OfferPage.propTypes = {
-  room: PropTypes.shape(offerProp),
-  offersNearby: PropTypes.arrayOf(offerProp),
-  reviews: PropTypes.arrayOf(reviewProp).isRequired,
-  loadRoomData: PropTypes.func.isRequired,
-  isRoomDataLoaded: PropTypes.bool.isRequired,
-  isOffersNearbyLoaded: PropTypes.bool.isRequired,
-};
-
-
-const mapStateToProps = (state) => ({
-  room: state.room,
-  reviews: state.reviews,
-  offersNearby: state.offersNearby,
-  isRoomDataLoaded: state.isRoomDataLoaded,
-  isOffersNearbyLoaded: state.isOffersNearbyLoaded,
-});
-
-
-const mapDispatchToProps = (dispatch) => ({
-  loadRoomData(id) {
-    dispatch(fetchRoom(id));
-    dispatch(fetchReviewsList(id));
-    dispatch(fetchOffersNearby(id));
-  },
-});
-
-
-export {OfferPage};
-export default connect(mapStateToProps, mapDispatchToProps)(OfferPage);
+export default OfferPage;
