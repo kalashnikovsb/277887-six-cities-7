@@ -106,6 +106,14 @@ const fetchFavorites = () => (dispatch, _getState, api) => (
 );
 
 
+const postToFavorites = (offer) => (dispatch, _getState, api) => {
+  const status = offer.isFavorite ? 0 : 1;
+
+  api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
+    .then(({data}) => dispatch(loadFavorites({data})));
+};
+
+
 export {
   fetchOferrsList,
   fetchReviewsList,
@@ -115,5 +123,6 @@ export {
   fetchRoom,
   fetchOffersNearby,
   postReview,
-  fetchFavorites
+  fetchFavorites,
+  postToFavorites
 };
