@@ -1,16 +1,36 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const.js';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import FavoriteCity from '../favorite-city/favorite-city.jsx';
 import FavoritesEmpty from '../favorites-empty/favorites-empty.jsx';
 import Header from '../header/header.jsx';
-import {getFavoritesEmptyStatus, getCitiesToOffers} from '../../store/application/selectors.js';
+import {getCitiesToOffers} from '../../utils.js';
+import {fetchFavorites} from '../../store/api-actions.js';
+import LoadingScreen from '../loading-screen/loading-screen.jsx';
+import {getFavoritesEmptyStatus, getCities, getFavorites, getIsFavoritesLoadedStatus} from '../../store/application/selectors.js';
 
 
 function FavoritesPage() {
-  const cityToOffers = useSelector(getCitiesToOffers);
+  const cities = useSelector(getCities);
   const isFavoritesEmpty = useSelector(getFavoritesEmptyStatus);
+  const isFavoritesLoaded = useSelector(getIsFavoritesLoadedStatus);
+  const favorites = useSelector(getFavorites);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
+
+  if (!isFavoritesLoaded) {
+    return (<LoadingScreen />);
+  }
+
+  const cityToOffers = getCitiesToOffers(favorites, cities);
+
+  //eslint-disable-next-line
+  console.log(cityToOffers);
 
   return (
     <div className={`page ${isFavoritesEmpty ? 'page--favorites-empty' : ''}`}>

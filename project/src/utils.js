@@ -55,6 +55,18 @@ const getCorrectLabel = (activeSorting) => {
 };
 
 
+const getCitiesToOffers = (offers, cities) => {
+  const result = [];
+  cities.forEach((city) => {
+    const currentOffers = getOffersByCity(offers, city);
+    if (currentOffers.length !== 0) {
+      result.push([city, currentOffers]);
+    }
+  });
+  return result;
+};
+
+
 export {
   getOffersByCity,
   getFavoriteOffers,
@@ -65,5 +77,6 @@ export {
   isCheckedAuth,
   getFavoriteCities,
   getCorrectRatingWitdh,
-  getCorrectLabel
+  getCorrectLabel,
+  getCitiesToOffers
 };

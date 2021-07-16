@@ -1,4 +1,16 @@
-import {loadOffers, loadReviews, loadUserData, requiredAuthorization, redirectToRoute, logout, loadRoom, setIsRoomDataLoaded, loadOffersNearby, setIsOffersNearbyLoaded} from './actions.js';
+import {
+  loadOffers,
+  loadReviews,
+  loadUserData,
+  requiredAuthorization,
+  redirectToRoute,
+  logout,
+  loadRoom,
+  setIsRoomDataLoaded,
+  loadOffersNearby,
+  setIsOffersNearbyLoaded,
+  loadFavorites
+} from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
 
@@ -84,6 +96,16 @@ const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => (
 );
 
 
+const fetchFavorites = () => (dispatch, _getState, api) => (
+  api.get(APIRoute.FAVORITES)
+    .then(({data}) => {
+      const favorites = data.map((offer) => adaptOfferToClient(offer));
+      return favorites;
+    })
+    .then((favorites) => dispatch(loadFavorites(favorites)))
+);
+
+
 export {
   fetchOferrsList,
   fetchReviewsList,
@@ -92,5 +114,6 @@ export {
   APIlogout,
   fetchRoom,
   fetchOffersNearby,
-  postReview
+  postReview,
+  fetchFavorites
 };

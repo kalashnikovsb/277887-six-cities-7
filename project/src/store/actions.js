@@ -12,6 +12,7 @@ const ActionTypes = {
   LOAD_OFFERS_NEARBY: 'room/loadOffersNearby',
   SET_IS_ROOM_DATA_LOADED: 'room/setIsRoomDataLoaded',
   SET_IS_OFFERS_NEARBY_LOADED: 'room/setIsOffersNearbyLoaded',
+  LOAD_FAVORITES: 'application/loadFavorites',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
@@ -61,6 +62,11 @@ const redirectToRoute = createAction(ActionTypes.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
 }));
 
+const loadFavorites = createAction(ActionTypes.LOAD_FAVORITES, (offers) => ({
+  payload: offers,
+}));
+
+
 export {
   ActionTypes,
   changeCity,
@@ -74,5 +80,6 @@ export {
   loadRoom,
   loadOffersNearby,
   setIsRoomDataLoaded,
-  setIsOffersNearbyLoaded
+  setIsOffersNearbyLoaded,
+  loadFavorites
 };
