@@ -111,21 +111,16 @@ const postToFavorites = (favorites, offer) => (dispatch, _getState, api) => {
 
   api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
     .then(({data}) => {
-      let favoritesCopy = favorites.slice();
+      const favoritesCopy = favorites.slice();
       if (!status) {
         const index = favoritesCopy.findIndex((item) => item.id === data.id);
-        favoritesCopy = [
-          ...favoritesCopy.slice(0, index - 1),
-          ...favoritesCopy.slice(0, index + 1),
-        ];
+        favoritesCopy.splice(index, 1);
       } else {
         favoritesCopy.push(offer);
       }
       return favoritesCopy;
     })
-    .then((favoritesCopy) => {
-      dispatch(loadFavorites(favoritesCopy));
-    });
+    .then((favoritesCopy) => dispatch(loadFavorites(favoritesCopy)));
 };
 
 

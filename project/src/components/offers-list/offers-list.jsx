@@ -5,7 +5,7 @@ import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {connect} from 'react-redux';
 import {CardsTypes} from '../../const.js';
-import {getSorted} from '../../store/application/selectors.js';
+import {getSorted, getFavorites} from '../../store/application/selectors.js';
 
 
 function OffersList(props) {
@@ -49,7 +49,7 @@ const mapStateToProps = (state, props) => {
       offers = props.offers;
       break;
     case CardsTypes.FAVORITES:
-      offers = props.offers;
+      offers = getFavorites(state);
       break;
     default:
       break;

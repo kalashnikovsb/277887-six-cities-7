@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
@@ -15,11 +15,15 @@ function OfferCard(props) {
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
 
-  const favorites = useSelector(getFavorites);
   const dispatch = useDispatch();
+
+  const favorites = useSelector(getFavorites);
+
+  const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
 
   const onCardFavoriteButtonClick = (evt) => {
     evt.preventDefault();
+    setFavoriteStatus(!favoriteStatus);
     dispatch(postToFavorites(favorites, offer));
   };
 
@@ -45,7 +49,7 @@ function OfferCard(props) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
+            className={`place-card__bookmark-button button ${favoriteStatus ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
             onClick={onCardFavoriteButtonClick}
           >
