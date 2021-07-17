@@ -44,7 +44,7 @@ function OfferPage() {
     return (<LoadingScreen />);
   }
 
-  const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description, maxAdults, id: offerId} = room;
+  const {rating, price, bedrooms, type, goods, title, isPremium, images, host, description, maxAdults, id: offerId, city} = room;
 
   return (
     <div className="page">
@@ -101,7 +101,9 @@ function OfferPage() {
           </div>
           <Map
             mapType={MapTypes.OFFER}
-            offers={offersNearby}
+            offers={[room, ...offersNearby]}
+            city={city}
+            activeCard={room}
           />
         </section>
         <div className="container">
