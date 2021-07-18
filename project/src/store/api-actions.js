@@ -15,6 +15,7 @@ import {
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
+import {findAndReplaceOffer} from '../utils.js';
 
 
 const fetchOferrsList = () => (dispatch, _getState, api) => (
@@ -123,16 +124,23 @@ const postToFavorites = (favorites, offer) => (dispatch, _getState, api) => {
 
   api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
     .then(({data}) => {
+
+      //eslint-disable-next-line
+      console.log(data);
+
       const favoritesCopy = favorites.slice();
-      if (!status) {
-        const index = favoritesCopy.findIndex((item) => item.id === data.id);
-        favoritesCopy.splice(index, 1);
-      } else {
-        favoritesCopy.push(offer);
-      }
-      return favoritesCopy;
+      // if (!status) {
+      //   favoritesCopy = findAndReplaceOffer(favoritesCopy, data);
+      // } else {
+      //   favoritesCopy.push(offer);
+      // }
+      // return favoritesCopy;
+
+      return status ? favoritesCopy.push(offer) : findAndReplaceOffer(favoritesCopy, data);
+
     })
-    .then((favoritesCopy) => dispatch(loadFavorites(favoritesCopy)));
+    .then((favoritesCopy) => dispatch(loadFavorites(favoritesCopy)))
+    .catch(() => {});
 };
 
 
