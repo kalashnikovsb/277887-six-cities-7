@@ -124,20 +124,8 @@ const postToFavorites = (favorites, offer) => (dispatch, _getState, api) => {
 
   api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
     .then(({data}) => {
-
-      //eslint-disable-next-line
-      console.log(data);
-
       const favoritesCopy = favorites.slice();
-      // if (!status) {
-      //   favoritesCopy = findAndReplaceOffer(favoritesCopy, data);
-      // } else {
-      //   favoritesCopy.push(offer);
-      // }
-      // return favoritesCopy;
-
       return status ? favoritesCopy.push(offer) : findAndReplaceOffer(favoritesCopy, data);
-
     })
     .then((favoritesCopy) => dispatch(loadFavorites(favoritesCopy)))
     .catch(() => {});
