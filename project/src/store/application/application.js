@@ -1,4 +1,4 @@
-import {loadOffers, loadReviews, changeCity, changeSorting, loadFavorites} from '../actions.js';
+import {loadOffers, loadReviews, changeCity, changeSorting, loadFavorites, setReviewSendingError, setReviewFormDisabled} from '../actions.js';
 import {Cities, SortingTypes} from '../../const.js';
 import {createReducer} from '@reduxjs/toolkit';
 
@@ -12,6 +12,8 @@ const initialState = {
   cities: Cities,
   favorites: [],
   isFavoritesLoaded: false,
+  reviewSendingError: false,
+  isReviewFormDisabled: false,
 };
 
 
@@ -34,6 +36,12 @@ const application = createReducer(initialState, (builder) => {
     .addCase(loadFavorites, (state, action) => {
       state.isFavoritesLoaded = true;
       state.favorites = action.payload;
+    })
+    .addCase(setReviewSendingError, (state, action) => {
+      state.reviewSendingError = action.payload;
+    })
+    .addCase(setReviewFormDisabled, (state, action) => {
+      state.isReviewFormDisabled = action.payload;
     });
 });
 

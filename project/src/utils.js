@@ -15,6 +15,9 @@ const sortOffersHighToLow = (offerA, offerB) => offerB.price - offerA.price;
 const sortOffersByRating = (offerA, offerB) => offerB.rating - offerA.rating;
 
 
+const sortReviewsByTime = (reviewA, reviewB) => new Date(reviewB.date) - new Date(reviewA.date);
+
+
 const getSortedOffers = (offers, activeSorting) => {
   switch (activeSorting) {
     case SortingTypes.LOW_TO_HIGH:
@@ -73,5 +76,6 @@ export {
   getFavoriteCities,
   getCorrectRatingWitdh,
   getCorrectLabel,
-  getCitiesToOffers
+  getCitiesToOffers,
+  sortReviewsByTime
 };

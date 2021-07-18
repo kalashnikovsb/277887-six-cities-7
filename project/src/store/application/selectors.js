@@ -1,9 +1,11 @@
 import {NameSpace} from '../root-reducer.js';
-import {getOffersByCity, getFavoriteCities, getSortedOffers} from '../../utils.js';
+import {getOffersByCity, getFavoriteCities, getSortedOffers, sortReviewsByTime} from '../../utils.js';
 
 const getOffers = (state) => state[NameSpace.APPLICATION].offers;
 
-const getReviews = (state) => state[NameSpace.APPLICATION].reviews;
+const getReviews = (state) => (state[NameSpace.APPLICATION].reviews.slice()).sort(sortReviewsByTime).slice(0, 10);
+
+const getReviewsCount = (state) => state[NameSpace.APPLICATION].reviews.length;
 
 const getDataLoadedStatus = (state) => state[NameSpace.APPLICATION].isDataLoaded;
 
@@ -22,6 +24,10 @@ const getIsActiveCityEmptyStatus = (state) => !getActiveOffers(state).length;
 const getFavorites = (state) => state[NameSpace.APPLICATION].favorites;
 
 const getIsFavoritesLoadedStatus = (state) => state[NameSpace.APPLICATION].isFavoritesLoaded;
+
+const getReviewSendingError = (state) => state[NameSpace.APPLICATION].reviewSendingError;
+
+const getReviewFormDisabled = (state) => state[NameSpace.APPLICATION].isReviewFormDisabled;
 
 
 const getActiveOffers = (state) => {
@@ -51,5 +57,7 @@ export {
   getSorted,
   getIsActiveCityEmptyStatus,
   getFavorites,
-  getIsFavoritesLoadedStatus
-};
+  getIsFavoritesLoadedStatus,
+  getReviewsCount,
+  getReviewSendingError,
+  getReviewFormDisabled};

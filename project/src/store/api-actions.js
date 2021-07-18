@@ -9,7 +9,9 @@ import {
   setIsRoomDataLoaded,
   loadOffersNearby,
   setIsOffersNearbyLoaded,
-  loadFavorites
+  loadFavorites,
+  setReviewSendingError,
+  setReviewFormDisabled
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
@@ -84,7 +86,9 @@ const fetchOffersNearby = (id) => (dispatch, _getState, api) => {
 };
 
 
-const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => (
+const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
+  dispatch(setReviewFormDisabled(true));
+
   api.post(`${APIRoute.REVIEWS}/${id}`,
     {comment, rating},
     {
@@ -93,7 +97,15 @@ const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => (
       },
     })
     .then(({data}) => dispatch(loadReviews(data.map(adaptReviewToClient))))
-);
+    .then(() => {
+      dispatch(setReviewSendingError(false));
+      dispatch(setReviewFormDisabled(false));
+    })
+    .catch(() => {
+      dispatch(setReviewSendingError(true));
+      dispatch(setReviewFormDisabled(false));
+    });
+};
 
 
 const fetchFavorites = () => (dispatch, _getState, api) => (
