@@ -15,7 +15,7 @@ import {
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
-import {findAndReplaceOffer} from '../utils.js';
+import {findAndDeleteOffer} from '../utils.js';
 
 
 const fetchOferrsList = () => (dispatch, _getState, api) => (
@@ -122,10 +122,13 @@ const fetchFavorites = () => (dispatch, _getState, api) => (
 const postToFavorites = (favorites, offer) => (dispatch, _getState, api) => {
   const status = offer.isFavorite ? 0 : 1;
 
+  //eslint-disable-next-line
+  console.log(favorites);
+
   api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
     .then(({data}) => {
       const favoritesCopy = favorites.slice();
-      return status ? favoritesCopy.push(offer) : findAndReplaceOffer(favoritesCopy, data);
+      return status ? favoritesCopy.push(offer) : findAndDeleteOffer(favoritesCopy, data);
     })
     .then((favoritesCopy) => dispatch(loadFavorites(favoritesCopy)))
     .catch(() => {});

@@ -1,8 +1,6 @@
 import {SortingTypes, AuthorizationStatus} from './const.js';
 
 
-const getOffersByCity = (offers, city) => offers.filter((offer) => offer.city.name === city);
-
 const getFavoriteCities = (offers) => Array.from(new Set(offers.map((offer) => offer.city.name)));
 
 
@@ -54,6 +52,9 @@ const getCorrectLabel = (activeSorting) => {
 };
 
 
+const getOffersByCity = (offers, city) => offers.filter((offer) => offer.city.name === city);
+
+
 const getCitiesToOffers = (offers, cities) => {
   const result = [];
   cities.forEach((city) => {
@@ -66,7 +67,7 @@ const getCitiesToOffers = (offers, cities) => {
 };
 
 
-const findAndReplaceOffer = (offersList, offer) => {
+const findAndDeleteOffer = (offersList, offer) => {
   const offersCopy = offersList.slice();
   const index = offersCopy.findIndex((item) => item.id === offer.id);
   offersCopy.splice(index, 1);
@@ -86,5 +87,5 @@ export {
   getCorrectLabel,
   getCitiesToOffers,
   sortReviewsByTime,
-  findAndReplaceOffer
+  findAndDeleteOffer
 };
