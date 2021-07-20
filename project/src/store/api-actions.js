@@ -15,7 +15,7 @@ import {
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
-import {findAndDeleteOffer} from '../utils.js';
+import {findAndDeleteOffer, findAndReplaceOffer} from '../utils.js';
 
 
 const fetchOferrsList = () => (dispatch, _getState, api) => (
@@ -119,18 +119,30 @@ const fetchFavorites = () => (dispatch, _getState, api) => (
 );
 
 
-const postToFavorites = (favorites, offer) => (dispatch, _getState, api) => {
+const postToFavorites = (offers, favorites, offer) => (dispatch, _getState, api) => {
   const status = offer.isFavorite ? 0 : 1;
-
-  //eslint-disable-next-line
-  console.log(favorites);
+  let copyData = null;
 
   api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
     .then(({data}) => {
-      const favoritesCopy = favorites.slice();
-      return status ? favoritesCopy.push(offer) : findAndDeleteOffer(favoritesCopy, data);
+      copyData = Object.assign(data);
+
+      let favoritesCopy = favorites.slice();
+      if (status) {
+        favoritesCopy.push(data);
+      } else {
+        favoritesCopy = findAndDeleteOffer(favoritesCopy, data);
+      }
+
+      return favoritesCopy;
     })
     .then((favoritesCopy) => dispatch(loadFavorites(favoritesCopy)))
+    .then(() => {
+      let offersCopy = offers.slice();
+      offersCopy = findAndReplaceOffer(offersCopy, copyData);
+      return offersCopy;
+    })
+    .then((offersCopy) => dispatch(loadOffers(offersCopy)))
     .catch(() => {});
 };
 

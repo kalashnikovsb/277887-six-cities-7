@@ -75,6 +75,14 @@ const findAndDeleteOffer = (offersList, offer) => {
 };
 
 
+const findAndReplaceOffer = (offersList, offer) => {
+  const offersCopy = offersList.slice();
+  const index = offersCopy.findIndex((item) => item.id === offer.id);
+  offersCopy.splice(index, 1, offer);
+  return offersCopy;
+};
+
+
 export {
   getOffersByCity,
   sortOffersLowToHigh,
@@ -87,5 +95,6 @@ export {
   getCorrectLabel,
   getCitiesToOffers,
   sortReviewsByTime,
-  findAndDeleteOffer
+  findAndDeleteOffer,
+  findAndReplaceOffer
 };

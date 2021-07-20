@@ -6,7 +6,7 @@ import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {getCorrectRatingWitdh} from '../../utils.js';
 import {postToFavorites} from '../../store/api-actions.js';
-import {getFavorites} from '../../store/application/selectors.js';
+import {getFavorites, getOffers} from '../../store/application/selectors.js';
 
 
 function OfferCard(props) {
@@ -18,14 +18,15 @@ function OfferCard(props) {
   const dispatch = useDispatch();
 
   const favorites = useSelector(getFavorites);
+  const offers = useSelector(getOffers);
 
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
 
   const onCardFavoriteButtonClick = useCallback((evt) => {
     evt.preventDefault();
     setFavoriteStatus(!favoriteStatus);
-    dispatch(postToFavorites(favorites, offer));
-  }, [dispatch, favoriteStatus, favorites, offer]);
+    dispatch(postToFavorites(offers, favorites, offer));
+  }, [dispatch, offers, favoriteStatus, favorites, offer]);
 
   return (
     <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}
@@ -49,7 +50,7 @@ function OfferCard(props) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button button ${favoriteStatus ? 'place-card__bookmark-button--active' : ''}`}
+            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
             onClick={onCardFavoriteButtonClick}
           >
