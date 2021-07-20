@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
@@ -21,11 +21,11 @@ function OfferCard(props) {
 
   const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
 
-  const onCardFavoriteButtonClick = (evt) => {
+  const onCardFavoriteButtonClick = useCallback((evt) => {
     evt.preventDefault();
     setFavoriteStatus(!favoriteStatus);
     dispatch(postToFavorites(favorites, offer));
-  };
+  }, [dispatch, favoriteStatus, favorites, offer]);
 
   return (
     <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}

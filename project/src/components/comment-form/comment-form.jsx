@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
 import {postReview} from '../../store/api-actions.js';
@@ -32,10 +32,10 @@ function CommentForm(props) {
     setReview('');
   };
 
-  const onTextareaFocus = (evt) => {
+  const onTextareaFocus = useCallback((evt) => {
     evt.preventDefault();
     dispatch(setReviewSendingError(false));
-  };
+  }, [dispatch]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={onFormSubmit}>
