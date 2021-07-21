@@ -17,6 +17,7 @@ import {
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
 import {findAndDeleteOffer, findAndReplaceOffer} from '../utils.js';
+import {NameSpace} from './root-reducer';
 
 
 const fetchOferrsList = () => (dispatch, _getState, api) => (
@@ -123,7 +124,11 @@ const fetchFavorites = () => (dispatch, _getState, api) => {
 };
 
 
-const postToFavorites = (offers, favorites, offer) => (dispatch, _getState, api) => {
+const postToFavorites = (offer) => (dispatch, getState, api) => {
+  const offers = getState()[NameSpace.APPLICATION].offers;
+  const favorites = getState()[NameSpace.APPLICATION].favorites;
+
+
   dispatch(setFavoriteLoadedStatus(false));
   const status = offer.isFavorite ? 0 : 1;
   let copyData = null;

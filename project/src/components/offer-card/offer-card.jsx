@@ -1,12 +1,12 @@
 import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {getCorrectRatingWitdh} from '../../utils.js';
 import {postToFavorites} from '../../store/api-actions.js';
-import {getFavorites, getOffers} from '../../store/application/selectors.js';
+// import {getFavorites, getOffers} from '../../store/application/selectors.js';
 
 
 function OfferCard(props) {
@@ -17,13 +17,13 @@ function OfferCard(props) {
 
   const dispatch = useDispatch();
 
-  const favorites = useSelector(getFavorites);
-  const offers = useSelector(getOffers);
+  // const favorites = useSelector(getFavorites);
+  // const offers = useSelector(getOffers);
 
   const onCardFavoriteButtonClick = useCallback((evt) => {
     evt.preventDefault();
-    dispatch(postToFavorites(offers, favorites, offer));
-  }, [dispatch, offers, favorites, offer]);
+    dispatch(postToFavorites(offer));
+  }, [dispatch, offer]);
 
   return (
     <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}

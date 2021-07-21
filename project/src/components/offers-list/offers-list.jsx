@@ -3,15 +3,21 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
-import {connect} from 'react-redux';
 import {CardsTypes} from '../../const.js';
-import {getSorted, getFavorites} from '../../store/application/selectors.js';
 import {getOffersByCity} from '../../utils.js';
+import {useSelector} from 'react-redux';
+import {getOffers} from '../../store/application/selectors.js';
 
 
 function OffersList(props) {
   const {cardsType, offers, onCardHover, onCardLeave, city} = props;
   const [currentOffer, setCurrentOffer] = useState({});
+
+
+  const offersCopy = useSelector(getOffers);
+  //eslint-disable-next-line
+  console.log(offersCopy);
+
 
   let offersToRender = offers;
   if (cardsType === CardsTypes.FAVORITES) {
@@ -46,27 +52,4 @@ OffersList.propTypes = {
 };
 
 
-const mapStateToProps = (state, props) => {
-  let offers;
-  switch (props.cardsType) {
-    case CardsTypes.MAIN:
-      offers = getSorted(state);
-      break;
-    case CardsTypes.NEARBY:
-      offers = props.offers;
-      break;
-    case CardsTypes.FAVORITES:
-      offers = getFavorites(state);
-      break;
-    default:
-      break;
-  }
-
-  return {
-    offers,
-  };
-};
-
-
-export {OffersList};
-export default connect(mapStateToProps)(OffersList);
+export default OffersList;
