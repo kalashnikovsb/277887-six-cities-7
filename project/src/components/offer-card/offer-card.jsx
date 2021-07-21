@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
@@ -15,18 +15,20 @@ function OfferCard(props) {
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
 
+  useEffect(() => {
+    //eslint-disable-next-line
+    console.log(offer);
+  }, [offer]);
+
   const dispatch = useDispatch();
 
   const favorites = useSelector(getFavorites);
   const offers = useSelector(getOffers);
 
-  const [favoriteStatus, setFavoriteStatus] = useState(isFavorite);
-
   const onCardFavoriteButtonClick = useCallback((evt) => {
     evt.preventDefault();
-    setFavoriteStatus(!favoriteStatus);
     dispatch(postToFavorites(offers, favorites, offer));
-  }, [dispatch, offers, favoriteStatus, favorites, offer]);
+  }, [dispatch, offers, favorites, offer]);
 
   return (
     <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}

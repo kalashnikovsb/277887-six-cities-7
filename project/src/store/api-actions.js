@@ -125,6 +125,10 @@ const postToFavorites = (offers, favorites, offer) => (dispatch, _getState, api)
 
   api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
     .then(({data}) => {
+      const adaptedData = adaptOfferToClient(data);
+      return adaptedData;
+    })
+    .then(({data}) => {
       copyData = Object.assign(data);
 
       let favoritesCopy = favorites.slice();
