@@ -21,6 +21,7 @@ function FavoriteCity(props) {
       <OffersList
         cardsType={CardsTypes.FAVORITES}
         offers={offers}
+        city={city}
       />
     </li>
   );

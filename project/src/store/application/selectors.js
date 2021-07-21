@@ -23,11 +23,11 @@ const getIsActiveCityEmptyStatus = (state) => !getActiveOffers(state).length;
 
 const getFavorites = (state) => state[NameSpace.APPLICATION].favorites;
 
-const getIsFavoritesLoadedStatus = (state) => state[NameSpace.APPLICATION].isFavoritesLoaded;
-
 const getReviewSendingError = (state) => state[NameSpace.APPLICATION].reviewSendingError;
 
 const getReviewFormDisabled = (state) => state[NameSpace.APPLICATION].isReviewFormDisabled;
+
+const getIsFavoritesLoadedStatus = (state) => state[NameSpace.APPLICATION].isFavoritesLoaded;
 
 
 const getActiveOffers = (state) => {

@@ -11,7 +11,8 @@ import {
   setIsOffersNearbyLoaded,
   loadFavorites,
   setReviewSendingError,
-  setReviewFormDisabled
+  setReviewFormDisabled,
+  setFavoriteLoadedStatus
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
@@ -109,17 +110,21 @@ const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
 };
 
 
-const fetchFavorites = () => (dispatch, _getState, api) => (
+const fetchFavorites = () => (dispatch, _getState, api) => {
+  dispatch(setFavoriteLoadedStatus(false));
+
   api.get(APIRoute.FAVORITES)
     .then(({data}) => {
       const favorites = data.map((offer) => adaptOfferToClient(offer));
       return favorites;
     })
     .then((favorites) => dispatch(loadFavorites(favorites)))
-);
+    .then(() => dispatch(setFavoriteLoadedStatus(true)));
+};
 
 
 const postToFavorites = (offers, favorites, offer) => (dispatch, _getState, api) => {
+  dispatch(setFavoriteLoadedStatus(false));
   const status = offer.isFavorite ? 0 : 1;
   let copyData = null;
 
@@ -147,6 +152,7 @@ const postToFavorites = (offers, favorites, offer) => (dispatch, _getState, api)
       return offersCopy;
     })
     .then((offersCopy) => dispatch(loadOffers(offersCopy)))
+    .then(() => dispatch(setFavoriteLoadedStatus(true)))
     .catch(() => {});
 };
 

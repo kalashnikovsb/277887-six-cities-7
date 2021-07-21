@@ -6,15 +6,21 @@ import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {connect} from 'react-redux';
 import {CardsTypes} from '../../const.js';
 import {getSorted, getFavorites} from '../../store/application/selectors.js';
+import {getOffersByCity} from '../../utils.js';
 
 
 function OffersList(props) {
-  const {cardsType, offers, onCardHover, onCardLeave} = props;
+  const {cardsType, offers, onCardHover, onCardLeave, city} = props;
   const [currentOffer, setCurrentOffer] = useState({});
+
+  let offersToRender = offers;
+  if (cardsType === CardsTypes.FAVORITES) {
+    offersToRender = getOffersByCity(offers, city);
+  }
 
   return (
     <div className={cardsType.listClassNames}>
-      {offers.map((offer) => (
+      {offersToRender.map((offer) => (
         <OfferCard
           cardType={cardsType}
           isActive={offer === currentOffer}
@@ -36,6 +42,7 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   onCardHover: PropTypes.func,
   onCardLeave: PropTypes.func,
+  city: PropTypes.string,
 };
 
 

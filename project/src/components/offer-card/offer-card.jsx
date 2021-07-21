@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import {useSelector, useDispatch} from 'react-redux';
@@ -14,11 +14,6 @@ function OfferCard(props) {
   const {isPremium, isFavorite, price, title, type, images, id, rating} = offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
-
-  useEffect(() => {
-    //eslint-disable-next-line
-    console.log(offer);
-  }, [offer]);
 
   const dispatch = useDispatch();
 
