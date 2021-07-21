@@ -75,12 +75,12 @@ const findAndDeleteOffer = (offersList, offer) => {
 };
 
 
-const findAndReplaceOffer = (offersList, offer) => {
-  const offersCopy = offersList.slice();
-  const index = offersCopy.findIndex((item) => item.id === offer.id);
-  offersCopy.splice(index, 1, offer);
-  return offersCopy;
-};
+const findAndReplaceOffer = (offersList, offer) => offersList.map((item) => {
+  if (item.id === offer.id) {
+    return offer;
+  }
+  return item;
+});
 
 
 export {
