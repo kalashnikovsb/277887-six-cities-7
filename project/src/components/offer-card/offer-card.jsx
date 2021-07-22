@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
-import {getCorrectRatingWitdh} from '../../utils.js';
+import {getCorrectRatingWitdh, getCorrectHousingType} from '../../utils.js';
 import {postToFavorites} from '../../store/api-actions.js';
 
 
@@ -62,7 +62,7 @@ function OfferCard(props) {
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{getCorrectHousingType(type)}</p>
       </div>
     </article>
   );
