@@ -6,7 +6,6 @@ import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {getCorrectRatingWitdh} from '../../utils.js';
 import {postToFavorites} from '../../store/api-actions.js';
-// import {getFavorites, getOffers} from '../../store/application/selectors.js';
 
 
 function OfferCard(props) {
@@ -16,9 +15,6 @@ function OfferCard(props) {
   const firstImage = images[0];
 
   const dispatch = useDispatch();
-
-  // const favorites = useSelector(getFavorites);
-  // const offers = useSelector(getOffers);
 
   const onCardFavoriteButtonClick = useCallback((evt) => {
     evt.preventDefault();

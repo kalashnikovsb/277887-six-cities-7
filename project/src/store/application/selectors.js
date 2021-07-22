@@ -31,14 +31,14 @@ const getIsFavoritesLoadedStatus = (state) => state[NameSpace.APPLICATION].isFav
 
 
 const getActiveOffers = (state) => {
-  const offers = getOffers(state);
-  const activeCity = getActiveCity(state);
+  const offers = state[NameSpace.APPLICATION].offers;
+  const activeCity = state[NameSpace.APPLICATION].activeCity;
   return getOffersByCity(offers, activeCity);
 };
 
 
 const getSorted = (state) => {
-  const activeSorting = getActiveSorting(state);
+  const activeSorting = state[NameSpace.APPLICATION].activeSorting;
   const activeOffers = getActiveOffers(state);
   return getSortedOffers(activeOffers, activeSorting);
 };

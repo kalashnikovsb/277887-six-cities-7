@@ -15,7 +15,7 @@ const ActionTypes = {
   LOAD_FAVORITES: 'application/loadFavorites',
   SET_REVIEW_SENDING_ERROR: 'application/setReviewSendingError',
   SET_REVIEW_FORM_DISABLED: 'application/setReviewFormDisabled',
-  SET_FAVORITE_LOADED_STATUS: 'application/setFavoriteLoadedStatus',
+  SET_FAVORITES_LOADED_STATUS: 'application/setFavoritesLoadedStatus',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
@@ -77,7 +77,7 @@ const setReviewFormDisabled = createAction(ActionTypes.SET_REVIEW_FORM_DISABLED,
   payload: status,
 }));
 
-const setFavoriteLoadedStatus = createAction(ActionTypes.SET_FAVORITE_LOADED_STATUS, (status) => ({
+const setFavoritesLoadedStatus = createAction(ActionTypes.SET_FAVORITES_LOADED_STATUS, (status) => ({
   payload: status,
 }));
 
@@ -99,5 +99,5 @@ export {
   loadFavorites,
   setReviewSendingError,
   setReviewFormDisabled,
-  setFavoriteLoadedStatus
+  setFavoritesLoadedStatus
 };

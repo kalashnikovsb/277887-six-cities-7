@@ -12,7 +12,7 @@ import {
   loadFavorites,
   setReviewSendingError,
   setReviewFormDisabled,
-  setFavoriteLoadedStatus
+  setFavoritesLoadedStatus
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
@@ -112,7 +112,7 @@ const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
 
 
 const fetchFavorites = () => (dispatch, _getState, api) => {
-  dispatch(setFavoriteLoadedStatus(false));
+  dispatch(setFavoritesLoadedStatus(false));
 
   api.get(APIRoute.FAVORITES)
     .then(({data}) => {
@@ -120,44 +120,49 @@ const fetchFavorites = () => (dispatch, _getState, api) => {
       return favorites;
     })
     .then((favorites) => dispatch(loadFavorites(favorites)))
-    .then(() => dispatch(setFavoriteLoadedStatus(true)));
+    .then(() => dispatch(setFavoritesLoadedStatus(true)));
 };
 
 
 const postToFavorites = (offer) => (dispatch, getState, api) => {
+  const auth = getState()[NameSpace.USER].authorizationStatus;
+
+  if (auth !== AuthorizationStatus.AUTH) {
+    dispatch(redirectToRoute(AppRoute.LOGIN));
+    return;
+  }
+
   const offers = getState()[NameSpace.APPLICATION].offers;
   const favorites = getState()[NameSpace.APPLICATION].favorites;
+  const offersNearby = getState()[NameSpace.ROOM].offersNearby;
 
-
-  dispatch(setFavoriteLoadedStatus(false));
+  dispatch(setFavoritesLoadedStatus(false));
   const status = offer.isFavorite ? 0 : 1;
   let copyData = null;
 
   api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
-    .then(({data}) => {
-      const adaptedData = adaptOfferToClient(data);
-      return adaptedData;
-    })
-    .then(({data}) => {
+    .then(({data}) => adaptOfferToClient(data))
+    .then((data) => {
       copyData = Object.assign(data);
-
       let favoritesCopy = favorites.slice();
       if (status) {
         favoritesCopy.push(data);
       } else {
         favoritesCopy = findAndDeleteOffer(favoritesCopy, data);
       }
-
-      return favoritesCopy;
+      dispatch(loadFavorites(favoritesCopy));
     })
-    .then((favoritesCopy) => dispatch(loadFavorites(favoritesCopy)))
     .then(() => {
       let offersCopy = offers.slice();
       offersCopy = findAndReplaceOffer(offersCopy, copyData);
-      return offersCopy;
+      dispatch(loadOffers(offersCopy));
     })
-    .then((offersCopy) => dispatch(loadOffers(offersCopy)))
-    .then(() => dispatch(setFavoriteLoadedStatus(true)))
+    .then(() => {
+      let offersNearbyCopy = offersNearby.slice();
+      offersNearbyCopy = findAndReplaceOffer(offersNearbyCopy, copyData);
+      dispatch(loadOffersNearby(offersNearbyCopy));
+    })
+    .then(() => dispatch(setFavoritesLoadedStatus(true)))
     .catch(() => {});
 };
 
