@@ -1,10 +1,9 @@
 import {NameSpace} from '../root-reducer.js';
 import {getOffersByCity, getFavoriteCities, getSortedOffers, sortReviewsByTime} from '../../utils.js';
 import {maxReviewsCount} from '../../const.js';
+import {createSelector} from 'reselect';
 
 const getOffers = (state) => state[NameSpace.APPLICATION].offers;
-
-const getReviews = (state) => (state[NameSpace.APPLICATION].reviews.slice()).sort(sortReviewsByTime).slice(0, 10);
 
 const getReviewsCount = (state) => {
   const reviewsCount = state[NameSpace.APPLICATION].reviews.length;
@@ -12,8 +11,6 @@ const getReviewsCount = (state) => {
 };
 
 const getDataLoadedStatus = (state) => state[NameSpace.APPLICATION].isDataLoaded;
-
-const getFavoriteCitiesList = (state) => getFavoriteCities(state[NameSpace.APPLICATION].offers);
 
 const getFavoritesEmptyStatus = (state) => !(state[NameSpace.APPLICATION].favorites.length);
 
@@ -23,8 +20,6 @@ const getCities = (state) => state[NameSpace.APPLICATION].cities;
 
 const getActiveSorting = (state) => state[NameSpace.APPLICATION].activeSorting;
 
-const getIsActiveCityEmptyStatus = (state) => !getActiveOffers(state).length;
-
 const getFavorites = (state) => state[NameSpace.APPLICATION].favorites;
 
 const getReviewSendingError = (state) => state[NameSpace.APPLICATION].reviewSendingError;
@@ -33,20 +28,35 @@ const getReviewFormDisabled = (state) => state[NameSpace.APPLICATION].isReviewFo
 
 const getIsFavoritesLoadedStatus = (state) => state[NameSpace.APPLICATION].isFavoritesLoaded;
 
+const getAllReviews = (state) => state[NameSpace.APPLICATION].reviews;
 
-const getActiveOffers = (state) => {
-  const offers = state[NameSpace.APPLICATION].offers;
-  const activeCity = state[NameSpace.APPLICATION].activeCity;
-  return getOffersByCity(offers, activeCity);
-};
+// Применяю reselect ниже:
+
+const getReviews = createSelector(
+  getAllReviews,
+  (allReviews) => allReviews.slice().sort(sortReviewsByTime).slice(0, 10),
+);
+
+const getFavoriteCitiesList = createSelector(
+  getOffers,
+  (offers) => getFavoriteCities(offers),
+);
+
+const getActiveOffers = createSelector(
+  [getOffers, getActiveCity],
+  (offers, city) => getOffersByCity(offers, city),
+);
+
+const getIsActiveCityEmptyStatus = createSelector(
+  [getOffers, getActiveCity],
+  (offers, city) => !getOffersByCity(offers, city).length,
+);
 
 
-const getSorted = (state) => {
-  const activeSorting = state[NameSpace.APPLICATION].activeSorting;
-  const activeOffers = getActiveOffers(state);
-  return getSortedOffers(activeOffers, activeSorting);
-};
-
+const getSorted = createSelector(
+  [getActiveSorting, getOffers, getActiveCity],
+  (sorting, offers, city) => getSortedOffers(getOffersByCity(offers, city), sorting),
+);
 
 export {
   getOffers,
@@ -64,4 +74,5 @@ export {
   getIsFavoritesLoadedStatus,
   getReviewsCount,
   getReviewSendingError,
-  getReviewFormDisabled};
+  getReviewFormDisabled
+};

@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import offerProp from '../../prop-types/offer-prop.js';
+import cityProp from '../../prop-types/city-prop.js';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {MapTypes} from '../../const.js';
@@ -77,8 +78,8 @@ function Map(props) {
 Map.propTypes = {
   mapType: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  activeCard: PropTypes.object,
-  city: PropTypes.object,
+  activeCard: PropTypes.shape(offerProp),
+  city: PropTypes.shape(cityProp),
 };
 
 
