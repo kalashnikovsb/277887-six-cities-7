@@ -5,19 +5,11 @@ import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {CardsTypes} from '../../const.js';
 import {getOffersByCity} from '../../utils.js';
-import {useSelector} from 'react-redux';
-import {getOffers} from '../../store/application/selectors.js';
 
 
 function OffersList(props) {
   const {cardsType, offers, onCardHover, onCardLeave, city} = props;
   const [currentOffer, setCurrentOffer] = useState({});
-
-
-  const offersCopy = useSelector(getOffers);
-  //eslint-disable-next-line
-  console.log(offersCopy);
-
 
   let offersToRender = offers;
   if (cardsType === CardsTypes.FAVORITES) {
