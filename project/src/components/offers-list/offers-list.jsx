@@ -3,18 +3,22 @@ import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
-import {connect} from 'react-redux';
 import {CardsTypes} from '../../const.js';
-import {getSorted} from '../../store/application/selectors.js';
+import {getOffersByCity} from '../../utils.js';
 
 
 function OffersList(props) {
-  const {cardsType, offers, onCardHover, onCardLeave} = props;
+  const {cardsType, offers, onCardHover, onCardLeave, city} = props;
   const [currentOffer, setCurrentOffer] = useState({});
+
+  let offersToRender = offers;
+  if (cardsType === CardsTypes.FAVORITES) {
+    offersToRender = getOffersByCity(offers, city);
+  }
 
   return (
     <div className={cardsType.listClassNames}>
-      {offers.map((offer) => (
+      {offersToRender.map((offer) => (
         <OfferCard
           cardType={cardsType}
           isActive={offer === currentOffer}
@@ -36,30 +40,8 @@ OffersList.propTypes = {
   offers: PropTypes.arrayOf(offerProp).isRequired,
   onCardHover: PropTypes.func,
   onCardLeave: PropTypes.func,
+  city: PropTypes.string,
 };
 
 
-const mapStateToProps = (state, props) => {
-  let offers;
-  switch (props.cardsType) {
-    case CardsTypes.MAIN:
-      offers = getSorted(state);
-      break;
-    case CardsTypes.NEARBY:
-      offers = props.offers;
-      break;
-    case CardsTypes.FAVORITES:
-      offers = props.offers;
-      break;
-    default:
-      break;
-  }
-
-  return {
-    offers,
-  };
-};
-
-
-export {OffersList};
-export default connect(mapStateToProps)(OffersList);
+export default OffersList;

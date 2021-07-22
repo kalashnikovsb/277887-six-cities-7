@@ -12,6 +12,10 @@ const ActionTypes = {
   LOAD_OFFERS_NEARBY: 'room/loadOffersNearby',
   SET_IS_ROOM_DATA_LOADED: 'room/setIsRoomDataLoaded',
   SET_IS_OFFERS_NEARBY_LOADED: 'room/setIsOffersNearbyLoaded',
+  LOAD_FAVORITES: 'application/loadFavorites',
+  SET_REVIEW_SENDING_ERROR: 'application/setReviewSendingError',
+  SET_REVIEW_FORM_DISABLED: 'application/setReviewFormDisabled',
+  SET_FAVORITES_LOADED_STATUS: 'application/setFavoritesLoadedStatus',
   REDIRECT_TO_ROUTE: 'redirectToRoute',
 };
 
@@ -61,6 +65,23 @@ const redirectToRoute = createAction(ActionTypes.REDIRECT_TO_ROUTE, (url) => ({
   payload: url,
 }));
 
+const loadFavorites = createAction(ActionTypes.LOAD_FAVORITES, (offers) => ({
+  payload: offers,
+}));
+
+const setReviewSendingError = createAction(ActionTypes.SET_REVIEW_SENDING_ERROR, (status) => ({
+  payload: status,
+}));
+
+const setReviewFormDisabled = createAction(ActionTypes.SET_REVIEW_FORM_DISABLED, (status) => ({
+  payload: status,
+}));
+
+const setFavoritesLoadedStatus = createAction(ActionTypes.SET_FAVORITES_LOADED_STATUS, (status) => ({
+  payload: status,
+}));
+
+
 export {
   ActionTypes,
   changeCity,
@@ -74,5 +95,9 @@ export {
   loadRoom,
   loadOffersNearby,
   setIsRoomDataLoaded,
-  setIsOffersNearbyLoaded
+  setIsOffersNearbyLoaded,
+  loadFavorites,
+  setReviewSendingError,
+  setReviewFormDisabled,
+  setFavoritesLoadedStatus
 };

@@ -1,17 +1,17 @@
 import {NameSpace} from '../root-reducer.js';
-import {getFavoriteOffers, getOffersByCity, getFavoriteCities, getSortedOffers} from '../../utils.js';
+import {getOffersByCity, getFavoriteCities, getSortedOffers, sortReviewsByTime} from '../../utils.js';
 
 const getOffers = (state) => state[NameSpace.APPLICATION].offers;
 
-const getReviews = (state) => state[NameSpace.APPLICATION].reviews;
+const getReviews = (state) => (state[NameSpace.APPLICATION].reviews.slice()).sort(sortReviewsByTime).slice(0, 10);
+
+const getReviewsCount = (state) => state[NameSpace.APPLICATION].reviews.length;
 
 const getDataLoadedStatus = (state) => state[NameSpace.APPLICATION].isDataLoaded;
 
-const getFavorites = (state) => getFavoriteOffers(state[NameSpace.APPLICATION].offers);
-
 const getFavoriteCitiesList = (state) => getFavoriteCities(state[NameSpace.APPLICATION].offers);
 
-const getFavoritesEmptyStatus = (state) => !(state[NameSpace.APPLICATION].offers.length);
+const getFavoritesEmptyStatus = (state) => !(state[NameSpace.APPLICATION].favorites.length);
 
 const getActiveCity = (state) => state[NameSpace.APPLICATION].activeCity;
 
@@ -21,34 +21,26 @@ const getActiveSorting = (state) => state[NameSpace.APPLICATION].activeSorting;
 
 const getIsActiveCityEmptyStatus = (state) => !getActiveOffers(state).length;
 
+const getFavorites = (state) => state[NameSpace.APPLICATION].favorites;
+
+const getReviewSendingError = (state) => state[NameSpace.APPLICATION].reviewSendingError;
+
+const getReviewFormDisabled = (state) => state[NameSpace.APPLICATION].isReviewFormDisabled;
+
+const getIsFavoritesLoadedStatus = (state) => state[NameSpace.APPLICATION].isFavoritesLoaded;
+
 
 const getActiveOffers = (state) => {
-  const offers = getOffers(state);
-  const activeCity = getActiveCity(state);
+  const offers = state[NameSpace.APPLICATION].offers;
+  const activeCity = state[NameSpace.APPLICATION].activeCity;
   return getOffersByCity(offers, activeCity);
 };
 
 
 const getSorted = (state) => {
-  const activeSorting = getActiveSorting(state);
+  const activeSorting = state[NameSpace.APPLICATION].activeSorting;
   const activeOffers = getActiveOffers(state);
   return getSortedOffers(activeOffers, activeSorting);
-};
-
-
-const getCitiesToOffers = (state) => {
-  const offers = getOffers(state);
-  const favoriteCities = getFavoriteCitiesList(state);
-  const result = [];
-
-  favoriteCities.forEach((city) => {
-    const currentOffers = getOffersByCity(offers, city);
-    if (currentOffers.length !== 0) {
-      result.push([city, currentOffers]);
-    }
-  });
-
-  return result;
 };
 
 
@@ -56,14 +48,16 @@ export {
   getOffers,
   getReviews,
   getDataLoadedStatus,
-  getFavorites,
   getFavoriteCitiesList,
   getFavoritesEmptyStatus,
   getActiveCity,
   getCities,
   getActiveSorting,
-  getIsActiveCityEmptyStatus,
   getActiveOffers,
   getSorted,
-  getCitiesToOffers
-};
+  getIsActiveCityEmptyStatus,
+  getFavorites,
+  getIsFavoritesLoadedStatus,
+  getReviewsCount,
+  getReviewSendingError,
+  getReviewFormDisabled};

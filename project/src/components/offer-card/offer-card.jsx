@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
 import {getCorrectRatingWitdh} from '../../utils.js';
+import {postToFavorites} from '../../store/api-actions.js';
 
 
 function OfferCard(props) {
@@ -11,6 +13,13 @@ function OfferCard(props) {
   const {isPremium, isFavorite, price, title, type, images, id, rating} = offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
+
+  const dispatch = useDispatch();
+
+  const onCardFavoriteButtonClick = useCallback((evt) => {
+    evt.preventDefault();
+    dispatch(postToFavorites(offer));
+  }, [dispatch, offer]);
 
   return (
     <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}
@@ -33,7 +42,11 @@ function OfferCard(props) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`} type="button">
+          <button
+            className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
+            type="button"
+            onClick={onCardFavoriteButtonClick}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>

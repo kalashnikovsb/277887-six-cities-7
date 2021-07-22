@@ -5,15 +5,17 @@ import reviewProp from '../../prop-types/review-prop.js';
 import ReviewsList from '../reviews-list/reviews-list.jsx';
 import {useSelector} from 'react-redux';
 import {getIsAuthenticatedStatus} from '../../store/user/selectors.js';
+import {getReviewsCount} from '../../store/application/selectors.js';
 
 
 function Reviews(props) {
   const {reviews, offerId} = props;
   const isAuth = useSelector(getIsAuthenticatedStatus);
+  const reviewsCount = useSelector(getReviewsCount);
 
   return (
     <section className="property__reviews reviews">
-      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
+      <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviewsCount}</span></h2>
       <ReviewsList reviews={reviews} />
       {isAuth && <CommentForm offerId={offerId} />}
     </section>

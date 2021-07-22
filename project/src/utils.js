@@ -1,12 +1,6 @@
 import {SortingTypes, AuthorizationStatus} from './const.js';
 
 
-const getOffersByCity = (offers, city) => offers.filter((offer) => offer.city.name === city);
-
-
-// Временно так чтобы страницы favorites не была пустой
-const getFavoriteOffers = (offers) => offers.filter((offer) => !offer.isFavorite);
-
 const getFavoriteCities = (offers) => Array.from(new Set(offers.map((offer) => offer.city.name)));
 
 
@@ -17,6 +11,9 @@ const sortOffersHighToLow = (offerA, offerB) => offerB.price - offerA.price;
 
 
 const sortOffersByRating = (offerA, offerB) => offerB.rating - offerA.rating;
+
+
+const sortReviewsByTime = (reviewA, reviewB) => new Date(reviewB.date) - new Date(reviewA.date);
 
 
 const getSortedOffers = (offers, activeSorting) => {
@@ -55,9 +52,39 @@ const getCorrectLabel = (activeSorting) => {
 };
 
 
+const getOffersByCity = (offers, city) => offers.filter((offer) => offer.city.name === city);
+
+
+const getCitiesToOffers = (offers, cities) => {
+  const result = [];
+  cities.forEach((city) => {
+    const currentOffers = getOffersByCity(offers, city);
+    if (currentOffers.length !== 0) {
+      result.push([city, currentOffers]);
+    }
+  });
+  return result;
+};
+
+
+const findAndDeleteOffer = (offersList, offer) => {
+  const offersCopy = offersList.slice();
+  const index = offersCopy.findIndex((item) => item.id === offer.id);
+  offersCopy.splice(index, 1);
+  return offersCopy;
+};
+
+
+const findAndReplaceOffer = (offersList, offer) => offersList.map((item) => {
+  if (item.id === offer.id) {
+    return offer;
+  }
+  return item;
+});
+
+
 export {
   getOffersByCity,
-  getFavoriteOffers,
   sortOffersLowToHigh,
   sortOffersHighToLow,
   sortOffersByRating,
@@ -65,5 +92,9 @@ export {
   isCheckedAuth,
   getFavoriteCities,
   getCorrectRatingWitdh,
-  getCorrectLabel
+  getCorrectLabel,
+  getCitiesToOffers,
+  sortReviewsByTime,
+  findAndDeleteOffer,
+  findAndReplaceOffer
 };

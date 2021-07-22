@@ -51,6 +51,7 @@ function MainPage() {
                   mapType={MapTypes.MAIN}
                   offers={activeOffers}
                   activeCard={activeCard}
+                  city={activeOffers[0].city}
                 />
               </div>
             </div>
