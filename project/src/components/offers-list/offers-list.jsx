@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../offer-card/offer-card.jsx';
 import offerProp from '../../prop-types/offer-prop.js';
@@ -8,8 +8,7 @@ import {getOffersByCity} from '../../utils.js';
 
 
 function OffersList(props) {
-  const {cardsType, offers, onCardHover, onCardLeave, city} = props;
-  const [currentOffer, setCurrentOffer] = useState({});
+  const {cardsType, offers, handleCardHover, handleCardLeave, city} = props;
 
   let offersToRender = offers;
   if (cardsType === CardsTypes.FAVORITES) {
@@ -21,13 +20,10 @@ function OffersList(props) {
       {offersToRender.map((offer) => (
         <OfferCard
           cardType={cardsType}
-          isActive={offer === currentOffer}
           key={offer.id}
           offer={offer}
-          handleMouseHover={() => setCurrentOffer(offer)}
-          handleMouseRemoving={() => setCurrentOffer(null)}
-          onCardHover={onCardHover ? () => onCardHover(offer) : undefined}
-          onCardLeave={onCardLeave}
+          handleCardHover={handleCardHover}
+          handleCardLeave={handleCardLeave}
         />
       ))}
     </div>
@@ -38,8 +34,8 @@ function OffersList(props) {
 OffersList.propTypes = {
   cardsType: PropTypes.shape(cardTypesProp).isRequired,
   offers: PropTypes.arrayOf(offerProp).isRequired,
-  onCardHover: PropTypes.func,
-  onCardLeave: PropTypes.func,
+  handleCardHover: PropTypes.func,
+  handleCardLeave: PropTypes.func,
   city: PropTypes.string,
 };
 

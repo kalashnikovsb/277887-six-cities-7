@@ -9,7 +9,7 @@ import {postToFavorites} from '../../store/api-actions.js';
 
 
 function OfferCard(props) {
-  const {cardType, isActive, offer, onCardHover, onCardLeave} = props;
+  const {cardType, offer, handleCardHover, handleCardLeave} = props;
   const {isPremium, isFavorite, price, title, type, images, id, rating} = offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
@@ -22,9 +22,9 @@ function OfferCard(props) {
   }, [dispatch, offer]);
 
   return (
-    <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}
-      onMouseEnter={onCardHover}
-      onMouseLeave={onCardLeave}
+    <article className={`${articleClassName} place-card`}
+      onMouseEnter={() => handleCardHover(offer)}
+      onMouseLeave={handleCardLeave}
     >
       {hasPremiumMark && isPremium && (
         <div className="place-card__mark">
@@ -69,12 +69,17 @@ function OfferCard(props) {
 }
 
 
+OfferCard.defaultProps = {
+  handleCardHover: () => {},
+  handleCardLeave: () => {},
+};
+
+
 OfferCard.propTypes = {
   offer: PropTypes.shape(offerProp).isRequired,
   cardType: PropTypes.shape(cardTypesProp).isRequired,
-  isActive: PropTypes.bool,
-  onCardHover: PropTypes.func,
-  onCardLeave: PropTypes.func,
+  handleCardHover: PropTypes.func,
+  handleCardLeave: PropTypes.func,
 };
 
 

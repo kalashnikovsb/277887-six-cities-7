@@ -43,8 +43,8 @@ function MainPage() {
                 <OffersList
                   cardsType={CardsTypes.MAIN}
                   offers={sortedOffers}
-                  onCardHover={handleCardHover}
-                  onCardLeave={handleCardLeave}
+                  handleCardHover={handleCardHover}
+                  handleCardLeave={handleCardLeave}
                 />
               </section>
               <div className="cities__right-section">
