@@ -18,8 +18,8 @@ function MainPage() {
 
   const [activeCard, setActiveCard] = useState({});
 
-  const onCardHover = (offer) => setActiveCard(offer);
-  const onCardLeave = () => setActiveCard({});
+  const handleCardHover = (offer) => setActiveCard(offer);
+  const handleCardLeave = () => setActiveCard({});
 
   return (
     <div className="page page--gray page--main">
@@ -43,8 +43,8 @@ function MainPage() {
                 <OffersList
                   cardsType={CardsTypes.MAIN}
                   offers={sortedOffers}
-                  onCardHover={onCardHover}
-                  onCardLeave={onCardLeave}
+                  onCardHover={handleCardHover}
+                  onCardLeave={handleCardLeave}
                 />
               </section>
               <div className="cities__right-section">

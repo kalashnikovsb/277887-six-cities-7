@@ -16,7 +16,7 @@ function OfferCard(props) {
 
   const dispatch = useDispatch();
 
-  const onCardFavoriteButtonClick = useCallback((evt) => {
+  const handleFavoriteButtonClick = useCallback((evt) => {
     evt.preventDefault();
     dispatch(postToFavorites(offer));
   }, [dispatch, offer]);
@@ -45,7 +45,7 @@ function OfferCard(props) {
           <button
             className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
-            onClick={onCardFavoriteButtonClick}
+            onClick={handleFavoriteButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

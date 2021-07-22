@@ -12,13 +12,13 @@ function CitiesList() {
 
   const dispatch = useDispatch();
 
-  const onChangeCity = (city) => {
+  const handleCityChange = (city) => {
     dispatch(changeCity(city));
   };
 
   return (
     <ul className="locations__list tabs__list">
-      {cities.map((city) => <CityItem key={city} city={city} activeCity={activeCity} onChangeCity={onChangeCity} />)}
+      {cities.map((city) => <CityItem key={city} city={city} activeCity={activeCity} onChangeCity={handleCityChange} />)}
     </ul>
   );
 }
