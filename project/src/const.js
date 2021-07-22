@@ -71,7 +71,6 @@ const RatingToValue = {
   PERFECT: {
     value: 5,
     title: 'perfect',
-
   },
   GOOD: {
     value: 4,
@@ -91,6 +90,8 @@ const RatingToValue = {
   },
 };
 
+const maxReviewsCount = 10;
+
 export {
   AppRoute,
   CardsTypes,
@@ -100,5 +101,6 @@ export {
   SortingTypes,
   AuthorizationStatus,
   APIRoute,
-  RatingToValue
+  RatingToValue,
+  maxReviewsCount
 };

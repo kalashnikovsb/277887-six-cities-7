@@ -9,6 +9,9 @@ import {getAuthorizationStatus} from '../../store/user/selectors.js';
 function PrivateRoute({render, path, exact}) {
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
+  //eslint-disable-next-line
+  console.log(authorizationStatus);
+
   return (
     <Route
       path={path}

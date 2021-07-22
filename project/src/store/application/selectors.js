@@ -1,11 +1,15 @@
 import {NameSpace} from '../root-reducer.js';
 import {getOffersByCity, getFavoriteCities, getSortedOffers, sortReviewsByTime} from '../../utils.js';
+import {maxReviewsCount} from '../../const.js';
 
 const getOffers = (state) => state[NameSpace.APPLICATION].offers;
 
 const getReviews = (state) => (state[NameSpace.APPLICATION].reviews.slice()).sort(sortReviewsByTime).slice(0, 10);
 
-const getReviewsCount = (state) => state[NameSpace.APPLICATION].reviews.length;
+const getReviewsCount = (state) => {
+  const reviewsCount = state[NameSpace.APPLICATION].reviews.length;
+  return (reviewsCount > maxReviewsCount) ?  maxReviewsCount : reviewsCount;
+};
 
 const getDataLoadedStatus = (state) => state[NameSpace.APPLICATION].isDataLoaded;
 
