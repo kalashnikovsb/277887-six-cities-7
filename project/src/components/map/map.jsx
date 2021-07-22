@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import {MapTypes} from '../../const.js';
 import useMap from '../../hooks/useMap';
 
-
+// Перечисление параметров пина для карты
 const Pin = {
   ICON_URL: 'img/pin.svg',
   ACTIVE_ICON_URL: 'img/pin-active.svg',
