@@ -4,7 +4,7 @@ import offerProp from '../../prop-types/offer-prop.js';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {MapTypes} from '../../const.js';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map.js';
 
 // Перечисление параметров пина для карты
 const Pin = {
