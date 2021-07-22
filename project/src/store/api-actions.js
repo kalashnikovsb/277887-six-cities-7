@@ -57,7 +57,7 @@ const login = ({login: email, password}) => (dispatch, _getState, api) => (
       dispatch(loadUserData(adaptUserToClient(data)));
     })
     .then(() => dispatch(requiredAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
+    .then(() => dispatch(redirectToRoute(AppRoute.ROOT)))
 );
 
 
