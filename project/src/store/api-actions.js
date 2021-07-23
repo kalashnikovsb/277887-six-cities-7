@@ -16,7 +16,7 @@ import {
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
-import {findAndDeleteOffer, findAndReplaceOffer} from '../utils.js';
+import {findAndDeleteOffer, findAndReplaceOffer, setApiTokenHeader} from '../utils.js';
 import {NameSpace} from './root-reducer';
 
 
@@ -41,14 +41,7 @@ const fetchReviewsList = (id) => (dispatch, _getState, api) => (
 
 
 const checkAuth = () => (dispatch, _getState, api) => {
-  //eslint-disable-next-line
-  // console.log(localStorage.getItem('token'));
-
-  api.get(APIRoute.LOGIN, {
-    headers: {
-      'X-Token': localStorage.getItem('token'),
-    },
-  })
+  api.get(APIRoute.LOGIN)
     .then((response) => {
       dispatch(loadUserData(adaptUserToClient(response.data)));
       dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
@@ -58,16 +51,10 @@ const checkAuth = () => (dispatch, _getState, api) => {
 
 
 const login = ({login: email, password}) => (dispatch, _getState, api) => {
-  //eslint-disable-next-line
-  // console.log(localStorage.getItem('token'));
-
-  api.post(APIRoute.LOGIN, {email, password}, {
-    headers: {
-      'X-Token': localStorage.getItem('token'),
-    },
-  })
+  api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
+      setApiTokenHeader(api, data.token);
       dispatch(loadUserData(adaptUserToClient(data)));
     })
     .then(() => dispatch(requiredAuthorization(AuthorizationStatus.AUTH)))
@@ -106,14 +93,7 @@ const fetchOffersNearby = (id) => (dispatch, _getState, api) => {
 const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
   dispatch(setReviewFormDisabled(true));
 
-  //eslint-disable-next-line
-  // console.log(localStorage.getItem('token'));
-
-  api.post(`${APIRoute.REVIEWS}/${id}`, {comment, rating}, {
-    headers: {
-      'X-Token': localStorage.getItem('token'),
-    },
-  })
+  api.post(`${APIRoute.REVIEWS}/${id}`, {comment, rating})
     .then(({data}) => dispatch(loadReviews(data.map(adaptReviewToClient))))
     .then(() => {
       dispatch(setReviewSendingError(false));
@@ -129,14 +109,7 @@ const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
 const fetchFavorites = () => (dispatch, _getState, api) => {
   dispatch(setFavoritesLoadedStatus(false));
 
-  //eslint-disable-next-line
-  // console.log(localStorage.getItem('token'));
-
-  api.get(APIRoute.FAVORITES, {
-    headers: {
-      'X-Token': localStorage.getItem('token'),
-    },
-  })
+  api.get(APIRoute.FAVORITES)
     .then(({data}) => {
       const favorites = data.map((offer) => adaptOfferToClient(offer));
       return favorites;
@@ -148,9 +121,6 @@ const fetchFavorites = () => (dispatch, _getState, api) => {
 
 const postToFavorites = (offer) => (dispatch, getState, api) => {
   const auth = getState()[NameSpace.USER].authorizationStatus;
-
-  //eslint-disable-next-line
-  // console.log(localStorage.getItem('token'));
 
   if (auth !== AuthorizationStatus.AUTH) {
     dispatch(redirectToRoute(AppRoute.LOGIN));
@@ -165,11 +135,7 @@ const postToFavorites = (offer) => (dispatch, getState, api) => {
   const status = offer.isFavorite ? 0 : 1;
   let copyData = null;
 
-  api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`, {
-    headers: {
-      'X-Token': localStorage.getItem('token'),
-    },
-  })
+  api.post(`${APIRoute.FAVORITES}/${offer.id}/${status}`)
     .then(({data}) => adaptOfferToClient(data))
     .then((data) => {
       copyData = Object.assign(data);

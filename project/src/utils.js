@@ -86,6 +86,11 @@ const findAndReplaceOffer = (offersList, offer) => offersList.map((item) => {
 const getCorrectHousingType = (type) => type.slice(0, 1).toUpperCase() + type.slice(1);
 
 
+const setApiTokenHeader = (api, token) => {
+  api.defaults.headers.common['X-Token'] = token;
+};
+
+
 export {
   getOffersByCity,
   sortOffersLowToHigh,
@@ -100,5 +105,6 @@ export {
   sortReviewsByTime,
   findAndDeleteOffer,
   findAndReplaceOffer,
-  getCorrectHousingType
+  getCorrectHousingType,
+  setApiTokenHeader
 };
