@@ -11,7 +11,7 @@ import useMap from '../../hooks/use-map.js';
 const Pin = {
   ICON_URL: 'img/pin.svg',
   ACTIVE_ICON_URL: 'img/pin-active.svg',
-  ICON_SIZE: [30, 30],
+  ICON_SIZE: [27, 39],
   ICON_ANCHOR: [15, 30],
 };
 
