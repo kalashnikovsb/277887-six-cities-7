@@ -114,7 +114,11 @@ const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
 const fetchFavorites = () => (dispatch, _getState, api) => {
   dispatch(setFavoritesLoadedStatus(false));
 
-  api.get(APIRoute.FAVORITES)
+  api.get(APIRoute.FAVORITES, {
+    headers: {
+      token: localStorage.getItem('token') || '',
+    },
+  })
     .then(({data}) => {
       const favorites = data.map((offer) => adaptOfferToClient(offer));
       return favorites;
