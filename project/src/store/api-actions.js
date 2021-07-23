@@ -114,9 +114,11 @@ const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
 const fetchFavorites = () => (dispatch, _getState, api) => {
   dispatch(setFavoritesLoadedStatus(false));
 
+  const token = localStorage.getItem('token') ?? '';
+
   api.get(APIRoute.FAVORITES, {
     headers: {
-      token: localStorage.getItem('token') || '',
+      'X-Token': token,
     },
   })
     .then(({data}) => {
