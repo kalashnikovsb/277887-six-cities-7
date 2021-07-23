@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {setApiTokenHeader} from '../utils.js';
 
 
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
@@ -9,17 +10,16 @@ const HttpCodes = {
   UNAUTHORIZED: 401,
 };
 
-
 const token = localStorage.getItem('token') ?? '';
+
 
 export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
-    headers: {
-      'x-token': token,
-    },
   });
+
+  setApiTokenHeader(api, token);
 
   const onSuccess = (response) => response;
 

@@ -15,10 +15,13 @@ function CommentForm(props) {
   const {offerId} = props;
   const [rating, setRating] = useState(null);
   const [review, setReview] = useState('');
-  const isSubmitDisabled = getDisabledStatus(rating, review);
 
   const sendingErrorStatus = useSelector(getReviewSendingError);
   const isFormDisabled = useSelector(getReviewFormDisabled);
+
+  // Теперь кнопка отправки заблокирована и на время отправки и при недопустимой длине textarea
+  const isSubmitDisabled = getDisabledStatus(rating, review) || isFormDisabled;
+
   const dispatch = useDispatch();
 
   const onFormSubmit = (evt) => {

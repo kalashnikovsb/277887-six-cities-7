@@ -16,7 +16,7 @@ import {
 } from './actions.js';
 import {AuthorizationStatus, APIRoute, AppRoute} from '../const.js';
 import {adaptOfferToClient, adaptReviewToClient, adaptUserToClient} from '../adapter/adapter.js';
-import {findAndDeleteOffer, findAndReplaceOffer} from '../utils.js';
+import {findAndDeleteOffer, findAndReplaceOffer, setApiTokenHeader} from '../utils.js';
 import {NameSpace} from './root-reducer';
 
 
@@ -40,25 +40,26 @@ const fetchReviewsList = (id) => (dispatch, _getState, api) => (
 );
 
 
-const checkAuth = () => (dispatch, _getState, api) => (
+const checkAuth = () => (dispatch, _getState, api) => {
   api.get(APIRoute.LOGIN)
     .then((response) => {
       dispatch(loadUserData(adaptUserToClient(response.data)));
       dispatch(requiredAuthorization(AuthorizationStatus.AUTH));
     })
-    .catch(() => {})
-);
+    .catch(() => {});
+};
 
 
-const login = ({login: email, password}) => (dispatch, _getState, api) => (
+const login = ({login: email, password}) => (dispatch, _getState, api) => {
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
+      setApiTokenHeader(api, data.token);
       dispatch(loadUserData(adaptUserToClient(data)));
     })
     .then(() => dispatch(requiredAuthorization(AuthorizationStatus.AUTH)))
-    .then(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
-);
+    .then(() => dispatch(redirectToRoute(AppRoute.ROOT)));
+};
 
 
 const APIlogout = () => (dispatch, _getState, api) => (
@@ -92,13 +93,7 @@ const fetchOffersNearby = (id) => (dispatch, _getState, api) => {
 const postReview = ({id, comment, rating}) => (dispatch, _getState, api) => {
   dispatch(setReviewFormDisabled(true));
 
-  api.post(`${APIRoute.REVIEWS}/${id}`,
-    {comment, rating},
-    {
-      headers: {
-        'x-token': localStorage.getItem('token'),
-      },
-    })
+  api.post(`${APIRoute.REVIEWS}/${id}`, {comment, rating})
     .then(({data}) => dispatch(loadReviews(data.map(adaptReviewToClient))))
     .then(() => {
       dispatch(setReviewSendingError(false));

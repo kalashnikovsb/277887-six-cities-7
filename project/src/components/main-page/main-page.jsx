@@ -7,18 +7,19 @@ import Map from '../map/map.jsx';
 import Sorting from '../sorting/sorting.jsx';
 import Header from '../header/header.jsx';
 import MainEmpty from '../main-empty/main-empty.jsx';
-import {getActiveCity, getActiveOffers, getIsActiveCityEmptyStatus} from '../../store/application/selectors.js';
+import {getActiveCity, getActiveOffers, getIsActiveCityEmptyStatus, getSorted} from '../../store/application/selectors.js';
 
 
 function MainPage() {
   const activeOffers = useSelector(getActiveOffers);
+  const sortedOffers = useSelector(getSorted);
   const activeCity = useSelector(getActiveCity);
   const isActiveCityEmpty = useSelector(getIsActiveCityEmptyStatus);
 
   const [activeCard, setActiveCard] = useState({});
 
-  const onCardHover = (offer) => setActiveCard(offer);
-  const onCardLeave = () => setActiveCard({});
+  const handleCardHover = (offer) => setActiveCard(offer);
+  const handleCardLeave = () => setActiveCard({});
 
   return (
     <div className="page page--gray page--main">
@@ -41,9 +42,9 @@ function MainPage() {
                 <Sorting />
                 <OffersList
                   cardsType={CardsTypes.MAIN}
-                  offers={activeOffers}
-                  onCardHover={onCardHover}
-                  onCardLeave={onCardLeave}
+                  offers={sortedOffers}
+                  handleCardHover={handleCardHover}
+                  handleCardLeave={handleCardLeave}
                 />
               </section>
               <div className="cities__right-section">

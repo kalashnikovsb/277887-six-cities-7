@@ -6,8 +6,7 @@ import {getCorrectRatingWitdh} from '../../utils.js';
 
 const getMonthAndYear = (dateString) => {
   const date = new Date(dateString);
-  const allMonths = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  const month = allMonths[date.getMonth()];
+  const month = date.toLocaleString('en-US', {month: 'long'});
   const year = date.getFullYear();
   return `${month} ${year}`;
 };

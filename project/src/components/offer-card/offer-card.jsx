@@ -4,27 +4,27 @@ import {Link} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
 import offerProp from '../../prop-types/offer-prop.js';
 import cardTypesProp from '../../prop-types/card-types-prop.js';
-import {getCorrectRatingWitdh} from '../../utils.js';
+import {getCorrectRatingWitdh, getCorrectHousingType} from '../../utils.js';
 import {postToFavorites} from '../../store/api-actions.js';
 
 
 function OfferCard(props) {
-  const {cardType, isActive, offer, onCardHover, onCardLeave} = props;
+  const {cardType, offer, handleCardHover, handleCardLeave} = props;
   const {isPremium, isFavorite, price, title, type, images, id, rating} = offer;
   const {articleClassName, imgWrapClassName, textInfoClassName, hasPremiumMark, imgWidth, imgHeight} = cardType;
   const firstImage = images[0];
 
   const dispatch = useDispatch();
 
-  const onCardFavoriteButtonClick = useCallback((evt) => {
+  const handleFavoriteButtonClick = useCallback((evt) => {
     evt.preventDefault();
     dispatch(postToFavorites(offer));
   }, [dispatch, offer]);
 
   return (
-    <article className={`${articleClassName} place-card ${isActive ? 'cities__place-card--active' : ''}`}
-      onMouseEnter={onCardHover}
-      onMouseLeave={onCardLeave}
+    <article className={`${articleClassName} place-card`}
+      onMouseEnter={() => handleCardHover(offer)}
+      onMouseLeave={handleCardLeave}
     >
       {hasPremiumMark && isPremium && (
         <div className="place-card__mark">
@@ -45,7 +45,7 @@ function OfferCard(props) {
           <button
             className={`place-card__bookmark-button button ${isFavorite ? 'place-card__bookmark-button--active' : ''}`}
             type="button"
-            onClick={onCardFavoriteButtonClick}
+            onClick={handleFavoriteButtonClick}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
@@ -62,19 +62,24 @@ function OfferCard(props) {
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{getCorrectHousingType(type)}</p>
       </div>
     </article>
   );
 }
 
 
+OfferCard.defaultProps = {
+  handleCardHover: () => {},
+  handleCardLeave: () => {},
+};
+
+
 OfferCard.propTypes = {
   offer: PropTypes.shape(offerProp).isRequired,
   cardType: PropTypes.shape(cardTypesProp).isRequired,
-  isActive: PropTypes.bool,
-  onCardHover: PropTypes.func,
-  onCardLeave: PropTypes.func,
+  handleCardHover: PropTypes.func,
+  handleCardLeave: PropTypes.func,
 };
 
 
